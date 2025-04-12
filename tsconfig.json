@@ -20,10 +20,8 @@
     ],
     "paths": {
       "@/app/*": ["./app/*"],
-      "@/components/*": ["./src/components/*"],
       "@/src/*": ["./src/*"],
       "@/e2e/*": ["./e2e/*"],
-      "@/styles/*": ["./styles/*"],
       "@/prisma/*": ["./prisma/*"]
     }
   },
