@@ -1,0 +1,9 @@
+name: Playwright setup from cache
+description: Playwright setup from cache
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Playwright
+      shell: bash
+      run: pnpm exec playwright install --with-deps

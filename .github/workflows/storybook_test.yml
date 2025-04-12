@@ -1,0 +1,21 @@
+name: storybook_test
+
+on: push
+
+jobs:
+  storybook_test:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup
+        uses: ./.github/actions/setup
+      - name: Setup Playwright
+        uses: ./.github/actions/playwright
+      - name: StorybookTest
+        uses: ./.github/actions/storybook_test
+        with:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
