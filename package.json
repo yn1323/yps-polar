@@ -7,13 +7,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "type-check": "tsc",
     "lint": "biome lint app src",
     "lint:fix": "biome check --write app src",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prisma": "prisma",
     "prisma:reset": "pnpm prisma db push --force-reset && pnpm prisma db seed",
-    "chromatic": "npx chromatic --project-token=chpt_fb5aca6ab83f61f"
+    "chromatic": "chromatic --exit-once-uploaded"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.15.0",
