@@ -13,7 +13,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "types": ["vitest/globals"],
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
     "plugins": [
       {
         "name": "next"
@@ -31,8 +31,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "*.ts",
-    "./vitest.config.ts"
+    "vitest.config.mts",
+    "src/configs/vitest/vitest-setup.ts"
   ],
   "exclude": ["node_modules"]
 }

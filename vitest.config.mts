@@ -1,0 +1,60 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { storybookTest } from '@storybook/experimental-addon-test/vitest-plugin';
+import { defineConfig, defineWorkspace, mergeConfig } from 'vitest/config';
+
+const dirname =
+  typeof __dirname !== 'undefined'
+    ? __dirname
+    : path.dirname(fileURLToPath(import.meta.url));
+
+const sharedConfig = defineConfig({
+  test: {
+    exclude: ['node_modules'],
+  },
+});
+
+const storybookConfig = defineConfig({
+  plugins: [
+    storybookTest({
+      configDir: path.join(dirname, '.storybook'),
+    }),
+  ],
+  test: {
+    globals: true,
+    name: 'storybook',
+    setupFiles: ['.storybook/vitest.setup.ts'],
+    browser: {
+      enabled: true,
+      headless: true,
+      name: 'chromium',
+      provider: 'playwright',
+    },
+  },
+});
+
+const vitestConfig = defineConfig({
+  test: {
+    globals: true,
+    name: 'vitest',
+    environment: 'happy-dom',
+    include: ['**/*.test.ts'],
+    setupFiles: ['./src/configs/vitest/vitest-setup.ts'],
+    env: {
+      NEXT_PUBLIC_SUPABASE_URL: 'https://example.com',
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: 'example',
+    },
+  },
+});
+
+const workspace = defineWorkspace([
+  mergeConfig(sharedConfig, storybookConfig),
+  mergeConfig(sharedConfig, vitestConfig),
+]);
+
+export default defineConfig({
+  test: {
+    globals: true,
+    workspace,
+  },
+});
