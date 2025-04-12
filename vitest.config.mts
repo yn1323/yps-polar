@@ -37,7 +37,6 @@ const vitestConfig = defineConfig({
   test: {
     globals: true,
     name: 'vitest',
-    environment: 'happy-dom',
     include: ['**/*.test.ts'],
     setupFiles: ['./src/configs/vitest/vitest-setup.ts'],
     env: {
