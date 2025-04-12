@@ -1,19 +1,22 @@
-import type { StorybookConfig } from "@storybook/experimental-nextjs-vite";
-import path from "node:path";
+import type { StorybookConfig } from '@storybook/experimental-nextjs-vite';
+import path from 'node:path';
 
 const config: StorybookConfig = {
-  "stories": [
-    "../src/**/*.stories.@(ts|tsx)"
+  stories: ['../src/**/*.stories.@(ts|tsx)'],
+  addons: [
+    {
+      name: '@storybook/addon-essentials',
+      options: {
+        docs: false,
+      },
+    },
+    '@storybook/addon-onboarding',
+    '@chromatic-com/storybook',
+    '@storybook/experimental-addon-test',
   ],
-  "addons": [{
-    "name": "@storybook/addon-essentials",
-    "options": {
-      "docs": false
-    }
-  }, "@storybook/addon-onboarding", "@chromatic-com/storybook", "@storybook/experimental-addon-test"],
-  "framework": {
-    "name": "@storybook/experimental-nextjs-vite",
-    "options": {}
+  framework: {
+    name: '@storybook/experimental-nextjs-vite',
+    options: {},
   },
   typescript: {
     reactDocgen:
@@ -21,7 +24,7 @@ const config: StorybookConfig = {
         ? 'react-docgen'
         : 'react-docgen-typescript',
   },
-  staticDirs: ["../public"],
+  staticDirs: ['../public'],
   viteFinal: async (config) => {
     if (!config.resolve) {
       return config;
