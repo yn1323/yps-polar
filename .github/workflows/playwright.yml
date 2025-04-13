@@ -1,6 +1,8 @@
 name: Playwright Tests
 
-on: push
+on:
+  pull_request:
+    branches: [develop]
 
 jobs:
   e2e:
@@ -12,6 +14,7 @@ jobs:
       E2E_PASSWORD: ${{ secrets.E2E_PASSWORD }}
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    environment: preview
     steps: 
     - uses: actions/checkout@v4
       with:
