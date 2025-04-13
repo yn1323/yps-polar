@@ -1,10 +1,5 @@
 {
   "recommendations": [
-    "biomejs.biome",
-    "bradlc.vscode-tailwindcss",
-    "streetsidesoftware.code-spell-checker",
-    "ms-playwright.playwright",
-    "vitest.explorer",
-    "prisma.prisma"
+    "denoland.vscode-deno"
   ]
 }

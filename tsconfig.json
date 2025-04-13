@@ -13,6 +13,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": ["vitest/globals"],
     "plugins": [
       {
         "name": "next"
@@ -20,13 +21,18 @@
     ],
     "paths": {
       "@/app/*": ["./app/*"],
-      "@/components/*": ["./src/components/*"],
       "@/src/*": ["./src/*"],
       "@/e2e/*": ["./e2e/*"],
-      "@/styles/*": ["./styles/*"],
       "@/prisma/*": ["./prisma/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "vitest.config.mts",
+    "src/configs/vitest/vitest-setup.ts"
+  ],
   "exclude": ["node_modules"]
 }
