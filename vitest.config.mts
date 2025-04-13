@@ -1,6 +1,6 @@
+import { storybookTest } from '@storybook/experimental-addon-test/vitest-plugin';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { storybookTest } from '@storybook/experimental-addon-test/vitest-plugin';
 import { defineConfig, defineWorkspace, mergeConfig } from 'vitest/config';
 
 const dirname =
@@ -38,7 +38,6 @@ const vitestConfig = defineConfig({
     globals: true,
     name: 'vitest',
     include: ['**/*.test.ts'],
-    setupFiles: ['./src/configs/vitest/vitest-setup.ts'],
     env: {
       NEXT_PUBLIC_SUPABASE_URL: 'https://example.com',
       NEXT_PUBLIC_SUPABASE_ANON_KEY: 'example',
@@ -54,6 +53,7 @@ const workspace = defineWorkspace([
 export default defineConfig({
   test: {
     globals: true,
+    setupFiles: ['./src/configs/vitest/vitest-setup.ts'],
     workspace,
   },
 });
