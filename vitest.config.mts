@@ -43,6 +43,14 @@ const vitestConfig = defineConfig({
       NEXT_PUBLIC_SUPABASE_ANON_KEY: 'example',
     },
   },
+  resolve: {
+    alias: {
+      '@/app': path.resolve(__dirname, './app'),
+      '@/src': path.resolve(__dirname, './src'),
+      '@/e2e': path.resolve(__dirname, './e2e'),
+      '@/prisma': path.resolve(__dirname, './prisma'),
+    },
+  },
 });
 
 const workspace = defineWorkspace([

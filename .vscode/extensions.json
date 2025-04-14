@@ -1,5 +1,8 @@
 {
   "recommendations": [
-    "denoland.vscode-deno"
+    "biomejs.biome",
+    "vitest.explorer",
+    "ms-playwright.playwright",
+    "prisma.prisma"
   ]
 }
