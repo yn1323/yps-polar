@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { LoginPage } from './index';
+import { LoginPageInner } from './index';
 
 const meta = {
   title: 'components/pages/Login',
-  component: LoginPage,
-} satisfies Meta<typeof LoginPage>;
+  component: LoginPageInner,
+} satisfies Meta<typeof LoginPageInner>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
