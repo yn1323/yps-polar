@@ -30,10 +30,6 @@ const storybookConfig = defineConfig({
       name: 'chromium',
       provider: 'playwright',
     },
-    environment: 'jsdom',
-    deps: {
-      inline: [/@storybook\/.*/],
-    },
   },
 });
 
