@@ -1,6 +1,4 @@
-'use client';
-
-import { motion } from 'framer-motion';
+import { Box } from '@chakra-ui/react';
 import type { ReactNode } from 'react';
 
 type Props = {
@@ -12,17 +10,15 @@ export const Animation = ({ children, fullScreen = true }: Props) => {
   const childComponents = Array.isArray(children) ? children : [children];
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ ease: 'easeOut', duration: 0.1 }}
-      style={{
-        width: fullScreen ? '100%' : 'auto',
-        height: fullScreen ? '100%' : 'auto',
+    <Box
+      w={fullScreen ? '100%' : 'auto'}
+      h={fullScreen ? '100%' : 'auto'}
+      data-state="open"
+      _open={{
+        animation: 'fade-in 100ms ease-out',
       }}
     >
       {childComponents}
-    </motion.div>
+    </Box>
   );
 };
