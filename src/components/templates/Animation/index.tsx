@@ -14,9 +14,13 @@ export const Animation = ({ children, fullScreen = true }: Props) => {
       w={fullScreen ? '100%' : 'auto'}
       h={fullScreen ? '100%' : 'auto'}
       data-state="open"
-      _open={{
-        animation: 'fade-in 100ms ease-out',
-      }}
+      _open={
+        typeof window !== 'undefined'
+          ? {
+              animation: 'fade-in 100ms ease-out',
+            }
+          : undefined
+      }
     >
       {childComponents}
     </Box>
