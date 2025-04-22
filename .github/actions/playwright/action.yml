@@ -11,7 +11,10 @@ runs:
         path: /home/runner/.cache
         key: ${{ runner.os }}-playwright-cache-${{ hashFiles('**/.storybook/test-runner.ts') }}
         restore-keys: ${{ runner.os }}-playwright-cache-
-    - name: Install Playwright
+    - name: Install Playwright browsers if cache miss
       shell: bash
       if: steps.playwright-cache.outputs.cache-hit != 'true'
       run: pnpm exec playwright install --with-deps
+    - name: Verify and ensure Playwright browsers
+      shell: bash
+      run: pnpm exec playwright install --with-deps chromium
