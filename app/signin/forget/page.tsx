@@ -1,4 +1,4 @@
-import { ResetPasswordForm } from '@/src/components/features/Signin/ResetPasswordForm';
+import { ResetPasswordForm } from '@/src/components/features/signin/ResetPasswordForm';
 import { Animation } from '@/src/components/templates/Animation';
 import { Center } from '@chakra-ui/react';
 
