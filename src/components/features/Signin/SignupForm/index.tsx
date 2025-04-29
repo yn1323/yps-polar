@@ -2,7 +2,7 @@ import { Box, Button, Card, Field, Input, Link, Stack } from '@chakra-ui/react';
 
 export const SignupForm = () => {
   return (
-    <Card.Root maxW="sm" p="8">
+    <Card.Root w="96" p="8">
       <Stack gap="8" w="full">
         <Stack gap="6" as="form">
           <Field.Root>

@@ -13,7 +13,7 @@ import { FcGoogle } from 'react-icons/fc';
 
 export const SigninForm = () => {
   return (
-    <Card.Root maxW="sm" p="8">
+    <Card.Root w="96" p="8">
       <Stack gap="8" w="full">
         <Stack gap="6" as="form">
           <Field.Root>

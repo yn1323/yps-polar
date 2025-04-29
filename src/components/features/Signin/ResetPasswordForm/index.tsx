@@ -1,8 +1,8 @@
-import { Box, Button, Card, Field, Input, Link, Stack } from '@chakra-ui/react';
+import { Button, Card, Field, Input, Link, Stack } from '@chakra-ui/react';
 
 export const ResetPasswordForm = () => {
   return (
-    <Card.Root maxW="sm" p="8">
+    <Card.Root w="96" p="8">
       <Stack gap="8" w="full">
         <Stack gap="6" as="form">
           <Field.Root>
@@ -21,11 +21,9 @@ export const ResetPasswordForm = () => {
           color="gray.500"
           fontSize="sm"
         >
-          <Box>
-            <Link href="/signin" _hover={{ textDecoration: 'underline' }}>
-              ログイン画面に戻る
-            </Link>
-          </Box>
+          <Link href="/signin" _hover={{ textDecoration: 'underline' }}>
+            ログイン画面に戻る
+          </Link>
         </Stack>
       </Stack>
     </Card.Root>
