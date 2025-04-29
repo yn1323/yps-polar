@@ -1,4 +1,4 @@
-import { Signin } from '@/src/components/features/Signin';
+import { Signin } from '@/src/components/features/Signin/SigninForm';
 import { Animation } from '@/src/components/templates/Animation';
 import { Center } from '@chakra-ui/react';
 

@@ -4,7 +4,7 @@ import { fn } from '@storybook/test';
 import { Signin } from './index';
 
 const meta = {
-  title: 'components/atoms/Button',
+  title: 'features/Signin/SigninForm',
   component: Signin,
   args: { children: 'ボタン', onClick: fn() },
 } satisfies Meta<typeof Signin>;

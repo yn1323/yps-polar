@@ -23,7 +23,9 @@ export const Signin = () => {
       </Card.Body>
       <Card.Footer justifyContent="flex-end">
         <Button variant="outline">Cancel</Button>
-        <Button variant="solid">Sign in</Button>
+        <Button variant="solid" colorPalette="teal">
+          Sign in
+        </Button>
       </Card.Footer>
     </Card.Root>
   );

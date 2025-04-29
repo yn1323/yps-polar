@@ -2,6 +2,11 @@ import type { StorybookConfig } from '@storybook/experimental-nextjs-vite';
 import path from 'node:path';
 
 const config: StorybookConfig = {
+  refs: {
+    '@chakra-ui/react': {
+      disable: true,
+    },
+  },
   stories: ['../src/**/*.stories.@(ts|tsx)'],
   addons: [
     {
