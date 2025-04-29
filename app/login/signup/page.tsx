@@ -1,5 +1,3 @@
-'use client';
-
 import { Box, Center, Heading, Text } from '@chakra-ui/react';
 
 export default function SignupPage() {
