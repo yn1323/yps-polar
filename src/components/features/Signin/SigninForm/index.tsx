@@ -1,32 +1,66 @@
-import { Button, Card, Field, Input, Stack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Card,
+  Field,
+  Flex,
+  Input,
+  Link,
+  Stack,
+  Text,
+} from '@chakra-ui/react';
+import { FcGoogle } from 'react-icons/fc';
 
-export const Signin = () => {
+export const SigninForm = () => {
   return (
-    <Card.Root maxW="sm">
-      <Card.Header>
-        <Card.Title>Sign up</Card.Title>
-        <Card.Description>
-          Fill in the form below to create an account
-        </Card.Description>
-      </Card.Header>
-      <Card.Body>
-        <Stack gap="4" w="full">
+    <Card.Root maxW="sm" p="8">
+      <Stack gap="8" w="full">
+        <Stack gap="6" as="form">
           <Field.Root>
-            <Field.Label>First Name</Field.Label>
-            <Input />
+            <Field.Label>メールアドレス</Field.Label>
+            <Input id="mail" />
           </Field.Root>
           <Field.Root>
-            <Field.Label>Last Name</Field.Label>
-            <Input />
+            <Field.Label>パスワード</Field.Label>
+            <Input id="password" type="password" />
           </Field.Root>
+          <Button variant="solid" colorPalette="teal">
+            メールアドレスでログイン
+          </Button>
         </Stack>
-      </Card.Body>
-      <Card.Footer justifyContent="flex-end">
-        <Button variant="outline">Cancel</Button>
-        <Button variant="solid" colorPalette="teal">
-          Sign in
+
+        <Flex alignItems="center" gap="6" mx="-2">
+          <Box flex="1" h="1px" bg="gray.300" />
+          <Text>or</Text>
+          <Box flex="1" h="1px" bg="gray.300" />
+        </Flex>
+
+        <Button variant="outline">
+          <Flex align="center" gap="2">
+            <FcGoogle />
+            <Text>Googleでログイン</Text>
+          </Flex>
         </Button>
-      </Card.Footer>
+
+        <Stack
+          w="full"
+          gap="2"
+          textAlign="right"
+          color="gray.500"
+          fontSize="sm"
+        >
+          <Box>
+            <Link href="/login/signup" _hover={{ textDecoration: 'underline' }}>
+              新規登録
+            </Link>
+          </Box>
+          <Box>
+            <Link href="/login/forget" _hover={{ textDecoration: 'underline' }}>
+              パスワードを忘れた方
+            </Link>
+          </Box>
+        </Stack>
+      </Stack>
     </Card.Root>
   );
 };
