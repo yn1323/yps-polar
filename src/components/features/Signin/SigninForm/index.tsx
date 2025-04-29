@@ -50,12 +50,18 @@ export const SigninForm = () => {
           fontSize="sm"
         >
           <Box>
-            <Link href="/login/signup" _hover={{ textDecoration: 'underline' }}>
+            <Link
+              href="/signin/signup"
+              _hover={{ textDecoration: 'underline' }}
+            >
               新規登録
             </Link>
           </Box>
           <Box>
-            <Link href="/login/forget" _hover={{ textDecoration: 'underline' }}>
+            <Link
+              href="/signin/forget"
+              _hover={{ textDecoration: 'underline' }}
+            >
               パスワードを忘れた方
             </Link>
           </Box>

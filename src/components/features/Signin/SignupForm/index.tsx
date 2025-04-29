@@ -30,7 +30,7 @@ export const SignupForm = () => {
           fontSize="sm"
         >
           <Box>
-            <Link href="/login" _hover={{ textDecoration: 'underline' }}>
+            <Link href="/signin" _hover={{ textDecoration: 'underline' }}>
               ログイン画面に戻る
             </Link>
           </Box>
