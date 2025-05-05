@@ -34,5 +34,5 @@
     "vitest.config.mts",
     "src/configs/vitest/vitest-setup.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", ".scaffdog"]
 }

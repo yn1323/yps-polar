@@ -3,6 +3,12 @@
   "tasks": [
     {
       "type": "shell",
+      "command": "pnpm scaffdog",
+      "label": "scaffolding",
+      "detail": "scaffdog"
+    },
+    {
+      "type": "shell",
       "command": "pnpm prisma db push",
       "label": "Supabseへの初回db push",
       "detail": "prisma migrate dev "
