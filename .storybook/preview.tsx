@@ -2,6 +2,8 @@ import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 import { withThemeByClassName } from '@storybook/addon-themes';
 import type { Preview } from '@storybook/react';
 import React from 'react';
+import { z } from 'zod';
+import { customErrorMap } from '../src/configs/zod/zop-setup';
 
 const preview: Preview = {
   parameters: {
@@ -13,11 +15,14 @@ const preview: Preview = {
     },
   },
   decorators: [
-    (Story) => (
-      <ChakraProvider value={defaultSystem}>
-        <Story />
-      </ChakraProvider>
-    ),
+    (Story) => {
+      z.setErrorMap(customErrorMap);
+      return (
+        <ChakraProvider value={defaultSystem}>
+          <Story />
+        </ChakraProvider>
+      );
+    },
     withThemeByClassName({
       defaultTheme: 'light',
       themes: { light: '', dark: 'dark' },
