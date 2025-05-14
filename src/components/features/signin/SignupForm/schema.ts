@@ -18,3 +18,5 @@ export const schema = z
     message: 'パスワードが一致しません',
     path: ['passwordConfirmation'],
   });
+
+export type SchemaType = z.infer<typeof schema>;

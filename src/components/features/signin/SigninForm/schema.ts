@@ -11,3 +11,5 @@ export const schema = z.object({
     .string()
     .superRefine(betweenLength(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH)),
 });
+
+export type SchemaType = z.infer<typeof schema>;
