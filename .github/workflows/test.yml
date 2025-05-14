@@ -6,9 +6,6 @@ on:
 jobs:
   unit-test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        shard: [1/3, 2/3, 3/3]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -16,4 +13,4 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
       - name: Run Test
-        run: pnpm vitest run --shard=${{ matrix.shard }}
+        run: pnpm test
