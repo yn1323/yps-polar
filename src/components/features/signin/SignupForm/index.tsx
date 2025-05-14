@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Button, Card, Field, Input, Link, Stack } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type SubmitHandler, useForm } from 'react-hook-form';
