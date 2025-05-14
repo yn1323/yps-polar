@@ -37,6 +37,7 @@ const vitestConfig = defineConfig({
   test: {
     globals: true,
     name: 'vitest',
+    setupFiles: ['./src/configs/vitest/vitest-setup.ts'],
     include: ['**/*.test.ts'],
     env: {
       NEXT_PUBLIC_SUPABASE_URL: 'https://example.com',
@@ -61,7 +62,6 @@ const workspace = defineWorkspace([
 export default defineConfig({
   test: {
     globals: true,
-    setupFiles: ['./src/configs/vitest/vitest-setup.ts'],
     workspace,
   },
 });
