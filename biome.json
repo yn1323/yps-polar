@@ -26,7 +26,8 @@
       "recommended": true,
       "correctness": {
         "noUnusedVariables": "error",
-        "useHookAtTopLevel": "error"
+        "useHookAtTopLevel": "error",
+        "noChildrenProp": "off"
       },
       "style": {
         "noNegationElse": "error",

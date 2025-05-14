@@ -8,10 +8,21 @@ const dirname =
     ? __dirname
     : path.dirname(fileURLToPath(import.meta.url));
 
+// 共通のエイリアス設定
+const resolveAlias = {
+  alias: {
+    '@/app': path.resolve(dirname, './app'),
+    '@/src': path.resolve(dirname, './src'),
+    '@/e2e': path.resolve(dirname, './e2e'),
+    '@/prisma': path.resolve(dirname, './prisma'),
+  },
+};
+
 const sharedConfig = defineConfig({
   test: {
     exclude: ['node_modules'],
   },
+  resolve: resolveAlias,
 });
 
 const storybookConfig = defineConfig({
@@ -31,26 +42,21 @@ const storybookConfig = defineConfig({
       provider: 'playwright',
     },
   },
+  resolve: resolveAlias,
 });
 
 const vitestConfig = defineConfig({
   test: {
     globals: true,
     name: 'vitest',
+    setupFiles: ['./src/configs/vitest/vitest-setup.ts'],
     include: ['**/*.test.ts'],
     env: {
       NEXT_PUBLIC_SUPABASE_URL: 'https://example.com',
       NEXT_PUBLIC_SUPABASE_ANON_KEY: 'example',
     },
   },
-  resolve: {
-    alias: {
-      '@/app': path.resolve(__dirname, './app'),
-      '@/src': path.resolve(__dirname, './src'),
-      '@/e2e': path.resolve(__dirname, './e2e'),
-      '@/prisma': path.resolve(__dirname, './prisma'),
-    },
-  },
+  resolve: resolveAlias,
 });
 
 const workspace = defineWorkspace([
@@ -61,7 +67,7 @@ const workspace = defineWorkspace([
 export default defineConfig({
   test: {
     globals: true,
-    setupFiles: ['./src/configs/vitest/vitest-setup.ts'],
     workspace,
   },
+  resolve: resolveAlias,
 });
