@@ -45,7 +45,8 @@ export const ErrorMessages: Story = {
     const mailInput = canvas.getByPlaceholderText(
       'メールアドレスを入力してください',
     );
-    await userEvent.type(mailInput, 'invalid-email');
+    await userEvent.clear(mailInput);
+    await userEvent.paste('invalid-email');
     await userEvent.click(submitButton);
 
     const mailFormatError = await canvas.findByText(
@@ -55,12 +56,14 @@ export const ErrorMessages: Story = {
 
     // パスワードが短すぎる場合のテスト
     await userEvent.clear(mailInput);
-    await userEvent.type(mailInput, 'test@example.com');
+    await userEvent.paste('test@example.com');
 
+    // パスワード欄にフォーカスを当てる
     const passwordInput = canvas.getByPlaceholderText(
       'パスワードを入力してください',
     );
-    await userEvent.type(passwordInput, 'short');
+    passwordInput.focus();
+    await userEvent.paste('short');
     await userEvent.click(submitButton);
 
     const passwordLengthError = await canvas.findByText(
