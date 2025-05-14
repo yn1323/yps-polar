@@ -10,7 +10,8 @@
     "Signup",
     "supabase",
     "textbox",
-    "viewports"
+    "viewports",
+    "vitest"
   ],
   "editor.codeActionsOnSave": {
     "quickfix.biome": "explicit",
