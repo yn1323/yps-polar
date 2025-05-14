@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { Schema } from './schema';
+import { schema } from './schema';
 
 const validData = {
   mail: 'test@example.com',
   password: 'password123', // 8〜24文字
 };
 
-const invalidDataList = [
+const invalidData = [
   {
     name: 'メールアドレスが空',
     data: { mail: '', password: 'password123' },
@@ -29,15 +29,15 @@ const invalidDataList = [
   },
 ];
 
-describe('Schema', () => {
+describe('SigninSchema', () => {
   it('有効なデータはパスする', () => {
-    const result = Schema.safeParse(validData);
+    const result = schema.safeParse(validData);
     expect(result.success).toBe(true);
   });
 
-  invalidDataList.forEach(({ name, data, error }) => {
+  invalidData.forEach(({ name, data, error }) => {
     it(`${name}場合はエラー`, () => {
-      const result = Schema.safeParse(data);
+      const result = schema.safeParse(data);
       expect(result.success).toBe(false);
       expect(result.error?.errors[0].message).toContain(error);
     });
