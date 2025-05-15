@@ -50,7 +50,7 @@ const vitestConfig = defineConfig({
     globals: true,
     name: 'vitest',
     setupFiles: ['./src/configs/vitest/vitest-setup.ts'],
-    include: ['**/*.test.ts'],
+    include: ['./src/**/*.test.ts'],
     env: {
       NEXT_PUBLIC_SUPABASE_URL: 'https://example.com',
       NEXT_PUBLIC_SUPABASE_ANON_KEY: 'example',

@@ -9,6 +9,7 @@ jobs:
     strategy:
       matrix:
         shard: [1/3, 2/3, 3/3]
+        fail-fast: [false, false, false]
     steps:
       - uses: actions/checkout@v4
         with:
