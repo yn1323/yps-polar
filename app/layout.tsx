@@ -1,8 +1,6 @@
 import { Provider } from '@/src/components/ui/provider';
-import { customErrorMap } from '@/src/configs/zod/zop-setup';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import zod from 'zod';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -24,7 +22,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  zod.setErrorMap(customErrorMap);
   return (
     <html lang="ja" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
