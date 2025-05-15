@@ -1,6 +1,7 @@
 'use client';
 
 import { login } from '@/src/components/features/signin/SigninForm/actions';
+import { toaster } from '@/src/components/ui/toaster';
 import {
   Box,
   Button,
@@ -13,6 +14,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { redirect } from 'next/navigation';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 import { type SchemaType, schema } from './schema';
@@ -27,7 +29,19 @@ export const SigninForm = () => {
   });
 
   const onSubmit: SubmitHandler<SchemaType> = async (data) => {
-    await login(data);
+    const { success } = await login(data);
+    if (success) {
+      toaster.create({
+        description: 'ログインに成功しました',
+        type: 'success',
+      });
+      redirect('/dashboard');
+    } else {
+      toaster.create({
+        description: 'ログインに失敗しました',
+        type: 'error',
+      });
+    }
   };
 
   return (

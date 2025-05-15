@@ -45,7 +45,7 @@ export async function updateSession(request: NextRequest) {
   const publicPaths = ['/'];
 
   // 認証操作ページ
-  const authOperationPaths = ['/signin', '/signup', '/forget'];
+  const authOperationPaths = ['/signin', '/signin/signup', '/signin/forget'];
 
   // 認証が必要ページ（上記以外すべてが該当）
   // const authPaths = ['/dashboard'];
