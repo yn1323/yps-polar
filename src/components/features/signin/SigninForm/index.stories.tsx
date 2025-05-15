@@ -42,10 +42,10 @@ export const ErrorMessages: Story = {
     expect(requiredErrorElements.length).toBeGreaterThan(0);
 
     // 不正なメールアドレスでテスト
-    const mailInput = canvas.getByPlaceholderText(
+    const emailInput = canvas.getByPlaceholderText(
       'メールアドレスを入力してください',
     );
-    await userEvent.clear(mailInput);
+    await userEvent.clear(emailInput);
     await userEvent.paste('invalid-email');
     await userEvent.click(submitButton);
 
@@ -55,7 +55,7 @@ export const ErrorMessages: Story = {
     expect(mailFormatError).toBeInTheDocument();
 
     // パスワードが短すぎる場合のテスト
-    await userEvent.clear(mailInput);
+    await userEvent.clear(emailInput);
     await userEvent.paste('test@example.com');
 
     // パスワード欄にフォーカスを当てる

@@ -31,14 +31,14 @@ export const SignupForm = () => {
             handleSubmit(onSubmit)(e);
           }}
         >
-          <Field.Root invalid={!!errors.mail}>
+          <Field.Root invalid={!!errors.email}>
             <Field.Label>メールアドレス</Field.Label>
             <Input
-              {...register('mail')}
+              {...register('email')}
               placeholder="メールアドレスを入力してください"
               disabled={isSubmitting}
             />
-            <Field.ErrorText>{errors.mail?.message}</Field.ErrorText>
+            <Field.ErrorText>{errors.email?.message}</Field.ErrorText>
           </Field.Root>
 
           <Field.Root invalid={!!errors.password}>

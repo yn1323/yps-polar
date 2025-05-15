@@ -6,7 +6,7 @@ import { betweenLength } from '@/src/helpers/validation';
 import { z } from 'zod';
 
 export const schema = z.object({
-  mail: z.string().min(1).max(100).email(),
+  email: z.string().min(1).max(100).email(),
   password: z
     .string()
     .superRefine(betweenLength(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH)),

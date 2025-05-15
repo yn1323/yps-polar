@@ -1,5 +1,6 @@
 'use client';
 
+import { login } from '@/src/components/features/signin/SigninForm/actions';
 import {
   Box,
   Button,
@@ -26,9 +27,7 @@ export const SigninForm = () => {
   });
 
   const onSubmit: SubmitHandler<SchemaType> = async (data) => {
-    // wait 3 seconds
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    console.log(data);
+    await login(data);
   };
 
   return (
@@ -42,14 +41,14 @@ export const SigninForm = () => {
             handleSubmit(onSubmit)(e);
           }}
         >
-          <Field.Root invalid={!!errors.mail}>
+          <Field.Root invalid={!!errors.email}>
             <Field.Label>メールアドレス</Field.Label>
             <Input
-              {...register('mail')}
+              {...register('email')}
               placeholder="メールアドレスを入力してください"
               disabled={isSubmitting}
             />
-            <Field.ErrorText>{errors.mail?.message}</Field.ErrorText>
+            <Field.ErrorText>{errors.email?.message}</Field.ErrorText>
           </Field.Root>
           <Field.Root invalid={!!errors.password}>
             <Field.Label>パスワード</Field.Label>
