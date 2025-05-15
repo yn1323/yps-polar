@@ -1,7 +1,10 @@
 'use client';
 
+import { signup } from '@/src/components/features/signin/SignupForm/actions';
+import { toaster } from '@/src/components/ui/toaster';
 import { Box, Button, Card, Field, Input, Link, Stack } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { redirect } from 'next/navigation';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { type SchemaType, schema } from './schema';
 
@@ -15,9 +18,19 @@ export const SignupForm = () => {
   });
 
   const onSubmit: SubmitHandler<SchemaType> = async (data) => {
-    // wait 3 seconds
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    console.log(data);
+    const { success } = await signup(data);
+    if (success) {
+      toaster.create({
+        description: 'ユーザー登録が完了しました',
+        type: 'success',
+      });
+      redirect('/signin');
+    } else {
+      toaster.create({
+        description: 'ユーザー登録に失敗しました',
+        type: 'error',
+      });
+    }
   };
 
   return (
@@ -31,14 +44,14 @@ export const SignupForm = () => {
             handleSubmit(onSubmit)(e);
           }}
         >
-          <Field.Root invalid={!!errors.mail}>
+          <Field.Root invalid={!!errors.email}>
             <Field.Label>メールアドレス</Field.Label>
             <Input
-              {...register('mail')}
+              {...register('email')}
               placeholder="メールアドレスを入力してください"
               disabled={isSubmitting}
             />
-            <Field.ErrorText>{errors.mail?.message}</Field.ErrorText>
+            <Field.ErrorText>{errors.email?.message}</Field.ErrorText>
           </Field.Root>
 
           <Field.Root invalid={!!errors.password}>

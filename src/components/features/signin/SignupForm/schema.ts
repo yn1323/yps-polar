@@ -8,7 +8,7 @@ import { z } from 'zod';
 
 export const schema = z
   .object({
-    mail: SigninSchema.shape.mail,
+    email: SigninSchema.shape.email,
     password: SigninSchema.shape.password,
     passwordConfirmation: z
       .string()

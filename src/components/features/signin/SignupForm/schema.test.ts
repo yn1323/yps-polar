@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { schema } from './schema';
 
 const validData = {
-  mail: 'test@example.com',
+  email: 'test@example.com',
   password: 'password123', // 8〜24文字
   passwordConfirmation: 'password123',
 };
@@ -11,7 +11,7 @@ const invalidDataList = [
   {
     name: 'メールアドレスが空',
     data: {
-      mail: '',
+      email: '',
       password: 'password123',
       passwordConfirmation: 'password123',
     },
@@ -20,7 +20,7 @@ const invalidDataList = [
   {
     name: 'メールアドレスが不正',
     data: {
-      mail: 'invalid',
+      email: 'invalid',
       password: 'password123',
       passwordConfirmation: 'password123',
     },
@@ -29,7 +29,7 @@ const invalidDataList = [
   {
     name: 'パスワードが短すぎる',
     data: {
-      mail: 'test@example.com',
+      email: 'test@example.com',
       password: 'short',
       passwordConfirmation: 'short',
     },
@@ -38,7 +38,7 @@ const invalidDataList = [
   {
     name: 'パスワードが長すぎる',
     data: {
-      mail: 'test@example.com',
+      email: 'test@example.com',
       password: 'a'.repeat(25),
       passwordConfirmation: 'a'.repeat(25),
     },
@@ -47,7 +47,7 @@ const invalidDataList = [
   {
     name: 'パスワード確認が短すぎる',
     data: {
-      mail: 'test@example.com',
+      email: 'test@example.com',
       password: 'password123',
       passwordConfirmation: 'short',
     },
@@ -56,7 +56,7 @@ const invalidDataList = [
   {
     name: 'パスワード確認が長すぎる',
     data: {
-      mail: 'test@example.com',
+      email: 'test@example.com',
       password: 'password123',
       passwordConfirmation: 'a'.repeat(25),
     },
@@ -65,7 +65,7 @@ const invalidDataList = [
   {
     name: 'パスワードとパスワード確認が一致しない',
     data: {
-      mail: 'test@example.com',
+      email: 'test@example.com',
       password: 'password123',
       passwordConfirmation: 'password456',
     },

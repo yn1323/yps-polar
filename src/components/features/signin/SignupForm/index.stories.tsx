@@ -38,20 +38,20 @@ export const ErrorMessages: Story = {
     expect(requiredErrorElements.length).toBeGreaterThan(0);
 
     // 不正なメールアドレスでテスト
-    const mailInput = canvas.getByPlaceholderText(
+    const emailInput = canvas.getByPlaceholderText(
       'メールアドレスを入力してください',
     );
-    await userEvent.clear(mailInput);
+    await userEvent.clear(emailInput);
     await userEvent.paste('invalid-email');
     await userEvent.click(submitButton);
 
-    const mailFormatError = await canvas.findByText(
+    const emailFormatError = await canvas.findByText(
       'メールアドレスの形式で入力してください',
     );
-    expect(mailFormatError).toBeInTheDocument();
+    expect(emailFormatError).toBeInTheDocument();
 
     // パスワードが短すぎる場合のテスト
-    await userEvent.clear(mailInput);
+    await userEvent.clear(emailInput);
     await userEvent.paste('test@example.com');
 
     const passwordInput = canvas.getByPlaceholderText(

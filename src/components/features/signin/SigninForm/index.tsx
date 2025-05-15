@@ -1,6 +1,11 @@
 'use client';
 
 import {
+  login,
+  signinWithGoogle,
+} from '@/src/components/features/signin/SigninForm/actions';
+import { toaster } from '@/src/components/ui/toaster';
+import {
   Box,
   Button,
   Card,
@@ -12,6 +17,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { redirect } from 'next/navigation';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 import { type SchemaType, schema } from './schema';
@@ -25,10 +31,29 @@ export const SigninForm = () => {
     resolver: zodResolver(schema),
   });
 
+  const signinCallback = (success: boolean) => {
+    if (success) {
+      toaster.create({
+        description: 'ログインに成功しました',
+        type: 'success',
+      });
+      redirect('/dashboard');
+    } else {
+      toaster.create({
+        description: 'ログインに失敗しました',
+        type: 'error',
+      });
+    }
+  };
+
   const onSubmit: SubmitHandler<SchemaType> = async (data) => {
-    // wait 3 seconds
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    console.log(data);
+    const { success } = await login(data);
+    signinCallback(success);
+  };
+
+  const onClickGoogleSignin = async () => {
+    const { success } = await signinWithGoogle();
+    signinCallback(success);
   };
 
   return (
@@ -42,14 +67,14 @@ export const SigninForm = () => {
             handleSubmit(onSubmit)(e);
           }}
         >
-          <Field.Root invalid={!!errors.mail}>
+          <Field.Root invalid={!!errors.email}>
             <Field.Label>メールアドレス</Field.Label>
             <Input
-              {...register('mail')}
+              {...register('email')}
               placeholder="メールアドレスを入力してください"
               disabled={isSubmitting}
             />
-            <Field.ErrorText>{errors.mail?.message}</Field.ErrorText>
+            <Field.ErrorText>{errors.email?.message}</Field.ErrorText>
           </Field.Root>
           <Field.Root invalid={!!errors.password}>
             <Field.Label>パスワード</Field.Label>
@@ -77,7 +102,7 @@ export const SigninForm = () => {
           <Box flex="1" h="1px" bg="gray.300" />
         </Flex>
 
-        <Button variant="outline">
+        <Button variant="outline" onClick={onClickGoogleSignin}>
           <Flex align="center" gap="2">
             <FcGoogle />
             <Text>Googleでログイン</Text>
