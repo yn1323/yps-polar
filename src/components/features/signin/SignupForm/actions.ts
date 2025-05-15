@@ -5,11 +5,11 @@ import { revalidatePath } from 'next/cache';
 import type { SchemaType } from '@/src/components/features/signin/SignupForm/schema';
 import { createClient } from '@/src/helpers/auth/server';
 
-export async function signup({
+export const signup = async ({
   email,
   password,
   passwordConfirmation,
-}: SchemaType) {
+}: SchemaType) => {
   const supabase = await createClient();
 
   if (password !== passwordConfirmation) {
@@ -30,4 +30,4 @@ export async function signup({
   return {
     success: !error,
   };
-}
+};

@@ -1,6 +1,9 @@
 'use client';
 
-import { login } from '@/src/components/features/signin/SigninForm/actions';
+import {
+  login,
+  signinWithGoogle,
+} from '@/src/components/features/signin/SigninForm/actions';
 import { toaster } from '@/src/components/ui/toaster';
 import {
   Box,
@@ -28,8 +31,7 @@ export const SigninForm = () => {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<SchemaType> = async (data) => {
-    const { success } = await login(data);
+  const signinCallback = (success: boolean) => {
     if (success) {
       toaster.create({
         description: 'ログインに成功しました',
@@ -42,6 +44,16 @@ export const SigninForm = () => {
         type: 'error',
       });
     }
+  };
+
+  const onSubmit: SubmitHandler<SchemaType> = async (data) => {
+    const { success } = await login(data);
+    signinCallback(success);
+  };
+
+  const onClickGoogleSignin = async () => {
+    const { success } = await signinWithGoogle();
+    signinCallback(success);
   };
 
   return (
@@ -90,7 +102,7 @@ export const SigninForm = () => {
           <Box flex="1" h="1px" bg="gray.300" />
         </Flex>
 
-        <Button variant="outline">
+        <Button variant="outline" onClick={onClickGoogleSignin}>
           <Flex align="center" gap="2">
             <FcGoogle />
             <Text>Googleでログイン</Text>

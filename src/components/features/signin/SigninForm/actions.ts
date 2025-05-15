@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 import type { SchemaType } from '@/src/components/features/signin/SigninForm/schema';
 import { createClient } from '@/src/helpers/auth/server';
 
-export async function login({ email, password }: SchemaType) {
+export const login = async ({ email, password }: SchemaType) => {
   const supabase = await createClient();
 
   const data = {
@@ -20,4 +20,18 @@ export async function login({ email, password }: SchemaType) {
   return {
     success: !error,
   };
-}
+};
+
+export const signinWithGoogle = async () => {
+  const supabase = await createClient();
+
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+  });
+
+  revalidatePath('/', 'layout');
+
+  return {
+    success: !error,
+  };
+};
