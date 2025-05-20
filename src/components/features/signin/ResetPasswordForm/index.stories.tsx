@@ -6,7 +6,6 @@ const meta = {
   title: 'features/signin/ResetPasswordForm',
   component: ResetPasswordForm,
   args: {},
-  parameters: {},
 } satisfies Meta<typeof ResetPasswordForm>;
 export default meta;
 

@@ -5,7 +5,7 @@ export const metadata = {
   title: 'YPS-Polar',
 };
 
-export default function Page() {
+export default async function Page() {
   return (
     <Animation>
       <h1 className="border text-gray-500">YPS-Polar</h1>

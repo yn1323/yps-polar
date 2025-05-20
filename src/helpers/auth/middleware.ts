@@ -86,6 +86,8 @@ export async function updateSession(request: NextRequest) {
       .eq('userId', user.id)
       .maybeSingle();
 
+    console.log(user.id);
+
     const alreadyRegistered = !error && !!registeredUser;
     const isConfigPath = request.nextUrl.pathname.startsWith('/config');
 
