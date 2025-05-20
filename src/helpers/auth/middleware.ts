@@ -74,6 +74,35 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // 認証あり  + 認証必要ページを見ようとしている
+  // =============================
+  // 初回ログインユーザー判定
+  // =============================
+  if (user) {
+    // Supabase の public スキーマに存在する User テーブルを参照。
+    // user.id は Supabase Auth のユーザーID。
+    const { data: registeredUser, error } = await supabase
+      .from('User')
+      .select('id')
+      .eq('userId', user.id)
+      .maybeSingle();
+
+    const alreadyRegistered = !error && !!registeredUser;
+    const isConfigPath = request.nextUrl.pathname.startsWith('/config');
+
+    // 未登録ユーザーが /config 以外へアクセスしようとしたら /config へリダイレクト
+    if (!alreadyRegistered && !isConfigPath) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/config';
+      return NextResponse.redirect(url);
+    }
+
+    // 登録済みユーザーが /config へアクセスしたら /dashboard へリダイレクト
+    if (alreadyRegistered && isConfigPath) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/dashboard';
+      return NextResponse.redirect(url);
+    }
+  }
+
   return supabaseResponse;
 }
