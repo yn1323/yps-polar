@@ -1,7 +1,10 @@
 'use client';
 
+import { registerUser } from '@/app/(auth)/config/actions';
+import { toaster } from '@/src/components/ui/toaster';
 import { Button, Card, Field, Input, Stack, Text } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { redirect } from 'next/navigation';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { type SchemaType, schema } from './schema';
 
@@ -19,13 +22,19 @@ export const UserForm = ({ userId }: Props) => {
   });
 
   const onSubmit: SubmitHandler<SchemaType> = async (data) => {
-    // const result = await registerUser(userId, data);
-    // if (result.success) {
-    //   toaster.create({ description: 'ユーザー登録しました', type: 'success' });
-    //   successRedirect();
-    // } else {
-    //   toaster.create({ description: result.message, type: 'error' });
-    // }
+    const { success } = await registerUser({ userId, userName: data.userName });
+    if (success) {
+      toaster.create({
+        description: 'ユーザー名登録が完了しました',
+        type: 'success',
+      });
+      redirect('/dashboard');
+    } else {
+      toaster.create({
+        description: 'ユーザー名登録に失敗しました',
+        type: 'error',
+      });
+    }
   };
 
   return (

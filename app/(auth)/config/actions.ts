@@ -2,7 +2,13 @@
 
 import { createClient } from '@/src/helpers/auth/server';
 
-export async function registerUser(userId: string, userName: string) {
+export async function registerUser({
+  userId,
+  userName,
+}: {
+  userId: string;
+  userName: string;
+}) {
   const supabase = await createClient();
 
   // 登録済みか確認
