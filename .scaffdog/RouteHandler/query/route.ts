@@ -5,9 +5,8 @@ import type { NextRequest } from 'next/server';
 
 export type {{ inputs.method | pascal }}{{ inputs.pathWithoutSlash | pascal }} = BaseFetch & {
   response: CommonResponse<Prisma.UserCreateArgs['data']>;
-  requestOptions: {
-    query: Prisma.UserCreateInput;
-  };
+  mutation: query: Prisma.UserCreateInput;
+  method: 'POST'
 };
 
 const {{ inputs.method | pascal }}ApiName = '{{ inputs.method | pascal }}{{ inputs.pathWithoutSlash | pascal }}';

@@ -1,14 +1,15 @@
 'use client';
 
-import { toaster } from '@/src/components/ui/toaster';
-import { createClient } from '@/src/helpers/auth/client';
 import { Button, Card, Field, Input, Stack, Text } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type SubmitHandler, useForm } from 'react-hook-form';
-import { registerUser, successRedirect } from './actions';
 import { type SchemaType, schema } from './schema';
 
-export const UserForm = () => {
+type Props = {
+  userId: string;
+};
+
+export const UserForm = ({ userId }: Props) => {
   const {
     register,
     handleSubmit,
@@ -18,22 +19,13 @@ export const UserForm = () => {
   });
 
   const onSubmit: SubmitHandler<SchemaType> = async (data) => {
-    const supabase = createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) {
-      toaster.create({ description: 'ログインが必要です', type: 'error' });
-      return;
-    }
-
-    const result = await registerUser(user.id, data);
-    if (result.success) {
-      toaster.create({ description: 'ユーザー登録しました', type: 'success' });
-      successRedirect();
-    } else {
-      toaster.create({ description: result.message, type: 'error' });
-    }
+    // const result = await registerUser(userId, data);
+    // if (result.success) {
+    //   toaster.create({ description: 'ユーザー登録しました', type: 'success' });
+    //   successRedirect();
+    // } else {
+    //   toaster.create({ description: result.message, type: 'error' });
+    // }
   };
 
   return (

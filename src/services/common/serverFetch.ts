@@ -12,23 +12,37 @@ export const makePath = async (path: string) => {
 export type BaseFetch = {
   response: unknown;
   requestOptions?: {
-    method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    query?: Record<string, any>;
     cache?: RequestInit['cache'];
     next?: {
       tags?: string[];
       revalidate?: number;
     };
   };
+} & XOR<
+  {
+    method?: 'GET';
+    query?: Record<string, unknown>;
+  },
+  {
+    method?: 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+    mutation?: Record<string, unknown>;
+  }
+>;
+
+type ServerFetchOptions = {
+  method?: BaseFetch['method'];
+  query?: BaseFetch['query'];
+  mutation?: BaseFetch['mutation'];
+  options?: BaseFetch['requestOptions'];
 };
 
 const baseFetch = async <T extends BaseFetch>(
   path: string,
-  options?: T['requestOptions'],
+  options?: ServerFetchOptions,
 ): Promise<T['response']> => {
   const method = options?.method ?? 'GET';
   const query = options?.query ?? {};
+  const mutation = options?.mutation ?? {};
 
   const targetUrl =
     method === 'GET' && query && Object.keys(query).length > 0
@@ -37,10 +51,10 @@ const baseFetch = async <T extends BaseFetch>(
           .join('&')}`
       : await makePath(path);
 
-  const body = method === 'GET' ? {} : { body: JSON.stringify(query) };
+  const body = method === 'GET' ? {} : { body: JSON.stringify(mutation) };
 
-  const cache = { cache: options?.cache ?? 'no-store' };
-  const next = { next: options?.next ?? {} };
+  const cache = { cache: options?.options?.cache ?? 'no-store' };
+  const next = { next: options?.options?.next ?? {} };
 
   const { IS_LOCAL } = getEnv();
 
@@ -50,7 +64,11 @@ const baseFetch = async <T extends BaseFetch>(
     headers: {
       'Content-Type': 'application/json',
     },
-    ...(IS_LOCAL ? { cache: 'no-store' } : options?.next ? next : cache),
+    ...(IS_LOCAL
+      ? { cache: 'no-store' }
+      : options?.options?.next
+        ? next
+        : cache),
   });
   // biome-ignore lint/style/useBlockStatements: <explanation>
   if (!res.ok) return {};
@@ -63,7 +81,7 @@ const baseFetch = async <T extends BaseFetch>(
 
 export const serverFetch = async <T extends BaseFetch>(
   path: string,
-  options?: T['requestOptions'],
+  options?: ServerFetchOptions,
 ): Promise<T['response']> => {
   return await baseFetch(path, options);
 };

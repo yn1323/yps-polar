@@ -40,14 +40,13 @@ export const GET = async (_: NextRequest, path: Path) => {
 
 export type PostAuthUser = BaseFetch & {
   response: CommonResponse<Prisma.UserCreateArgs['data']>;
-  requestOptions: {
-    query: Prisma.UserCreateInput;
-  };
+  mutation: Prisma.UserCreateInput;
+  method: 'POST';
 };
 
 const PostApiName = 'PostAuthUser';
 export const POST = async (request: NextRequest) => {
-  const data: PostAuthUser['requestOptions']['query'] = await request.json();
+  const data: PostAuthUser['mutation'] = await request.json();
   console.log(`${PostApiName} Started`, data);
 
   const result = await prisma.user
