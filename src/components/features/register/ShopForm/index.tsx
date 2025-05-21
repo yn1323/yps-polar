@@ -1,19 +1,16 @@
 'use client';
 
-import { toaster } from '@/src/components/ui/toaster';
-import { createClient } from '@/src/helpers/auth/client';
 import {
   Button,
   Card,
   Field,
   Input,
-  Select,
+  NativeSelect,
   Stack,
   Text,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type SubmitHandler, useForm } from 'react-hook-form';
-import { registerShop, successRedirect } from './actions';
 import { type SchemaType, schema, submitFrequencyOptions } from './schema';
 
 export const ShopForm = () => {
@@ -26,22 +23,21 @@ export const ShopForm = () => {
   });
 
   const onSubmit: SubmitHandler<SchemaType> = async (data) => {
-    const supabase = createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) {
-      toaster.create({ description: 'ログインが必要です', type: 'error' });
-      return;
-    }
-
-    const result = await registerShop(user.id, data);
-    if (result.success) {
-      toaster.create({ description: '店舗を登録しました', type: 'success' });
-      successRedirect();
-    } else {
-      toaster.create({ description: result.message, type: 'error' });
-    }
+    // const supabase = createClient();
+    // const {
+    //   data: { user },
+    // } = await supabase.auth.getUser();
+    // if (!user) {
+    //   toaster.create({ description: 'ログインが必要です', type: 'error' });
+    //   return;
+    // }
+    // const result = await registerShop(user.id, data);
+    // if (result.success) {
+    //   toaster.create({ description: '店舗を登録しました', type: 'success' });
+    //   successRedirect();
+    // } else {
+    //   toaster.create({ description: result.message, type: 'error' });
+    // }
   };
 
   return (
@@ -76,16 +72,18 @@ export const ShopForm = () => {
 
           <Field.Root invalid={!!errors.submitFrequency}>
             <Field.Label>シフト提出頻度</Field.Label>
-            <Select
-              {...register('submitFrequency')}
-              placeholder="選択してください"
-            >
-              {submitFrequencyOptions.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </Select>
+
+            <NativeSelect.Root {...register('submitFrequency')}>
+              <NativeSelect.Field placeholder="選択してください">
+                {submitFrequencyOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </NativeSelect.Field>
+              <NativeSelect.Indicator />
+            </NativeSelect.Root>
+
             <Field.ErrorText>{errors.submitFrequency?.message}</Field.ErrorText>
           </Field.Root>
 
