@@ -7,6 +7,17 @@ export async function updateSession(request: NextRequest) {
     request,
   });
 
+  if (
+    request.nextUrl.pathname.endsWith('.svg') ||
+    request.nextUrl.pathname.endsWith('.png') ||
+    request.nextUrl.pathname.endsWith('.jpg') ||
+    request.nextUrl.pathname.endsWith('.jpeg') ||
+    request.nextUrl.pathname.endsWith('.gif') ||
+    request.nextUrl.pathname.endsWith('.webp')
+  ) {
+    return supabaseResponse;
+  }
+
   const { NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY } = getEnv();
 
   const supabase = createServerClient(
@@ -36,7 +47,6 @@ export async function updateSession(request: NextRequest) {
   // issues with users being randomly logged out.
 
   // IMPORTANT: DO NOT REMOVE auth.getUser()
-
   const {
     data: { user },
   } = await supabase.auth.getUser();
