@@ -50,7 +50,7 @@ export async function updateSession(request: NextRequest) {
   const isApi = request.nextUrl.pathname.startsWith('/api');
 
   // API は認証が必要
-  if (isApi && user) {
+  if (isApi) {
     return supabaseResponse;
   }
 
@@ -67,7 +67,7 @@ export async function updateSession(request: NextRequest) {
     return supabaseResponse;
   }
 
-  // 認証あり + 認証操作なページを見ようとしている
+  // 認証あり + 認証操作なしページを見ようとしている
   if (user && authOperationPaths.includes(request.nextUrl.pathname)) {
     const url = request.nextUrl.clone();
     url.pathname = '/dashboard';
@@ -89,9 +89,13 @@ export async function updateSession(request: NextRequest) {
     // user.id は Supabase Auth のユーザーID。
     const { data: registeredUser, error } = await supabase
       .from('User')
-      .select('id')
+      .select('userId, userName')
       .eq('userId', user.id)
       .maybeSingle();
+
+    if (error) {
+      console.error('Database error:', error);
+    }
 
     const alreadyRegistered = !error && !!registeredUser;
     const isUserConfigPath =
