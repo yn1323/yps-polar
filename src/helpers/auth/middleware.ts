@@ -47,6 +47,13 @@ export async function updateSession(request: NextRequest) {
   // 認証操作ページ
   const authOperationPaths = ['/signin', '/signin/signup', '/signin/forget'];
 
+  const isApi = request.nextUrl.pathname.startsWith('/api');
+
+  // API は認証が必要
+  if (isApi && user) {
+    return supabaseResponse;
+  }
+
   // 認証が必要ページ（上記以外すべてが該当）
   // const authPaths = ['/dashboard'];
 
@@ -86,24 +93,23 @@ export async function updateSession(request: NextRequest) {
       .eq('userId', user.id)
       .maybeSingle();
 
-    console.log(user.id);
-
     const alreadyRegistered = !error && !!registeredUser;
-    const isConfigPath = request.nextUrl.pathname.startsWith('/config');
+    const isUserConfigPath =
+      request.nextUrl.pathname.startsWith('/config/user');
 
     // 未登録ユーザーが /config 以外へアクセスしようとしたら /config へリダイレクト
-    if (!alreadyRegistered && !isConfigPath) {
+    if (!alreadyRegistered && !isUserConfigPath) {
       const url = request.nextUrl.clone();
-      url.pathname = '/config';
+      url.pathname = '/config/user';
       return NextResponse.redirect(url);
     }
 
     // 登録済みユーザーが /config へアクセスしたら /dashboard へリダイレクト
-    if (alreadyRegistered && isConfigPath) {
-      const url = request.nextUrl.clone();
-      url.pathname = '/dashboard';
-      return NextResponse.redirect(url);
-    }
+    // if (alreadyRegistered && isUserConfigPath) {
+    //   const url = request.nextUrl.clone();
+    //   url.pathname = '/dashboard';
+    //   return NextResponse.redirect(url);
+    // }
   }
 
   return supabaseResponse;

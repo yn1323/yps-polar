@@ -1,6 +1,6 @@
 'use client';
 
-import { registerUser } from '@/app/(auth)/config/actions';
+import { registerUser } from '@/src/components/features/register/UserForm/actions';
 import { toaster } from '@/src/components/ui/toaster';
 import { Button, Card, Field, Input, Stack, Text } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,7 +23,9 @@ export const UserForm = ({ userId, callbackRoutingPath }: Props) => {
   });
 
   const onSubmit: SubmitHandler<SchemaType> = async (data) => {
-    const { success } = await registerUser({ userId, userName: data.userName });
+    const { success } = await registerUser(userId, {
+      userName: data.userName,
+    });
     if (success) {
       toaster.create({
         description: 'ユーザー名登録が完了しました',
@@ -41,7 +43,7 @@ export const UserForm = ({ userId, callbackRoutingPath }: Props) => {
   return (
     <Card.Root w="96" p="8">
       <Stack gap="8" w="full">
-        <Text fontSize="lg">ユーザー登録</Text>
+        <Text fontSize="lg">ユーザー名登録</Text>
         <Stack
           gap="6"
           as="form"

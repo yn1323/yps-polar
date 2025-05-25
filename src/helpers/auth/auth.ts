@@ -9,3 +9,12 @@ export const serverAuth = () => {
     getUser,
   };
 };
+
+export const getSelfInfo = async () => {
+  const { getUser } = serverAuth();
+  const user = await getUser();
+
+  return {
+    userId: user.data.user?.id ?? '',
+  };
+};
