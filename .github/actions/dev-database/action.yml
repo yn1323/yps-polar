@@ -18,15 +18,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Database reset
-      shell: bash
-      run: pnpm prisma db push --force-reset
-      env:
-        DATABASE_URL: ${{ inputs.DATABASE_URL }}
-        DIRECT_URL: ${{ inputs.DIRECT_URL }}
     - name: Seed database
       shell: bash
-      run: pnpm prisma db seed
+      run: pnpm prisma:reset
       env:
         DATABASE_URL: ${{ inputs.DATABASE_URL }}
         DIRECT_URL: ${{ inputs.DIRECT_URL }}
