@@ -58,6 +58,8 @@ const baseFetch = async <T extends BaseFetch>(
 
   const { IS_LOCAL } = getEnv();
 
+  console.log(targetUrl);
+
   const res = await fetch(targetUrl, {
     method,
     ...body,
@@ -70,7 +72,6 @@ const baseFetch = async <T extends BaseFetch>(
         ? next
         : cache),
   });
-  // biome-ignore lint/style/useBlockStatements: <explanation>
   if (!res.ok) {
     console.error('Failed fetch: ', targetUrl, 'Status:', res.status);
     return {};
