@@ -10,9 +10,10 @@ import { type SchemaType, schema } from './schema';
 
 type Props = {
   userId: string;
+  callbackRoutingPath?: string;
 };
 
-export const UserForm = ({ userId }: Props) => {
+export const UserForm = ({ userId, callbackRoutingPath }: Props) => {
   const {
     register,
     handleSubmit,
@@ -28,7 +29,7 @@ export const UserForm = ({ userId }: Props) => {
         description: 'ユーザー名登録が完了しました',
         type: 'success',
       });
-      redirect('/dashboard');
+      callbackRoutingPath && redirect(callbackRoutingPath);
     } else {
       toaster.create({
         description: 'ユーザー名登録に失敗しました',

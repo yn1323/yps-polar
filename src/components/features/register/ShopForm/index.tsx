@@ -1,5 +1,7 @@
 'use client';
 
+import { registerShop } from '@/src/components/features/register/ShopForm/actions';
+import { toaster } from '@/src/components/ui/toaster';
 import {
   Button,
   Card,
@@ -10,10 +12,15 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { redirect } from 'next/navigation';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { type SchemaType, schema, submitFrequencyOptions } from './schema';
 
-export const ShopForm = () => {
+type Props = {
+  callbackRoutingPath?: string;
+};
+
+export const ShopForm = ({ callbackRoutingPath }: Props) => {
   const {
     register,
     handleSubmit,
@@ -23,21 +30,19 @@ export const ShopForm = () => {
   });
 
   const onSubmit: SubmitHandler<SchemaType> = async (data) => {
-    // const supabase = createClient();
-    // const {
-    //   data: { user },
-    // } = await supabase.auth.getUser();
-    // if (!user) {
-    //   toaster.create({ description: 'ログインが必要です', type: 'error' });
-    //   return;
-    // }
-    // const result = await registerShop(user.id, data);
-    // if (result.success) {
-    //   toaster.create({ description: '店舗を登録しました', type: 'success' });
-    //   successRedirect();
-    // } else {
-    //   toaster.create({ description: result.message, type: 'error' });
-    // }
+    const { success } = await registerShop(data);
+    if (success) {
+      toaster.create({
+        description: '店舗登録が完了しました',
+        type: 'success',
+      });
+      callbackRoutingPath && redirect(callbackRoutingPath);
+    } else {
+      toaster.create({
+        description: '店舗登録に失敗しました',
+        type: 'error',
+      });
+    }
   };
 
   return (
