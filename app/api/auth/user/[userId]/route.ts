@@ -4,9 +4,9 @@ import type { BaseFetch } from '@/src/services/common/serverFetch';
 import type { NextRequest } from 'next/server';
 
 type Path = {
-  params: {
+  params: Promise<{
     userId: string;
-  };
+  }>;
 };
 
 export type GetAuthUser = BaseFetch & {
@@ -14,8 +14,8 @@ export type GetAuthUser = BaseFetch & {
 };
 
 const GetApiName = 'GetAuthUser';
-export const GET = async (_: NextRequest, path: Path) => {
-  const { userId } = await path.params;
+export const GET = async (_: NextRequest, { params }: Path) => {
+  const { userId } = await params;
 
   console.log(`${GetApiName} Started`, userId);
 
