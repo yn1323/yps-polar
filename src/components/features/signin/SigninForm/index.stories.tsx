@@ -7,7 +7,6 @@ const meta = {
   title: 'features/signin/SigninForm',
   component: SigninForm,
   args: {},
-  parameters: {},
 } satisfies Meta<typeof SigninForm>;
 
 export default meta;
