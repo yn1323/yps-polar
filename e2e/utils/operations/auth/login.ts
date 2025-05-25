@@ -1,5 +1,5 @@
 import type { Page } from '@playwright/test';
-import { Email, Password } from '../../constants';
+import { Email, Password } from '../../../constants';
 
 export const login = async (page: Page) => {
   await page.goto('/login');
