@@ -1,6 +1,6 @@
 import { getEnv } from '@/src/helpers/utils/env';
 import type { RequestInit } from 'next/dist/server/web/spec-extension/request';
-import { headers } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 
 export const makePath = async (path: string) => {
   const scheme =
@@ -59,13 +59,16 @@ const baseFetch = async <T extends BaseFetch>(
 
   const { IS_LOCAL } = getEnv();
 
-  console.log(targetUrl);
+  // 認証情報（Cookie）を取得
+  const cookieStore = await cookies();
+  const cookieHeader = cookieStore.toString();
 
   const res = await fetch(targetUrl, {
     method,
     ...body,
     headers: {
       'Content-Type': 'application/json',
+      ...(cookieHeader && { Cookie: cookieHeader }),
     },
     ...(IS_LOCAL
       ? { cache: 'no-store' }

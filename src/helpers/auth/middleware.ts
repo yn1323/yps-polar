@@ -61,7 +61,11 @@ export async function updateSession(request: NextRequest) {
 
   // API は認証が必要
   if (isApi) {
-    return supabaseResponse;
+    if (user) {
+      return supabaseResponse;
+    }
+    // 認証されていないユーザーがAPIを叩いた場合は401を返す
+    return new Response('Unauthorized', { status: 401 });
   }
 
   // 認証が必要ページ（上記以外すべてが該当）
