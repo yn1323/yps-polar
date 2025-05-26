@@ -15,7 +15,6 @@ jobs:
       TEST_USER_NAME: ${{ secrets.TEST_USER_NAME }}
       TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
       TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
-      SUPABASE_JWT_SECRET: ${{ secrets.SUPABASE_JWT_SECRET }}
     timeout-minutes: 60
     runs-on: ubuntu-latest
     environment: preview
@@ -41,7 +40,6 @@ jobs:
         TEST_USER_NAME: ${{ secrets.TEST_USER_NAME }}
         TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
         TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
-        SUPABASE_JWT_SECRET: ${{ secrets.SUPABASE_JWT_SECRET }}
     - name: Playwright test
       run: pnpm e2e
     - uses: actions/upload-artifact@v4
