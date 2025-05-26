@@ -46,6 +46,11 @@ export async function updateSession(request: NextRequest) {
   // supabase.auth.getUser(). A simple mistake could make it very hard to debug
   // issues with users being randomly logged out.
 
+  // IMPORTANT: DO NOT REMOVE auth.getUser()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   // 認証なしページ
   const publicPaths = ['/'];
 
@@ -59,15 +64,13 @@ export async function updateSession(request: NextRequest) {
     return supabaseResponse;
   }
 
-  // 認証なしページは早期リターン（getUser()を呼ばない）
+  // 認証が必要ページ（上記以外すべてが該当）
+  // const authPaths = ['/dashboard'];
+
+  // 認証なしで認証なしページを見ようとしている
   if (publicPaths.includes(request.nextUrl.pathname)) {
     return supabaseResponse;
   }
-
-  // IMPORTANT: DO NOT REMOVE auth.getUser()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
   // 認証なし + 認証操作ページを見ようとしている
   if (!user && authOperationPaths.includes(request.nextUrl.pathname)) {
