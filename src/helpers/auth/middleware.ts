@@ -95,21 +95,40 @@ export async function updateSession(request: NextRequest) {
   // 初回ログインユーザー判定
   // =============================
   if (user) {
-    // Supabase の public スキーマに存在する User テーブルを参照。
-    // user.id は Supabase Auth のユーザーID。
-    const { data: registeredUser, error } = await supabase
-      .from('User')
-      .select('userId, userName')
-      .eq('userId', user.id)
-      .maybeSingle();
-
-    if (error) {
-      console.error('Database error:', error);
-    }
-
-    const alreadyRegistered = !error && !!registeredUser;
+    const USER_REGISTERED_COOKIE = 'user_registered';
     const isUserConfigPath =
       request.nextUrl.pathname.startsWith('/config/user');
+
+    // Cookieから登録状態を確認
+    const isRegisteredCookie = request.cookies.get(USER_REGISTERED_COOKIE);
+    let alreadyRegistered = false;
+
+    if (isRegisteredCookie?.value === 'true') {
+      // Cookieに登録済み情報がある場合はDBアクセスをスキップ
+      alreadyRegistered = true;
+    } else {
+      // 初回のみDB確認
+      const { data: registeredUser, error } = await supabase
+        .from('User')
+        .select('userId, userName')
+        .eq('userId', user.id)
+        .maybeSingle();
+
+      if (error) {
+        console.error('Database error:', error);
+      }
+
+      alreadyRegistered = !error && !!registeredUser;
+
+      // 結果をCookieに保存（有効期限付き）
+      if (alreadyRegistered) {
+        supabaseResponse.cookies.set(USER_REGISTERED_COOKIE, 'true', {
+          maxAge: 60 * 60 * 24 * 7, // 1週間
+          httpOnly: true,
+          secure: true,
+        });
+      }
+    }
 
     // 未登録ユーザーが /config 以外へアクセスしようとしたら /config へリダイレクト
     if (!alreadyRegistered && !isUserConfigPath) {
@@ -117,13 +136,6 @@ export async function updateSession(request: NextRequest) {
       url.pathname = '/config/user';
       return NextResponse.redirect(url);
     }
-
-    // 登録済みユーザーが /config へアクセスしたら /dashboard へリダイレクト
-    // if (alreadyRegistered && isUserConfigPath) {
-    //   const url = request.nextUrl.clone();
-    //   url.pathname = '/dashboard';
-    //   return NextResponse.redirect(url);
-    // }
   }
 
   return supabaseResponse;
