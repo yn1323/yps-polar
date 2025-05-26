@@ -1,5 +1,7 @@
 # YPS-Polar
 
+`pnpm i --frozen-lockfile`
+
 ## SupabaseDB初回設定
 
 1. `pnpm prisma db push`
