@@ -3,7 +3,8 @@ import type { RequestInit } from 'next/dist/server/web/spec-extension/request';
 import { headers } from 'next/headers';
 
 export const makePath = async (path: string) => {
-  const scheme = process.env.NEXT_PUBLIC_IS_LOCAL ? 'http' : 'https';
+  const scheme =
+    process.env.NEXT_PUBLIC_IS_LOCAL || process.env.CI ? 'http' : 'https';
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const host = ((await headers()) as any).get('host');
   return `${scheme}://${host}${path[0] === '/' ? '' : '/'}${path}`;
