@@ -2,8 +2,17 @@
 
 import { signup } from '@/src/components/features/signin/SignupForm/actions';
 import { toaster } from '@/src/components/ui/toaster';
-import { Box, Button, Card, Field, Input, Link, Stack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Card,
+  Link as ChakraLink,
+  Field,
+  Input,
+  Stack,
+} from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { type SchemaType, schema } from './schema';
@@ -96,9 +105,9 @@ export const SignupForm = () => {
           fontSize="sm"
         >
           <Box>
-            <Link href="/signin" _hover={{ textDecoration: 'underline' }}>
-              ログイン画面に戻る
-            </Link>
+            <ChakraLink asChild _hover={{ textDecoration: 'underline' }}>
+              <Link href="/signin">ログイン画面に戻る</Link>
+            </ChakraLink>
           </Box>
         </Stack>
       </Stack>

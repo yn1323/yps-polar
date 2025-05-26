@@ -9,14 +9,15 @@ import {
   Box,
   Button,
   Card,
+  Link as ChakraLink,
   Field,
   Flex,
   Input,
-  Link,
   Stack,
   Text,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
@@ -117,20 +118,14 @@ export const SigninForm = () => {
           fontSize="sm"
         >
           <Box>
-            <Link
-              href="/signin/signup"
-              _hover={{ textDecoration: 'underline' }}
-            >
-              新規登録
-            </Link>
+            <ChakraLink asChild _hover={{ textDecoration: 'underline' }}>
+              <Link href="/signin/signup">新規登録</Link>
+            </ChakraLink>
           </Box>
           <Box>
-            <Link
-              href="/signin/forget"
-              _hover={{ textDecoration: 'underline' }}
-            >
-              パスワードを忘れた方
-            </Link>
+            <ChakraLink asChild _hover={{ textDecoration: 'underline' }}>
+              <Link href="/signin/forget">パスワードを忘れた方</Link>
+            </ChakraLink>
           </Box>
         </Stack>
       </Stack>
