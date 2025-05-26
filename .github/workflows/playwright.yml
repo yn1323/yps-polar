@@ -13,7 +13,6 @@ jobs:
       TEST_USER_NAME: ${{ secrets.TEST_USER_NAME }}
       TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
       TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
-      NODE_TLS_REJECT_UNAUTHORIZED: '0' # SSL 証明書の検証を無視
     timeout-minutes: 60
     runs-on: ubuntu-latest
     environment: preview
