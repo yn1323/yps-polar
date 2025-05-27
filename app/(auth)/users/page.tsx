@@ -1,11 +1,11 @@
 import { Animation } from '@/src/components/templates/Animation';
 import { Center, Heading } from '@chakra-ui/react';
 
-export default function Page() {
+export default function UsersPage() {
   return (
     <Animation>
       <Center h="100vh">
-        <Heading>ダッシュボード</Heading>
+        <Heading>ユーザー管理</Heading>
       </Center>
     </Animation>
   );
