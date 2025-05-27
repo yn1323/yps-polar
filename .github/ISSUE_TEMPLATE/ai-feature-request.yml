@@ -1,0 +1,123 @@
+name: ✨ AI Feature Request
+description: AIに新機能の実装を依頼する際のテンプレート
+title: "[AI Feature] "
+labels: ["enhancement", "ai-request"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## AI機能実装依頼
+        
+        このテンプレートは、AIに新機能の実装を依頼する際に使用してください。
+        要件を明確に記述することで、AIがより正確に実装を行えます。
+        
+  - type: input
+    id: feature_summary
+    attributes:
+      label: 機能の概要
+      description: 実装したい機能の簡潔な説明
+      placeholder: "例: ユーザープロフィール画像のアップロード機能"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: feature_description
+    attributes:
+      label: 機能の詳細
+      description: 機能の詳細な説明と要件
+      placeholder: |
+        - どのような機能か
+        - どのようなユーザーが使用するか
+        - どのような価値を提供するか
+    validations:
+      required: true
+      
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: 受け入れ条件
+      description: 機能が完成したと判断するための条件
+      placeholder: |
+        - [ ] ユーザーが画像をアップロードできる
+        - [ ] アップロードした画像がプロフィールに表示される
+        - [ ] 画像サイズの制限がある
+        - [ ] 不正なファイル形式は拒否される
+    validations:
+      required: true
+      
+  - type: textarea
+    id: ui_requirements
+    attributes:
+      label: UI/UX要件
+      description: ユーザーインターフェースに関する要件
+      placeholder: |
+        - デザイン要件
+        - ユーザー操作フロー
+        - レスポンシブ対応
+        - アクセシビリティ要件
+    validations:
+      required: false
+      
+  - type: textarea
+    id: technical_requirements
+    attributes:
+      label: 技術要件
+      description: 技術的な制約や要件
+      placeholder: |
+        - 使用する技術・ライブラリ
+        - パフォーマンス要件
+        - セキュリティ要件
+        - データベース設計要件
+    validations:
+      required: false
+      
+  - type: textarea
+    id: affected_components
+    attributes:
+      label: 影響を受けるファイル・コンポーネント
+      description: 修正・追加が必要と思われるファイルやコンポーネント
+      placeholder: |
+        - src/components/UserProfile.tsx
+        - app/api/upload/route.ts
+        - prisma/schema.prisma
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 優先度
+      description: 機能の優先度を選択してください
+      options:
+        - 🔴 高 (重要な機能・リリース必須)
+        - 🟠 中 (便利な機能・近日実装予定)
+        - 🟡 低 (将来的に実装予定)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: 追加情報
+      description: その他AIが知っておくべき情報
+      placeholder: |
+        - 参考資料・デザイン
+        - 競合サービスの例
+        - 関連するIssueやPR
+        - 制約事項
+    validations:
+      required: false
+      
+  - type: markdown
+    attributes:
+      value: |
+        ## AI指示
+        
+        **@claude** この機能を実装してください。
+        
+        上記の要件を参考に、以下の手順で実装をお願いします：
+        1. 実装計画の策定
+        2. 必要なファイル・コンポーネントの作成・修正
+        3. テストの作成・実行
+        4. ドキュメントの更新（必要に応じて）

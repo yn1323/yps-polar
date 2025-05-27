@@ -1,0 +1,108 @@
+name: 🤖 AI Bug Fix Request
+description: AIにバグの修正を依頼する際のテンプレート
+title: "[AI Bug Fix] "
+labels: ["bug", "ai-request"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## AIバグ修正依頼
+        
+        このテンプレートは、AIにバグの修正を依頼する際に使用してください。
+        問題の詳細を明確に記述することで、AIがより効率的に問題を解決できます。
+        
+  - type: input
+    id: bug_summary
+    attributes:
+      label: バグの概要
+      description: バグの簡潔な説明
+      placeholder: "例: ユーザー登録時にバリデーションエラーが発生する"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: バグの詳細
+      description: バグの詳細な説明と現象
+      placeholder: |
+        - 何が起きているか
+        - 期待される動作
+        - 実際の動作
+        - エラーメッセージ（あれば）
+    validations:
+      required: true
+      
+  - type: textarea
+    id: reproduction_steps
+    attributes:
+      label: 再現手順
+      description: バグを再現するための手順
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: affected_files
+    attributes:
+      label: 影響を受けるファイル・コンポーネント
+      description: バグが発生していると思われるファイルやコンポーネント
+      placeholder: |
+        - src/components/UserForm.tsx
+        - app/api/auth/route.ts
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 優先度
+      description: バグの優先度を選択してください
+      options:
+        - 🔴 高 (サービス停止・重大な機能障害)
+        - 🟠 中 (機能の一部が動作しない)
+        - 🟡 低 (軽微な問題・UI/UXの改善)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: environment
+    attributes:
+      label: 環境情報
+      description: バグが発生する環境について
+      placeholder: |
+        - ブラウザ: Chrome 120.0
+        - OS: macOS 14.0
+        - デバイス: Desktop
+        - 環境: 開発環境/本番環境
+    validations:
+      required: false
+      
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: 追加情報
+      description: その他AIが知っておくべき情報
+      placeholder: |
+        - 関連するPRやIssue
+        - 試した解決策
+        - 参考資料
+    validations:
+      required: false
+      
+  - type: markdown
+    attributes:
+      value: |
+        ## AI指示
+        
+        **@claude** このバグを調査・修正してください。
+        
+        上記の情報を参考に、以下の手順で対応をお願いします：
+        1. 問題の原因調査
+        2. 修正方法の提案
+        3. コードの修正実装
+        4. テストの実行確認
