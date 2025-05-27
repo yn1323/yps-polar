@@ -40,7 +40,7 @@ export const toaster = {
   create: ({ description, type }: { description: string; type: 'success' | 'error' }) => {
     return toast({
       description,
-      variant: type === 'error' ? 'destructive' : type === 'success' ? 'success' : 'default',
+      variant: type === 'error' ? 'destructive' : 'success',
     });
   },
 };

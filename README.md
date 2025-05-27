@@ -20,7 +20,7 @@ YPS-Polarは、店舗と従業員のシフト管理を効率化するWebアプ�
 ### 技術スタック
 
 - **フロントエンド**: Next.js 15, React 19, TypeScript
-- **UIライブラリ**: Chakra UI v3, React Hook Form, Zod
+- **UIライブラリ**: shadcn/ui, React Hook Form, Zod
 - **状態管理**: Jotai
 - **認証**: Supabase Auth
 - **データベース**: PostgreSQL + Prisma ORM
