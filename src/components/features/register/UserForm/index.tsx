@@ -2,7 +2,10 @@
 
 import { registerUser } from '@/src/components/features/register/UserForm/actions';
 import { toaster } from '@/src/components/ui/toaster';
-import { Button, Card, Field, Input, Stack, Text } from '@chakra-ui/react';
+import { Button } from '@/src/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/src/components/ui/card';
+import { Input } from '@/src/components/ui/input';
+import { Label } from '@/src/components/ui/label';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { redirect } from 'next/navigation';
 import { type SubmitHandler, useForm } from 'react-hook-form';
@@ -41,33 +44,40 @@ export const UserForm = ({ userId, callbackRoutingPath }: Props) => {
   };
 
   return (
-    <Card.Root w="96" p="8">
-      <Stack gap="8" w="full">
-        <Text fontSize="lg">ユーザー名登録</Text>
-        <Stack
-          gap="6"
-          as="form"
+    <Card className="w-96">
+      <CardHeader>
+        <CardTitle>ユーザー名登録</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form
+          className="space-y-6"
           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit(onSubmit)(e);
           }}
         >
-          <Field.Root invalid={!!errors.userName}>
-            <Field.Label>ユーザー名</Field.Label>
-            <Input {...register('userName')} placeholder="ユーザー名" />
-            <Field.ErrorText>{errors.userName?.message}</Field.ErrorText>
-          </Field.Root>
+          <div className="space-y-2">
+            <Label htmlFor="userName">ユーザー名</Label>
+            <Input
+              id="userName"
+              {...register('userName')}
+              placeholder="ユーザー名"
+              className={errors.userName ? 'border-destructive' : ''}
+            />
+            {errors.userName && (
+              <p className="text-sm text-destructive">{errors.userName.message}</p>
+            )}
+          </div>
 
           <Button
-            variant="solid"
-            colorPalette="teal"
             type="submit"
             loading={isSubmitting}
+            className="w-full bg-teal-600 hover:bg-teal-700"
           >
             登録
           </Button>
-        </Stack>
-      </Stack>
-    </Card.Root>
+        </form>
+      </CardContent>
+    </Card>
   );
 };

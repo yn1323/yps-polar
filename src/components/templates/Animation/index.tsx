@@ -1,5 +1,5 @@
-import { Box } from '@chakra-ui/react';
 import type { ReactNode } from 'react';
+import { cn } from '@/src/lib/utils';
 
 type Props = {
   children: ReactNode | ReactNode[];
@@ -10,15 +10,13 @@ export const Animation = ({ children, fullScreen = true }: Props) => {
   const childComponents = Array.isArray(children) ? children : [children];
 
   return (
-    <Box
-      w={fullScreen ? '100%' : 'auto'}
-      h={fullScreen ? '100%' : 'auto'}
-      data-state="open"
-      _open={{
-        animation: 'fade-in 100ms ease-out',
-      }}
+    <div
+      className={cn(
+        'animate-in fade-in-0 duration-100',
+        fullScreen ? 'w-full h-full' : 'w-auto h-auto'
+      )}
     >
       {childComponents}
-    </Box>
+    </div>
   );
 };

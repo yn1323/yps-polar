@@ -2,15 +2,10 @@
 
 import { signup } from '@/src/components/features/signin/SignupForm/actions';
 import { toaster } from '@/src/components/ui/toaster';
-import {
-  Box,
-  Button,
-  Card,
-  Link as ChakraLink,
-  Field,
-  Input,
-  Stack,
-} from '@chakra-ui/react';
+import { Button } from '@/src/components/ui/button';
+import { Card, CardContent } from '@/src/components/ui/card';
+import { Input } from '@/src/components/ui/input';
+import { Label } from '@/src/components/ui/label';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -43,74 +38,76 @@ export const SignupForm = () => {
   };
 
   return (
-    <Card.Root w="96" p="8">
-      <Stack gap="8" w="full">
-        <Stack
-          gap="6"
-          as="form"
+    <Card className="w-96 p-8">
+      <CardContent className="space-y-8">
+        <form
+          className="space-y-6"
           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit(onSubmit)(e);
           }}
         >
-          <Field.Root invalid={!!errors.email}>
-            <Field.Label>メールアドレス</Field.Label>
+          <div className="space-y-2">
+            <Label htmlFor="email">メールアドレス</Label>
             <Input
+              id="email"
               {...register('email')}
               placeholder="メールアドレスを入力してください"
               disabled={isSubmitting}
+              className={errors.email ? 'border-destructive' : ''}
             />
-            <Field.ErrorText>{errors.email?.message}</Field.ErrorText>
-          </Field.Root>
+            {errors.email && (
+              <p className="text-sm text-destructive">{errors.email.message}</p>
+            )}
+          </div>
 
-          <Field.Root invalid={!!errors.password}>
-            <Field.Label>パスワード</Field.Label>
+          <div className="space-y-2">
+            <Label htmlFor="password">パスワード</Label>
             <Input
+              id="password"
               {...register('password')}
               type="password"
               placeholder="パスワードを入力してください"
               disabled={isSubmitting}
+              className={errors.password ? 'border-destructive' : ''}
             />
-            <Field.ErrorText>{errors.password?.message}</Field.ErrorText>
-          </Field.Root>
+            {errors.password && (
+              <p className="text-sm text-destructive">{errors.password.message}</p>
+            )}
+          </div>
 
-          <Field.Root invalid={!!errors.passwordConfirmation}>
-            <Field.Label>パスワード(確認)</Field.Label>
+          <div className="space-y-2">
+            <Label htmlFor="passwordConfirmation">パスワード(確認)</Label>
             <Input
+              id="passwordConfirmation"
               {...register('passwordConfirmation')}
               type="password"
               placeholder="パスワードを入力してください（確認用）"
               disabled={isSubmitting}
+              className={errors.passwordConfirmation ? 'border-destructive' : ''}
             />
-            <Field.ErrorText>
-              {errors.passwordConfirmation?.message}
-            </Field.ErrorText>
-          </Field.Root>
+            {errors.passwordConfirmation && (
+              <p className="text-sm text-destructive">
+                {errors.passwordConfirmation.message}
+              </p>
+            )}
+          </div>
 
           <Button
-            variant="solid"
-            colorPalette="teal"
             type="submit"
             loading={isSubmitting}
+            className="w-full bg-teal-600 hover:bg-teal-700"
           >
             登録
           </Button>
-        </Stack>
+        </form>
 
-        <Stack
-          w="full"
-          gap="2"
-          textAlign="right"
-          color="gray.500"
-          fontSize="sm"
-        >
-          <Box>
-            <ChakraLink asChild _hover={{ textDecoration: 'underline' }}>
-              <Link href="/signin">ログイン画面に戻る</Link>
-            </ChakraLink>
-          </Box>
-        </Stack>
-      </Stack>
-    </Card.Root>
+        <div className="text-right text-sm text-gray-500">
+          <Link href="/signin" className="hover:underline">
+            ログイン画面に戻る
+          </Link>
+        </div>
+      </CardContent>
+    </Card>
   );
 };

@@ -5,17 +5,10 @@ import {
   signinWithGoogle,
 } from '@/src/components/features/signin/SigninForm/actions';
 import { toaster } from '@/src/components/ui/toaster';
-import {
-  Box,
-  Button,
-  Card,
-  Link as ChakraLink,
-  Field,
-  Flex,
-  Input,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import { Button } from '@/src/components/ui/button';
+import { Card, CardContent } from '@/src/components/ui/card';
+import { Input } from '@/src/components/ui/input';
+import { Label } from '@/src/components/ui/label';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -58,77 +51,77 @@ export const SigninForm = () => {
   };
 
   return (
-    <Card.Root w="96" p="8">
-      <Stack gap="8" w="full">
-        <Stack
-          gap="6"
-          as="form"
+    <Card className="w-96 p-8">
+      <CardContent className="space-y-8">
+        <form
+          className="space-y-6"
           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit(onSubmit)(e);
           }}
         >
-          <Field.Root invalid={!!errors.email}>
-            <Field.Label>メールアドレス</Field.Label>
+          <div className="space-y-2">
+            <Label htmlFor="email">メールアドレス</Label>
             <Input
+              id="email"
               {...register('email')}
               placeholder="メールアドレスを入力してください"
               disabled={isSubmitting}
+              className={errors.email ? 'border-destructive' : ''}
             />
-            <Field.ErrorText>{errors.email?.message}</Field.ErrorText>
-          </Field.Root>
-          <Field.Root invalid={!!errors.password}>
-            <Field.Label>パスワード</Field.Label>
+            {errors.email && (
+              <p className="text-sm text-destructive">{errors.email.message}</p>
+            )}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">パスワード</Label>
             <Input
+              id="password"
               {...register('password')}
               type="password"
               placeholder="パスワードを入力してください"
               disabled={isSubmitting}
+              className={errors.password ? 'border-destructive' : ''}
             />
-            <Field.ErrorText>{errors.password?.message}</Field.ErrorText>
-          </Field.Root>
+            {errors.password && (
+              <p className="text-sm text-destructive">{errors.password.message}</p>
+            )}
+          </div>
           <Button
-            variant="solid"
-            colorPalette="teal"
             type="submit"
             loading={isSubmitting}
+            className="w-full bg-teal-600 hover:bg-teal-700"
           >
             メールアドレスでログイン
           </Button>
-        </Stack>
+        </form>
 
-        <Flex alignItems="center" gap="6" mx="-2">
-          <Box flex="1" h="1px" bg="gray.300" />
-          <Text>or</Text>
-          <Box flex="1" h="1px" bg="gray.300" />
-        </Flex>
+        <div className="flex items-center gap-6">
+          <div className="flex-1 h-px bg-gray-300" />
+          <span className="text-sm">or</span>
+          <div className="flex-1 h-px bg-gray-300" />
+        </div>
 
-        <Button variant="outline" onClick={onClickGoogleSignin}>
-          <Flex align="center" gap="2">
+        <Button variant="outline" onClick={onClickGoogleSignin} className="w-full">
+          <div className="flex items-center gap-2">
             <FcGoogle />
-            <Text>Googleでログイン</Text>
-          </Flex>
+            <span>Googleでログイン</span>
+          </div>
         </Button>
 
-        <Stack
-          w="full"
-          gap="2"
-          textAlign="right"
-          color="gray.500"
-          fontSize="sm"
-        >
-          <Box>
-            <ChakraLink asChild _hover={{ textDecoration: 'underline' }}>
-              <Link href="/signin/signup">新規登録</Link>
-            </ChakraLink>
-          </Box>
-          <Box>
-            <ChakraLink asChild _hover={{ textDecoration: 'underline' }}>
-              <Link href="/signin/forget">パスワードを忘れた方</Link>
-            </ChakraLink>
-          </Box>
-        </Stack>
-      </Stack>
-    </Card.Root>
+        <div className="space-y-2 text-right text-sm text-gray-500">
+          <div>
+            <Link href="/signin/signup" className="hover:underline">
+              新規登録
+            </Link>
+          </div>
+          <div>
+            <Link href="/signin/forget" className="hover:underline">
+              パスワードを忘れた方
+            </Link>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 };

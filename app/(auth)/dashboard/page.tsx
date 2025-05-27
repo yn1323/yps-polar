@@ -1,14 +1,15 @@
 import { Signout } from '@/src/components/features/Signout';
 import { Animation } from '@/src/components/templates/Animation';
-import { Center } from '@chakra-ui/react';
 
 export default function Page() {
   return (
     <Animation>
-      <Center h="100vh">
-        this is dashboard
-        <Signout />
-      </Center>
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center space-y-4">
+          <div>this is dashboard</div>
+          <Signout />
+        </div>
+      </div>
     </Animation>
   );
 }
