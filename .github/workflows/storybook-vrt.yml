@@ -217,5 +217,5 @@ jobs:
         with:
           message: |
             Storybook VRT Report
-            [VRT Report](https://yn1323.github.io/yps-polar/vrt-report/${{ github.head_ref }})
-            [Storybook](https://yn1323.github.io/yps-polar/storybook/${{ github.head_ref }})
+            [VRT Report](https://yn1323.github.io/yps-polar/vrt-report/${{ github.ref_name }})
+            [Storybook](https://yn1323.github.io/yps-polar/storybook/${{ github.ref_name }})
