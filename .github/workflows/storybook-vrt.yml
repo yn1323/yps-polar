@@ -217,6 +217,6 @@ jobs:
         uses: mshick/add-pr-comment@v2
         with:
           message: |
-            Storybook VRT Report
+            🦈 Storybook VRT Report 🦈
             [VRT Report](https://yn1323.github.io/yps-polar/vrt-report/${{ github.ref_name }})
             [Storybook](https://yn1323.github.io/yps-polar/storybook/${{ github.ref_name }})
