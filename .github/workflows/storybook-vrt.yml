@@ -220,5 +220,5 @@ jobs:
         with:
           message: |
             🦈 Storybook VRT Report 🦈
-            [VRT Report](https://hogehoge.pages.github.io/vrt-report/${{ github.ref_name }})
-            [Storybook](https://hogehoge.pages.github.io/storybook/${{ github.ref_name }})
+            [VRT Report](https://yn1323.github.io/yps-polar/vrt-report/${{ github.ref_name }})
+            [Storybook](https://yn1323.github.io/yps-polar/storybook/${{ github.ref_name }})
