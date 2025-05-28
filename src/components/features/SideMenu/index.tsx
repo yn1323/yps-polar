@@ -30,7 +30,7 @@ export const SideMenu = () => {
       top={0}
       zIndex={10}
     >
-      <VStack gap={4} alignItems="stretch" height="full">
+      <VStack gap={4} alignItems="stretch" h="full">
         <Text fontSize="xl" fontWeight="bold" mb={4}>
           管理画面
         </Text>
