@@ -1,4 +1,4 @@
-import { SideMenu } from '@/src/components/features/SideMenu';
+import { SideMenu } from '@/src/components/layout/SideMenu';
 import { Box } from '@chakra-ui/react';
 
 export default function AuthLayout({
