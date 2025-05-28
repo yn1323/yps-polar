@@ -27,9 +27,10 @@ jobs:
         uses: ./.github/actions/cache-storybook-build-result
       - name: storybook build
         if: ${{ steps.screenshots_cache.outputs.cache-hit != 'true' && steps.storybook_result_cache.outputs.cache-hit != 'true' }}
-        run: pnpm web storybook:build -- --quiet --test
+        run: pnpm storybook:build -- --quiet --test
         env:
-          NEXT_IS_TEST: 'true'
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
   take_expected_screenshots:
     needs: check_expected_screenshots
