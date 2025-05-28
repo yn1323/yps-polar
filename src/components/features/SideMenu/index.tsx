@@ -1,15 +1,15 @@
 'use client';
 
 import { Signout } from '@/src/components/features/Signout';
-import { Box, VStack, Text, Button, Spacer } from '@chakra-ui/react';
+import { Box, VStack, Text, Button, Spacer, Flex } from '@chakra-ui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
   FcHome, 
   FcBusinessman, 
   FcShop, 
-  FcDocument, 
-  FcLineChart, 
+  FcDebt, 
+  FcBarChart, 
   FcSettings 
 } from 'react-icons/fc';
 
@@ -17,8 +17,8 @@ const menuItems = [
   { href: '/dashboard', label: 'ダッシュボード', icon: FcHome },
   { href: '/users', label: 'ユーザー管理', icon: FcBusinessman },
   { href: '/products', label: '商品管理', icon: FcShop },
-  { href: '/orders', label: '注文管理', icon: FcDocument },
-  { href: '/reports', label: 'レポート', icon: FcLineChart },
+  { href: '/orders', label: '注文管理', icon: FcDebt },
+  { href: '/reports', label: 'レポート', icon: FcBarChart },
   { href: '/settings', label: '設定', icon: FcSettings },
 ];
 
@@ -49,13 +49,15 @@ export const SideMenu = () => {
             return (
               <Link key={item.href} href={item.href}>
                 <Button
-                  w="full"
+                  width="full"
                   variant={pathname === item.href ? 'solid' : 'ghost'}
                   justifyContent="flex-start"
-                  colorScheme={pathname === item.href ? 'blue' : 'gray'}
-                  leftIcon={<IconComponent size={20} />}
+                  colorPalette={pathname === item.href ? 'blue' : 'gray'}
                 >
-                  {item.label}
+                  <Flex align="center" gap="2">
+                    <IconComponent size={20} />
+                    <Text>{item.label}</Text>
+                  </Flex>
                 </Button>
               </Link>
             );
