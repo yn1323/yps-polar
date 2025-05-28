@@ -30,12 +30,12 @@ export const SideMenu = () => {
       top={0}
       zIndex={10}
     >
-      <VStack spacing={4} align="stretch" h="full">
+      <VStack gap={4} alignItems="stretch" height="full">
         <Text fontSize="xl" fontWeight="bold" mb={4}>
           管理画面
         </Text>
         
-        <VStack spacing={2} align="stretch">
+        <VStack gap={2} alignItems="stretch">
           {menuItems.map((item) => (
             <Link key={item.href} href={item.href}>
               <Button
