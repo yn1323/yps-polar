@@ -27,7 +27,7 @@ jobs:
         uses: ./.github/actions/cache-storybook-build-result
       - name: storybook build
         if: ${{ steps.screenshots_cache.outputs.cache-hit != 'true' && steps.storybook_result_cache.outputs.cache-hit != 'true' }}
-        run: pnpm storybook:build -- --quiet --test
+        run: pnpm build-storybook -- --quiet --test
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
