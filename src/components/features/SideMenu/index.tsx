@@ -5,20 +5,20 @@ import { Box, VStack, Text, Button, Spacer } from '@chakra-ui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
-  FcDashboard, 
+  FcHome, 
   FcBusinessman, 
   FcShop, 
-  FcDebt, 
-  FcBarChart, 
+  FcDocument, 
+  FcLineChart, 
   FcSettings 
 } from 'react-icons/fc';
 
 const menuItems = [
-  { href: '/dashboard', label: 'ダッシュボード', icon: FcDashboard },
+  { href: '/dashboard', label: 'ダッシュボード', icon: FcHome },
   { href: '/users', label: 'ユーザー管理', icon: FcBusinessman },
   { href: '/products', label: '商品管理', icon: FcShop },
-  { href: '/orders', label: '注文管理', icon: FcDebt },
-  { href: '/reports', label: 'レポート', icon: FcBarChart },
+  { href: '/orders', label: '注文管理', icon: FcDocument },
+  { href: '/reports', label: 'レポート', icon: FcLineChart },
   { href: '/settings', label: '設定', icon: FcSettings },
 ];
 
