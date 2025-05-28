@@ -18,16 +18,6 @@ export async function updateSession(request: NextRequest) {
     return supabaseResponse;
   }
 
-  // Environment variables check for build time safety
-  try {
-    const { NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY } = getEnv();
-  } catch (error) {
-    // During build time, environment variables might not be available
-    // Allow the request to proceed without authentication checks
-    console.warn('Environment variables not available, skipping auth middleware:', error);
-    return supabaseResponse;
-  }
-
   const { NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY } = getEnv();
 
   const supabase = createServerClient(
