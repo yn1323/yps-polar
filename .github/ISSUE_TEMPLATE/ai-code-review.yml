@@ -1,0 +1,140 @@
+name: 👀 AI Code Review Request
+description: AIにコードレビューを依頼する際のテンプレート
+title: "[AI Review] "
+labels: ["code-review", "ai-request"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## AIコードレビュー依頼
+        
+        このテンプレートは、AIにコードレビューを依頼する際に使用してください。
+        レビューの観点を明確にすることで、AIがより効果的なレビューを行えます。
+        
+  - type: input
+    id: review_summary
+    attributes:
+      label: レビュー対象の概要
+      description: レビューしたいコードの簡潔な説明
+      placeholder: "例: 新しいユーザー認証機能の実装"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: target_files
+    attributes:
+      label: レビュー対象ファイル
+      description: レビューしたいファイルやコンポーネント
+      placeholder: |
+        - src/components/auth/LoginForm.tsx
+        - app/api/auth/login/route.ts
+        - src/hooks/useAuth.ts
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: review_focus
+    attributes:
+      label: レビュー観点
+      description: 特に注目してほしいレビューポイントを選択してください
+      options:
+        - label: 🐛 バグ・エラーハンドリング
+        - label: 🔒 セキュリティ
+        - label: ⚡ パフォーマンス
+        - label: 📖 可読性・保守性
+        - label: 🏗️ アーキテクチャ・設計
+        - label: 🧪 テスタビリティ
+        - label: 🎯 ベストプラクティス
+        - label: ♿ アクセシビリティ
+        - label: 📱 レスポンシブ対応
+        - label: 🔧 TypeScript型安全性
+        
+  - type: dropdown
+    id: review_depth
+    attributes:
+      label: レビューの深さ
+      description: レビューの詳細レベルを選択してください
+      options:
+        - 🔍 詳細 (細かい改善点まで指摘)
+        - 📋 標準 (主要な問題点を指摘)
+        - ⚡ 簡潔 (重要な問題のみ指摘)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: specific_concerns
+    attributes:
+      label: 特に気になる点
+      description: レビュー時に特に注意してほしい箇所や懸念点
+      placeholder: |
+        - パフォーマンスに影響がないか
+        - セキュリティホールがないか
+        - エラーハンドリングが適切か
+        - テストが不十分な箇所がないか
+    validations:
+      required: false
+      
+  - type: textarea
+    id: context_information
+    attributes:
+      label: コンテキスト情報
+      description: レビューに必要な背景情報
+      placeholder: |
+        - 実装の背景・目的
+        - 技術的制約
+        - 既存システムとの関連
+        - ユーザーストーリー
+    validations:
+      required: false
+      
+  - type: textarea
+    id: testing_status
+    attributes:
+      label: テスト状況
+      description: 現在のテストの実装状況
+      placeholder: |
+        - 実装済みのテスト
+        - 未実装のテスト
+        - テスト方針
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: 緊急度
+      description: レビューの緊急度を選択してください
+      options:
+        - 🚨 緊急 (今すぐレビューが必要)
+        - ⏰ 高 (本日中にレビューが必要)
+        - 📅 中 (数日以内にレビューが必要)
+        - 🕰️ 低 (時間があるときにレビュー)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: 追加情報
+      description: その他AIが知っておくべき情報
+      placeholder: |
+        - 参考資料
+        - 関連するPRやIssue
+        - チームの規約・ガイドライン
+        - 既知の課題
+    validations:
+      required: false
+      
+  - type: markdown
+    attributes:
+      value: |
+        ## AI指示
+        
+        **@claude** 上記のコードをレビューしてください。
+        
+        以下の観点でレビューをお願いします：
+        1. 選択されたレビュー観点での問題点の指摘
+        2. 改善提案とその理由
+        3. ベストプラクティスとの比較
+        4. 必要に応じて修正コードの提示

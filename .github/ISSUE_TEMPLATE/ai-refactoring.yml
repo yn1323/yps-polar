@@ -1,0 +1,143 @@
+name: 🔧 AI Refactoring Request
+description: AIにリファクタリングを依頼する際のテンプレート
+title: "[AI Refactor] "
+labels: ["refactoring", "ai-request"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## AIリファクタリング依頼
+        
+        このテンプレートは、AIにコードのリファクタリングを依頼する際に使用してください。
+        現在の問題点と改善目標を明確にすることで、AIがより効果的なリファクタリングを行えます。
+        
+  - type: input
+    id: refactoring_summary
+    attributes:
+      label: リファクタリングの概要
+      description: リファクタリングしたい内容の簡潔な説明
+      placeholder: "例: UserFormコンポーネントの複雑なロジックを分割"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: current_problems
+    attributes:
+      label: 現在の問題点
+      description: リファクタリングが必要な理由と現在の問題
+      placeholder: |
+        - コードが複雑で理解しにくい
+        - テストが困難
+        - パフォーマンスの問題
+        - 重複コードが多い
+        - 責務が混在している
+    validations:
+      required: true
+      
+  - type: textarea
+    id: improvement_goals
+    attributes:
+      label: 改善目標
+      description: リファクタリング後に達成したい状態
+      placeholder: |
+        - コードの可読性向上
+        - テスタビリティの向上
+        - パフォーマンスの改善
+        - 保守性の向上
+        - 拡張性の向上
+    validations:
+      required: true
+      
+  - type: textarea
+    id: target_files
+    attributes:
+      label: 対象ファイル・コンポーネント
+      description: リファクタリング対象のファイルやコンポーネント
+      placeholder: |
+        - src/components/forms/UserForm.tsx
+        - src/hooks/useUserData.ts
+        - src/utils/validation.ts
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: refactoring_type
+    attributes:
+      label: リファクタリングの種類
+      description: 主なリファクタリングの内容を選択してください
+      options:
+        - 🏗️ アーキテクチャの改善
+        - 🧩 コンポーネント分割
+        - 🔄 ロジックの整理
+        - 🎯 パフォーマンス最適化
+        - 🧪 テスタビリティ向上
+        - 📦 依存関係の整理
+        - 🎨 コードスタイルの統一
+    validations:
+      required: true
+      
+  - type: textarea
+    id: constraints
+    attributes:
+      label: 制約・注意事項
+      description: リファクタリング時に考慮すべき制約や注意事項
+      placeholder: |
+        - 既存のAPIとの互換性を保つ
+        - 特定のライブラリを使用する
+        - パフォーマンスを下げない
+        - 既存のテストを壊さない
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 優先度
+      description: リファクタリングの優先度を選択してください
+      options:
+        - 🔴 高 (緊急・重要)
+        - 🟠 中 (重要・計画的に実施)
+        - 🟡 低 (改善・時間があるときに)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: testing_requirements
+    attributes:
+      label: テスト要件
+      description: リファクタリング後のテストに関する要件
+      placeholder: |
+        - 既存のテストを更新
+        - 新しいテストを追加
+        - E2Eテストで動作確認
+        - パフォーマンステスト
+    validations:
+      required: false
+      
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: 追加情報
+      description: その他AIが知っておくべき情報
+      placeholder: |
+        - 参考資料
+        - 設計ドキュメント
+        - 関連するIssueやPR
+        - 影響を受ける機能
+    validations:
+      required: false
+      
+  - type: markdown
+    attributes:
+      value: |
+        ## AI指示
+        
+        **@claude** このリファクタリングを実施してください。
+        
+        上記の要件を参考に、以下の手順で実施をお願いします：
+        1. 現在のコードの分析
+        2. リファクタリング計画の策定
+        3. 段階的なリファクタリングの実施
+        4. テストの実行・確認
+        5. 変更内容の説明
