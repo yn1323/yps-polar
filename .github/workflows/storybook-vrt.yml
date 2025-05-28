@@ -218,7 +218,8 @@ jobs:
       - name: Create comments
         uses: mshick/add-pr-comment@v2
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           message: |
             🦈 Storybook VRT Report 🦈
-            [VRT Report](https://yn1323.github.io/yps-polar/vrt-report/${{ github.ref_name }})
-            [Storybook](https://yn1323.github.io/yps-polar/storybook/${{ github.ref_name }})
+            [VRT Report](https://yn1323.github.io/yps-polar/vrt-report/${{ github.head_ref }})
+            [Storybook](https://yn1323.github.io/yps-polar/storybook/${{ github.head_ref }})
