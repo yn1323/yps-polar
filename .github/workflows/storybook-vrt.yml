@@ -183,6 +183,8 @@ jobs:
           retention-days: 10
 
   upload-to-github-pages:
+    permissions:
+      contents: write
     needs: run_reg_suit
     runs-on: ubuntu-latest
     timeout-minutes: 30
