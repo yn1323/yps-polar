@@ -11,17 +11,17 @@ import { expect, test } from '@playwright/test';
 
 test.describe('サイドメニューナビゲーションテスト', () => {
   test.beforeEach(async ({ page }) => {
-    // ログインしてダッシュボードに移動
+    // ログインしてマイページに移動
     await login(page);
     
     // ユーザー登録が必要な場合は実行
     if (page.url().includes('/config/user')) {
       await registerUser(page);
-      await page.waitForURL('/dashboard');
+      await page.waitForURL('/mypage');
     }
     
-    // ダッシュボードにいることを確認
-    await expect(page).toHaveURL(/.*\/dashboard.*/);
+    // マイページにいることを確認
+    await expect(page).toHaveURL(/.*\/mypage.*/);
   });
 
   navigationTestCases.forEach(({ buttonText, url, expectedHeading }) => {
@@ -44,12 +44,11 @@ test.describe('サイドメニューナビゲーションテスト', () => {
   test('サイドメニューのアクティブ状態が正しく表示される', async ({ page }) => {
     // 各ページに移動してアクティブボタンのスタイルを確認
     const activeTestCases = [
-      { buttonText: 'ユーザー管理', url: '/users' },
-      { buttonText: '商品管理', url: '/products' },
-      { buttonText: '注文管理', url: '/orders' },
-      { buttonText: 'レポート', url: '/reports' },
+      { buttonText: 'シフト', url: '/shifts' },
+      { buttonText: '勤怠記録', url: '/attendance' },
+      { buttonText: 'タイムカード', url: '/timecard' },
       { buttonText: '設定', url: '/settings' },
-      { buttonText: 'ダッシュボード', url: '/dashboard' }, // 最後にダッシュボードに戻る
+      { buttonText: 'マイページ', url: '/mypage' }, // 最後にマイページに戻る
     ];
 
     for (const { buttonText, url } of activeTestCases) {
@@ -77,7 +76,7 @@ test.describe('サイドメニューナビゲーションテスト', () => {
     await page.getByRole('button', { name: 'ログアウト' }).click();
     
     // ログアウト後は認証が必要なページにアクセスできないことを確認
-    await page.goto('/dashboard');
+    await page.goto('/mypage');
     await page.waitForURL('**/signin**');
     expect(page.url()).toContain('/signin');
   });

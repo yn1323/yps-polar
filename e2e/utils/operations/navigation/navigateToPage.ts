@@ -8,11 +8,10 @@ export interface NavigationTestCase {
 }
 
 export const navigationTestCases: NavigationTestCase[] = [
-  { buttonText: 'ダッシュボード', url: '/dashboard', expectedHeading: 'ダッシュボード' },
-  { buttonText: 'ユーザー管理', url: '/users', expectedHeading: 'ユーザー管理' },
-  { buttonText: '商品管理', url: '/products', expectedHeading: '商品管理' },
-  { buttonText: '注文管理', url: '/orders', expectedHeading: '注文管理' },
-  { buttonText: 'レポート', url: '/reports', expectedHeading: 'レポート' },
+  { buttonText: 'マイページ', url: '/mypage', expectedHeading: 'マイページ' },
+  { buttonText: 'シフト', url: '/shifts', expectedHeading: 'シフト' },
+  { buttonText: '勤怠記録', url: '/attendance', expectedHeading: '勤怠記録' },
+  { buttonText: 'タイムカード', url: '/timecard', expectedHeading: 'タイムカード' },
   { buttonText: '設定', url: '/settings', expectedHeading: '設定' },
 ];
 

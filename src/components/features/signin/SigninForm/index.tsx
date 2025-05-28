@@ -38,7 +38,7 @@ export const SigninForm = () => {
         description: 'ログインに成功しました',
         type: 'success',
       });
-      redirect('/dashboard');
+      redirect('/mypage');
     } else {
       toaster.create({
         description: 'ログインに失敗しました',
