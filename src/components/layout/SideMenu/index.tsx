@@ -1,24 +1,23 @@
 'use client';
 
-import { Signout } from '@/src/components/features/Signout';
+import { signout } from '@/src/components/features/Signout/actions';
 import { Box, VStack, Text, Button, Spacer, Flex } from '@chakra-ui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
-  FcHome, 
   FcBusinessman, 
-  FcShop, 
-  FcDebt, 
-  FcBarChart, 
-  FcSettings 
+  FcCalendar, 
+  FcClock, 
+  FcDocument, 
+  FcSettings,
+  FcExport
 } from 'react-icons/fc';
 
 const menuItems = [
-  { href: '/dashboard', label: 'ダッシュボード', icon: FcHome },
-  { href: '/users', label: 'ユーザー管理', icon: FcBusinessman },
-  { href: '/products', label: '商品管理', icon: FcShop },
-  { href: '/orders', label: '注文管理', icon: FcDebt },
-  { href: '/reports', label: 'レポート', icon: FcBarChart },
+  { href: '/mypage', label: 'マイページ', icon: FcBusinessman },
+  { href: '/shifts', label: 'シフト', icon: FcCalendar },
+  { href: '/attendance', label: '勤怠記録', icon: FcClock },
+  { href: '/timecard', label: 'タイムカード', icon: FcDocument },
   { href: '/settings', label: '設定', icon: FcSettings },
 ];
 
@@ -66,9 +65,18 @@ export const SideMenu = () => {
         
         <Spacer />
         
-        <Box>
-          <Signout />
-        </Box>
+        <Button
+          width="full"
+          variant="ghost"
+          justifyContent="flex-start"
+          colorPalette="red"
+          onClick={signout}
+        >
+          <Flex align="center" gap="2">
+            <FcExport size={20} />
+            <Text>ログアウト</Text>
+          </Flex>
+        </Button>
       </VStack>
     </Box>
   );
