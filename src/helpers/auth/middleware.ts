@@ -84,7 +84,7 @@ export async function updateSession(request: NextRequest) {
   // 認証あり + 認証操作なしページを見ようとしている
   if (user && authOperationPaths.includes(request.nextUrl.pathname)) {
     const url = request.nextUrl.clone();
-    url.pathname = '/dashboard';
+    url.pathname = '/mypage';
     return NextResponse.redirect(url);
   }
 

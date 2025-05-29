@@ -13,7 +13,7 @@ test.describe('ログイン時のユーザー登録フロー', () => {
     expect(page.url()).toContain('/config/user');
 
     await registerUser(page);
-    await page.waitForURL('/dashboard');
-    expect(page.url()).toContain('/dashboard');
+    await page.waitForURL('/mypage');
+    expect(page.url()).toContain('/mypage');
   });
 });

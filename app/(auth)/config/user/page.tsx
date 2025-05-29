@@ -9,7 +9,7 @@ export default async function Page() {
   return (
     <Animation>
       <Center h="100vh">
-        <UserForm userId={userId} callbackRoutingPath="/dashboard" />
+        <UserForm userId={userId} callbackRoutingPath="/mypage" />
       </Center>
     </Animation>
   );

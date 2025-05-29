@@ -32,7 +32,7 @@ test.describe('認証関連のページ遷移テスト', () => {
     expect(page.url()).toContain('/signin/forget');
 
     // 認証が必要なページへのアクセス (リダイレクトあり)
-    await page.goto('/dashboard');
+    await page.goto('/mypage');
     // 未認証なので /signin にリダイレクトされる
     await page.waitForURL('**/signin**');
     expect(page.url()).toContain('/signin');
