@@ -4,19 +4,11 @@ title: "[AI Docs] "
 labels: ["documentation", "ai-request"]
 assignees: []
 body:
-  - type: markdown
-    attributes:
-      value: |
-        ## AIドキュメント作成・更新依頼
-        
-        このテンプレートは、AIにドキュメントの作成・更新を依頼する際に使用してください。
-        ドキュメントの目的と対象読者を明確にすることで、AIがより適切なドキュメントを作成できます。
-        
   - type: input
     id: doc_summary
     attributes:
       label: ドキュメントの概要
-      description: 作成・更新したいドキュメントの簡潔な説明
+      description: 作成・更新したいドキュメント
       placeholder: "例: 新規ユーザー向けの認証機能の使い方ガイド"
     validations:
       required: true
@@ -24,19 +16,14 @@ body:
   - type: dropdown
     id: doc_type
     attributes:
-      label: ドキュメントの種類
-      description: 作成・更新するドキュメントの種類を選択してください
+      label: ドキュメント種類
       options:
         - 📖 API仕様書
-        - 🚀 セットアップ・インストールガイド
+        - 🚀 セットアップガイド
         - 👥 ユーザーマニュアル
         - 🛠️ 開発者ガイド
-        - 🏗️ アーキテクチャ設計書
-        - 🧪 テストガイド
-        - 🔧 トラブルシューティング
-        - 📋 コード説明・コメント
+        - 📋 コード説明
         - 🎯 機能仕様書
-        - 📈 リリースノート
     validations:
       required: true
       
@@ -44,25 +31,10 @@ body:
     id: doc_action
     attributes:
       label: アクション
-      description: ドキュメントに対する操作を選択してください
       options:
         - ➕ 新規作成
-        - ✏️ 既存ドキュメントの更新
-        - 🔄 既存ドキュメントの刷新
-        - 🗂️ 複数ドキュメントの統合
-    validations:
-      required: true
-      
-  - type: textarea
-    id: target_audience
-    attributes:
-      label: 対象読者
-      description: このドキュメントを読む人について
-      placeholder: |
-        - 開発者（経験レベル）
-        - エンドユーザー
-        - システム管理者
-        - プロジェクトマネージャー
+        - ✏️ 既存更新
+        - 🔄 刷新
     validations:
       required: true
       
@@ -76,29 +48,17 @@ body:
         - 手順・使い方
         - コード例
         - 注意事項
-        - FAQ
-        - 参考資料
     validations:
       required: true
       
   - type: textarea
     id: related_files
     attributes:
-      label: 関連ファイル・コンポーネント
-      description: ドキュメント作成に関連するファイルやコンポーネント
+      label: 関連ファイル
+      description: ドキュメント作成に関連するファイル
       placeholder: |
         - src/components/auth/LoginForm.tsx
-        - app/api/auth/route.ts
         - 既存のREADME.md
-    validations:
-      required: false
-      
-  - type: input
-    id: doc_location
-    attributes:
-      label: ドキュメント配置場所
-      description: ドキュメントを配置する場所（既存の場合は現在の場所）
-      placeholder: "例: docs/auth-guide.md, README.md, src/components/UserForm/README.md"
     validations:
       required: false
       
@@ -106,64 +66,23 @@ body:
     id: detail_level
     attributes:
       label: 詳細レベル
-      description: ドキュメントの詳細度を選択してください
       options:
-        - 📖 詳細 (初心者向け・ステップバイステップ)
-        - 📋 標準 (一般的なレベル)
-        - ⚡ 簡潔 (要点のみ・経験者向け)
+        - 📖 詳細 (初心者向け)
+        - 📋 標準 (一般レベル)
+        - ⚡ 簡潔 (要点のみ)
     validations:
       required: true
-      
-  - type: checkboxes
-    id: doc_features
-    attributes:
-      label: ドキュメント機能
-      description: ドキュメントに含めたい要素を選択してください
-      options:
-        - label: 💻 コード例・サンプル
-        - label: 🖼️ 図・画像
-        - label: 📊 表・一覧
-        - label: ⚠️ 注意事項・警告
-        - label: 💡 ヒント・Tips
-        - label: 🔗 外部リンク
-        - label: 📋 チェックリスト
-        - label: ❓ FAQ
-        
-  - type: textarea
-    id: existing_docs
-    attributes:
-      label: 既存ドキュメント情報
-      description: 更新の場合、現在のドキュメントの問題点や不足している情報
-      placeholder: |
-        - 古い情報が含まれている
-        - 手順が不明確
-        - コード例が動作しない
-        - 新機能の説明が不足
-    validations:
-      required: false
       
   - type: textarea
     id: additional_context
     attributes:
       label: 追加情報
-      description: その他AIが知っておくべき情報
-      placeholder: |
-        - 参考にしたいドキュメント
-        - プロジェクトの方針
-        - ブランディング・トーン
-        - 制約事項
+      description: その他の要件や制約
+      placeholder: "例: 対象読者、配置場所、スタイルガイドなど"
     validations:
       required: false
       
   - type: markdown
     attributes:
       value: |
-        ## AI指示
-        
         **@claude** 上記の要件に基づいてドキュメントを作成・更新してください。
-        
-        以下の手順で実施をお願いします：
-        1. 既存ドキュメントの確認（更新の場合）
-        2. ドキュメント構成の計画
-        3. ドキュメントの作成・更新
-        4. 内容の確認・校正
