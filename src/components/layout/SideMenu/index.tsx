@@ -1,6 +1,6 @@
 'use client';
 
-import { Signout } from '@/src/components/features/Signout';
+import { signout } from '@/src/components/features/Signout/actions';
 import { Box, VStack, Text, Button, Spacer, Flex } from '@chakra-ui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -9,7 +9,8 @@ import {
   FcCalendar, 
   FcClock, 
   FcDocument, 
-  FcSettings 
+  FcSettings,
+  FcExport
 } from 'react-icons/fc';
 
 const menuItems = [
@@ -64,9 +65,18 @@ export const SideMenu = () => {
         
         <Spacer />
         
-        <Box>
-          <Signout />
-        </Box>
+        <Button
+          width="full"
+          variant="ghost"
+          justifyContent="flex-start"
+          colorPalette="red"
+          onClick={signout}
+        >
+          <Flex align="center" gap="2">
+            <FcExport size={20} />
+            <Text>ログアウト</Text>
+          </Flex>
+        </Button>
       </VStack>
     </Box>
   );
