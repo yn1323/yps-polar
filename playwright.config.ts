@@ -34,7 +34,15 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
+      name: 'setup',
+      testMatch: '**/login/initialRegister.test.ts',
+      fullyParallel: false,
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
       name: 'chromium',
+      dependencies: ['setup'],
+      testIgnore: '**/login/initialRegister.test.ts',
       use: { ...devices['Desktop Chrome'] },
     },
 
