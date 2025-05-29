@@ -1,0 +1,1 @@
+import{j as a}from"./split-props-DmF7O8iz.js";import{c as i,r as s}from"./server-BzV9elE6.js";import{h as t}from"./index-DErkXTPI.js";import{B as n}from"./button-DkNkTOHc.js";async function e(){const r=await i(),{error:o}=await r.auth.signOut();o&&t("/error"),s("/","layout"),t("/")}const f=()=>a.jsx(n,{onClick:e,children:"Signout"});export{f as S};
