@@ -10,7 +10,8 @@ import {
   FcClock, 
   FcDocument, 
   FcSettings,
-  FcExport
+  FcExport,
+  FcPortraitMode
 } from 'react-icons/fc';
 
 const menuItems = [
@@ -18,6 +19,7 @@ const menuItems = [
   { href: '/shifts', label: 'シフト', icon: FcCalendar },
   { href: '/attendance', label: '勤怠記録', icon: FcClock },
   { href: '/timecard', label: 'タイムカード', icon: FcDocument },
+  { href: '/config/user', label: 'ユーザー設定', icon: FcPortraitMode },
   { href: '/settings', label: '設定', icon: FcSettings },
 ];
 
