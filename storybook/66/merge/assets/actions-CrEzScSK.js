@@ -1,0 +1,1 @@
+import{c as o,r as s}from"./server-BWySQ-MK.js";import{h as a}from"./index-DErkXTPI.js";async function n(){const t=await o(),{error:r}=await t.auth.signOut();r&&a("/error"),s("/","layout"),a("/")}export{n as s};
