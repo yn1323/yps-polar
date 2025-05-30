@@ -94,6 +94,7 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: mshick/add-pr-comment@v2
         with:
+          message-id: playwright
           message: |
             🎭 Playwright Test Report 🎭
             [Playwright Report](https://yn1323.github.io/yps-polar/playwright/${{ github.ref_name }})
