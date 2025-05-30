@@ -11,14 +11,22 @@ export const navigationTestCases: NavigationTestCase[] = [
   { buttonText: 'マイページ', url: '/mypage', expectedHeading: 'マイページ' },
   { buttonText: 'シフト', url: '/shifts', expectedHeading: 'シフト' },
   { buttonText: '勤怠記録', url: '/attendance', expectedHeading: '勤怠記録' },
-  { buttonText: 'タイムカード', url: '/timecard', expectedHeading: 'タイムカード' },
+  {
+    buttonText: 'タイムカード',
+    url: '/timecard',
+    expectedHeading: 'タイムカード',
+  },
   { buttonText: '設定', url: '/settings', expectedHeading: '設定' },
 ];
 
 /**
  * サイドメニューのボタンをクリックして指定されたページに遷移する
  */
-export const navigateViaSideMenu = async (page: Page, buttonText: string, expectedUrl: string) => {
+export const navigateViaSideMenu = async (
+  page: Page,
+  buttonText: string,
+  expectedUrl: string,
+) => {
   await page.getByRole('button', { name: buttonText }).click();
   await page.waitForURL(`**${expectedUrl}**`);
   expect(page.url()).toContain(expectedUrl);
@@ -34,8 +42,13 @@ export const navigateDirectly = async (page: Page, url: string) => {
 /**
  * ページの見出しが正しく表示されていることを確認する
  */
-export const verifyPageHeading = async (page: Page, expectedHeading: string) => {
-  await expect(page.getByRole('heading', { name: expectedHeading })).toBeVisible();
+export const verifyPageHeading = async (
+  page: Page,
+  expectedHeading: string,
+) => {
+  await expect(
+    page.getByRole('heading', { name: expectedHeading }),
+  ).toBeVisible();
 };
 
 /**
