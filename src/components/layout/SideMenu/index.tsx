@@ -1,6 +1,5 @@
 'use client';
 
-import { signout } from '@/src/components/features/Signout/actions';
 import { Box, Button, Text, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -12,6 +11,7 @@ import {
   FcSettings,
 } from 'react-icons/fc';
 import { IoLogOut } from 'react-icons/io5';
+import { signout } from './actions';
 
 const menuItems = [
   { href: '/mypage', label: 'マイページ', icon: FcBusinessman },

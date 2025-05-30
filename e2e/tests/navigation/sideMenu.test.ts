@@ -10,7 +10,11 @@ const navigationTestCases = [
   { buttonText: 'マイページ', url: '/mypage', expectedHeading: 'マイページ' },
   { buttonText: 'シフト', url: '/shifts', expectedHeading: 'シフト' },
   { buttonText: '勤怠記録', url: '/attendance', expectedHeading: '勤怠記録' },
-  { buttonText: 'タイムカード', url: '/timecard', expectedHeading: 'タイムカード' },
+  {
+    buttonText: 'タイムカード',
+    url: '/timecard',
+    expectedHeading: 'タイムカード',
+  },
   { buttonText: '設定', url: '/settings', expectedHeading: '設定' },
 ];
 
@@ -35,22 +39,29 @@ test.describe('サイドメニューナビゲーションテスト', () => {
     for (const { buttonText, url, expectedHeading } of otherPages) {
       await navigateViaSideMenu(page, buttonText, url);
 
-      await expect(page.getByRole('heading', { name: expectedHeading })).toBeVisible();
-      await expect(page.getByRole('button', { name: buttonText })).toBeVisible();
+      await expect(
+        page.getByRole('heading', { name: expectedHeading }),
+      ).toBeVisible();
+      await expect(
+        page.getByRole('button', { name: buttonText }),
+      ).toBeVisible();
       expect(page.url()).toContain(url);
     }
 
     // マイページに戻って確認
     await navigateViaSideMenu(page, 'マイページ', '/mypage');
-    await expect(page.getByRole('heading', { name: 'マイページ' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'マイページ' })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'マイページ' }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('button', { name: 'マイページ' }),
+    ).toBeVisible();
     expect(page.url()).toContain('/mypage');
   });
 
   test('ログアウト機能が動作する', async ({ page }) => {
     await clickLogoutButton(page);
 
-    await page.waitForURL('**/signin**');
-    expect(page.url()).toContain('/signin');
+    await page.waitForURL('/');
   });
 });

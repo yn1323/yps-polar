@@ -24,4 +24,13 @@ export const login = async (page: Page) => {
       name: 'メールアドレスでログイン',
     })
     .click();
+
+  // ログイン後、/config/user または /mypage のいずれかに遷移するのを待つ
+  await page.waitForFunction(
+    () => {
+      const url = window.location.pathname;
+      return url.includes('/config/user') || url.includes('/mypage');
+    },
+    { timeout: 10000 },
+  );
 };

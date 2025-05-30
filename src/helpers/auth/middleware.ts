@@ -135,7 +135,10 @@ export async function updateSession(request: NextRequest) {
     }
 
     // ユーザー登録状態をヘッダーに追加
-    supabaseResponse.headers.set('x-user-registered', alreadyRegistered.toString());
+    supabaseResponse.headers.set(
+      'x-user-registered',
+      alreadyRegistered.toString(),
+    );
 
     // 未登録ユーザーが /config 以外へアクセスしようとしたら /config へリダイレクト
     if (!alreadyRegistered && !isUserConfigPath) {
