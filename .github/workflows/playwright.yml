@@ -4,6 +4,10 @@ on:
   pull_request:
     branches: [develop]
 
+concurrency:
+  group: e2e-tests-global
+  cancel-in-progress: false
+
 jobs:
   e2e:
     env:
