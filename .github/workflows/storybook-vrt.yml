@@ -216,6 +216,7 @@ jobs:
       - name: Create comments
         uses: mshick/add-pr-comment@v2
         with:
+          message-id: storybook
           message: |
             🦈 Storybook VRT Report 🦈
             [VRT Report](https://yn1323.github.io/yps-polar/vrt-report/${{ github.ref_name }})
