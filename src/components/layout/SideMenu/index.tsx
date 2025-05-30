@@ -9,7 +9,6 @@ import {
   FcCalendar,
   FcClock,
   FcDocument,
-  FcPortraitMode,
   FcSettings,
 } from 'react-icons/fc';
 import { IoLogOut } from 'react-icons/io5';
@@ -19,7 +18,6 @@ const menuItems = [
   { href: '/shifts', label: 'シフト', icon: FcCalendar },
   { href: '/attendance', label: '勤怠記録', icon: FcClock },
   { href: '/timecard', label: 'タイムカード', icon: FcDocument },
-  { href: '/config/user', label: 'ユーザー設定', icon: FcPortraitMode },
   { href: '/settings', label: '設定', icon: FcSettings },
 ];
 
