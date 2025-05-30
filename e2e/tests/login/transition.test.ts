@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { logout } from '../utils/operations/auth/logout';
+import { logout } from '../../utils/operations/auth/logout';
 
 test.describe('認証関連のページ遷移テスト', () => {
   test('認証フォーム間の遷移', async ({ page }) => {

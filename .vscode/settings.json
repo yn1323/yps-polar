@@ -31,5 +31,7 @@
       "filePath": "src\\helpers\\auth\\middleware.ts",
       "group": "Default"
     }
-  ]
+  ],
+  "claude-code.context.autoGenerate": true,
+  "claude-code.context.updateTrigger": "onSave"
 }
