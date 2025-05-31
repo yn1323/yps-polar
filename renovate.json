@@ -13,7 +13,7 @@
     },
     {
       "addLabels": ["Storybook"],
-      "matchPackageNames": ["/@storybook/"]
+      "matchPackageNames": ["/@storybook/", "@chromatic-com/storybook"]
     },
     {
       "addLabels": ["playwright"],
