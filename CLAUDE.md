@@ -106,6 +106,12 @@ TEST_USER_NAME="testuser"
 - **対象範囲**: status, log, diff, branch, checkout, add, commit, push等
 - **実行原則**: 開発効率を最優先、迅速な操作実行
 
+#### GitHub操作・コミュニケーション
+- **PR作成・コメント**: 日本語で記述（タイトル、説明、コメント）
+- **Issue作成**: 日本語で記述（タイトル、説明、ラベル等）
+- **コミットメッセージ**: 英語で記述（既存ルール維持）
+- **GitHub CLI操作**: 自動化されたワークフローで日本語対応
+
 #### カスタムコマンド
 - **利用可能コマンド**: commit, push, new-branch, refactor, pr-review, pr-fix
 - **設定ファイル**: `.claude/commands.json`, `.claude/custom-commands.md`
