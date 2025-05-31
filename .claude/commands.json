@@ -1,4 +1,20 @@
 {
+  "metadata": {
+    "version": "1.0.0",
+    "description": "YPS-Polar Custom Commands for automated development workflows",
+    "baseActions": {
+      "git_status_check": {
+        "action": "bash",
+        "command": "git status",
+        "description": "Check current git status"
+      },
+      "git_diff_develop": {
+        "action": "bash", 
+        "command": "git diff develop...HEAD",
+        "description": "Show changes since branching from develop"
+      }
+    }
+  },
   "commands": {
     "commit": {
       "description": "Git commit with automatic staging and message generation",
@@ -32,7 +48,7 @@
         }
       ]
     },
-    "pr": {
+    "push": {
       "description": "Push to remote and create GitHub Pull Request",
       "steps": [
         {
@@ -42,12 +58,12 @@
         },
         {
           "action": "bash",
-          "command": "git diff main...HEAD",
-          "description": "Show all changes since branching from main"
+          "command": "git diff develop...HEAD",
+          "description": "Show all changes since branching from develop"
         },
         {
           "action": "bash",
-          "command": "git log main...HEAD --oneline",
+          "command": "git log develop...HEAD --oneline",
           "description": "Show commit history for PR"
         },
         {
@@ -90,6 +106,114 @@
           "action": "bash",
           "command": "git status",
           "description": "Confirm new branch creation"
+        }
+      ]
+    },
+    "refactor": {
+      "description": "Refactor code changes made in current branch",
+      "steps": [
+        {
+          "action": "bash",
+          "command": "git diff develop...HEAD --name-only",
+          "description": "List changed files in current branch"
+        },
+        {
+          "action": "analyze_changes",
+          "description": "Analyze changes for refactoring opportunities"
+        },
+        {
+          "action": "identify_patterns",
+          "description": "Identify code patterns, duplications, and improvements"
+        },
+        {
+          "action": "apply_refactoring",
+          "description": "Apply refactoring improvements to code"
+        },
+        {
+          "action": "verify_functionality",
+          "description": "Verify refactored code maintains functionality"
+        },
+        {
+          "action": "commit_refactoring",
+          "description": "Commit refactoring changes with descriptive message"
+        }
+      ]
+    },
+    "pr-review": {
+      "description": "Review GitHub PR and post detailed review comments with collapsible sections",
+      "steps": [
+        {
+          "action": "bash",
+          "command": "gh pr view --json title,body,headRefName,baseRefName,state,commits,changedFiles",
+          "description": "Get comprehensive PR information"
+        },
+        {
+          "action": "bash",
+          "command": "git diff develop...HEAD --name-only",
+          "description": "List all changed files"
+        },
+        {
+          "action": "bash",
+          "command": "git log develop..HEAD --oneline",
+          "description": "Get commit history for context"
+        },
+        {
+          "action": "analyze_files_individually",
+          "description": "Analyze each changed file for code quality and issues"
+        },
+        {
+          "action": "identify_line_specific_issues",
+          "description": "Identify specific line numbers with issues for inline comments"
+        },
+        {
+          "action": "generate_summary_review",
+          "description": "Generate concise summary with overall assessment and star rating"
+        },
+        {
+          "action": "generate_detailed_sections",
+          "description": "Generate detailed review sections using collapsible <details> tags"
+        },
+        {
+          "action": "post_main_review_comment",
+          "description": "Post main review comment with summary and collapsible details"
+        },
+        {
+          "action": "post_inline_comments",
+          "description": "Post specific line-level comments using gh pr review for targeted feedback"
+        }
+      ]
+    },
+    "pr-fix": {
+      "description": "Fix issues raised in PR review comments",
+      "steps": [
+        {
+          "action": "bash",
+          "command": "gh pr view --json number",
+          "description": "Get current PR number"
+        },
+        {
+          "action": "fetch_review_comments",
+          "description": "Fetch all review comments and feedback"
+        },
+        {
+          "action": "categorize_issues",
+          "description": "Categorize and prioritize review feedback"
+        },
+        {
+          "action": "implement_fixes",
+          "description": "Implement fixes for each review comment"
+        },
+        {
+          "action": "verify_fixes",
+          "description": "Verify fixes address the original concerns"
+        },
+        {
+          "action": "commit_fixes",
+          "description": "Commit fixes with reference to review comments"
+        },
+        {
+          "action": "update_pr",
+          "description": "Push fixes and update PR"
         }
       ]
     }

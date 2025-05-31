@@ -10,8 +10,25 @@
       "mcp__puppeteer__puppeteer_click",
       "mcp__puppeteer__puppeteer_evaluate",
       "Bash(mkdir:*)",
-      "Bash(git add:*)"
+      "Bash(cat:*)",
+      "Bash(grep:*)",
+      "Bash(git add:*)",
+      "Bash(git checkout:*)",
+      "Bash(git pull:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr edit:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr comment:*)",
+      "Bash(gh pr review:*)",
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr edit:*)",
+      "Bash(npm i:*)"
     ],
     "deny": []
-  }
+  },
+  "enableAllProjectMcpServers": false
 }

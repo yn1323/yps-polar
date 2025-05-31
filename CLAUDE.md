@@ -99,6 +99,24 @@ TEST_USER_NAME="testuser"
   3. 「メールアドレスでログイン」ボタンクリック
   4. マイページ画面への遷移確認
 
+### 開発ツール利用ガイドライン
+
+#### Git操作
+- **基本方針**: Gitコマンドは確認なしで自由に実行可能
+- **対象範囲**: status, log, diff, branch, checkout, add, commit, push等
+- **実行原則**: 開発効率を最優先、迅速な操作実行
+
+#### GitHub操作・コミュニケーション
+- **PR作成・コメント**: 日本語で記述（タイトル、説明、コメント）
+- **Issue作成**: 日本語で記述（タイトル、説明、ラベル等）
+- **コミットメッセージ**: 英語で記述（既存ルール維持）
+- **GitHub CLI操作**: 自動化されたワークフローで日本語対応
+
+#### カスタムコマンド
+- **利用可能コマンド**: commit, push, new-branch, refactor, pr-review, pr-fix
+- **設定ファイル**: `.claude/commands.json`, `.claude/custom-commands.md`
+- **権限管理**: `.claude/settings.local.json` で自動管理
+
 ### GitHub環境での前提条件
 
 #### Claude Code Action利用時
