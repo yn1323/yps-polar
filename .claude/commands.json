@@ -32,7 +32,7 @@
         }
       ]
     },
-    "pr": {
+    "push": {
       "description": "Push to remote and create GitHub Pull Request",
       "steps": [
         {
@@ -42,12 +42,12 @@
         },
         {
           "action": "bash",
-          "command": "git diff main...HEAD",
-          "description": "Show all changes since branching from main"
+          "command": "git diff develop...HEAD",
+          "description": "Show all changes since branching from develop"
         },
         {
           "action": "bash",
-          "command": "git log main...HEAD --oneline",
+          "command": "git log develop...HEAD --oneline",
           "description": "Show commit history for PR"
         },
         {
