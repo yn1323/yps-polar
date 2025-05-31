@@ -3,25 +3,27 @@
     "allow": [
       "Bash(pnpm e2e:*)",
       "Bash(lsof:*)",
-
       "mcp__puppeteer__puppeteer_connect_active_tab",
       "mcp__puppeteer__puppeteer_navigate",
       "mcp__puppeteer__puppeteer_screenshot",
       "mcp__puppeteer__puppeteer_fill",
       "mcp__puppeteer__puppeteer_click",
       "mcp__puppeteer__puppeteer_evaluate",
-
       "Bash(mkdir:*)",
       "Bash(cat:*)",
       "Bash(grep:*)",
-
       "Bash(git add:*)",
       "Bash(git checkout:*)",
       "Bash(git pull:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(gh pr view:*)",
-      "Bash(gh pr edit:*)"
+      "Bash(gh pr edit:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr comment:*)",
+      "Bash(gh pr review:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }

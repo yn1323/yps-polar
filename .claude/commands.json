@@ -140,32 +140,46 @@
       ]
     },
     "pr-review": {
-      "description": "Review GitHub PR and post review comments",
+      "description": "Review GitHub PR and post detailed review comments with collapsible sections",
       "steps": [
         {
           "action": "bash",
-          "command": "gh pr view --json number,headRepository",
-          "description": "Get current PR information"
+          "command": "gh pr view --json title,body,headRefName,baseRefName,state,commits,changedFiles",
+          "description": "Get comprehensive PR information"
         },
         {
-          "action": "fetch_pr_details",
-          "description": "Fetch PR diff and file changes"
+          "action": "bash",
+          "command": "git diff develop...HEAD --name-only",
+          "description": "List all changed files"
         },
         {
-          "action": "analyze_code_quality",
-          "description": "Analyze code quality, patterns, and potential issues"
+          "action": "bash",
+          "command": "git log develop..HEAD --oneline",
+          "description": "Get commit history for context"
         },
         {
-          "action": "check_best_practices",
-          "description": "Check adherence to coding standards and best practices"
+          "action": "analyze_files_individually",
+          "description": "Analyze each changed file for code quality and issues"
         },
         {
-          "action": "generate_review_comments",
-          "description": "Generate constructive review comments"
+          "action": "identify_line_specific_issues",
+          "description": "Identify specific line numbers with issues for inline comments"
         },
         {
-          "action": "post_review_comments",
-          "description": "Post review comments on GitHub PR using gh cli"
+          "action": "generate_summary_review",
+          "description": "Generate concise summary with overall assessment and star rating"
+        },
+        {
+          "action": "generate_detailed_sections",
+          "description": "Generate detailed review sections using collapsible <details> tags"
+        },
+        {
+          "action": "post_main_review_comment",
+          "description": "Post main review comment with summary and collapsible details"
+        },
+        {
+          "action": "post_inline_comments",
+          "description": "Post specific line-level comments using gh pr review for targeted feedback"
         }
       ]
     },
