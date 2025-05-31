@@ -1,29 +1,27 @@
 {
   "permissions": {
     "allow": [
-      // E2E Testing
       "Bash(pnpm e2e:*)",
       "Bash(lsof:*)",
-      
-      // Puppeteer MCP Operations
+
       "mcp__puppeteer__puppeteer_connect_active_tab",
       "mcp__puppeteer__puppeteer_navigate",
       "mcp__puppeteer__puppeteer_screenshot",
       "mcp__puppeteer__puppeteer_fill",
       "mcp__puppeteer__puppeteer_click",
       "mcp__puppeteer__puppeteer_evaluate",
-      
-      // File System Operations
+
       "Bash(mkdir:*)",
       "Bash(cat:*)",
       "Bash(grep:*)",
-      
-      // Git Operations
+
       "Bash(git add:*)",
       "Bash(git checkout:*)",
       "Bash(git pull:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr edit:*)"
     ],
     "deny": []
   }
