@@ -56,6 +56,30 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 🤖 Generated with [Claude Code](https://claude.ai/code)
 ```
 
+### 3. `new-branch` - 新規ブランチ作成自動化
+**機能**: 最新のdevelopブランチから日付ベースの新規ブランチを作成
+
+**実行手順**:
+```bash
+# Claude Codeで以下のように指示
+"new-branchコマンドを実行してください"
+```
+
+**処理フロー**:
+1. `git status` で現在の状態を確認
+2. `develop` ブランチに切り替え
+3. `git pull origin develop` で最新の変更を取得
+4. 現在の日付でブランチ名を生成（`fix/YYYY-MM-DD` 形式）
+5. 新規ブランチを作成してチェックアウト
+6. ブランチ作成の確認
+
+**生成されるブランチ名例**:
+```
+fix/2025-05-31
+fix/2025-06-01
+...
+```
+
 ## 📋 実行時の注意点
 
 ### commitコマンド
@@ -67,6 +91,12 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 - ⚠️ PRタイトルは最初のコミットメッセージから自動生成
 - ⚠️ ベースブランチは `develop` ブランチ
 - ⚠️ ブランチがすでにリモートに存在する場合は強制プッシュしない
+
+### new-branchコマンド
+- ⚠️ 必ず最新の `develop` ブランチから分岐
+- ⚠️ ブランチ名は `fix/YYYY-MM-DD` 形式で自動生成
+- ⚠️ 未コミットの変更がある場合は事前に確認
+- ⚠️ 既存の同名ブランチがある場合はエラー
 
 ## 🔧 カスタマイズ
 

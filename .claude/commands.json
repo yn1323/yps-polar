@@ -59,6 +59,39 @@
           "description": "Create GitHub Pull Request with generated summary"
         }
       ]
+    },
+    "new-branch": {
+      "description": "Create new branch from latest develop with date-based naming",
+      "steps": [
+        {
+          "action": "bash",
+          "command": "git status",
+          "description": "Check current git status"
+        },
+        {
+          "action": "bash",
+          "command": "git checkout develop",
+          "description": "Switch to develop branch"
+        },
+        {
+          "action": "bash",
+          "command": "git pull origin develop",
+          "description": "Pull latest changes from develop"
+        },
+        {
+          "action": "generate_branch_name",
+          "description": "Generate branch name with current date (fix/YYYY-MM-DD format)"
+        },
+        {
+          "action": "create_and_checkout_branch",
+          "description": "Create new branch and checkout"
+        },
+        {
+          "action": "bash",
+          "command": "git status",
+          "description": "Confirm new branch creation"
+        }
+      ]
     }
   }
 }
