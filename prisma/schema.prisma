@@ -54,6 +54,7 @@ model Shop {
   submitFrequency String
   avatar          String
   useTimeCard     Boolean
+  description     String?                     // マネージャー向け店舗メモ
   organization    OrganizationShopBelonging[]
   user            ShopUserBelonging[]
   operation       Operation[]

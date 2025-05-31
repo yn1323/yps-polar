@@ -13,51 +13,47 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { 
-  HiPlus, 
-  HiOfficeBuilding, 
-  HiClock,
-  HiCalendar,
-  HiClipboardCheck,
-  HiCog,
+import {
   HiBell,
+  HiCalendar,
+  HiChevronRight,
+  HiExclamation,
+  HiOfficeBuilding,
+  HiPlay,
+  HiPlus,
+  HiStop,
   HiUser,
   HiUserGroup,
-  HiPlay,
-  HiPause,
-  HiStop,
-  HiExclamation,
-  HiChevronRight
 } from 'react-icons/hi';
 
 // 動的データ生成関数
 const generateShiftsFromToday = () => {
   const today = new Date();
   const shifts = [];
-  
+
   for (let i = 0; i < 7; i++) {
     const date = new Date(today);
     date.setDate(today.getDate() + i);
     const dayNames = ['日', '月', '火', '水', '木', '金', '土'];
     const dateString = `${date.getMonth() + 1}/${date.getDate()}(${dayNames[date.getDay()]})`;
-    
+
     // ランダムでシフトを生成（70%の確率でシフトあり）
     if (Math.random() > 0.3) {
       const startHours = [9, 10, 13, 14, 15];
       const workHours = [6, 7, 8];
       const start = startHours[Math.floor(Math.random() * startHours.length)];
-      const end = start + workHours[Math.floor(Math.random() * workHours.length)];
-      shifts.push({ 
-        date: dateString, 
+      const end =
+        start + workHours[Math.floor(Math.random() * workHours.length)];
+      shifts.push({
+        date: dateString,
         time: `${start.toString().padStart(2, '0')}:00-${end.toString().padStart(2, '0')}:00`,
         startTime: `${start.toString().padStart(2, '0')}:00`,
-        endTime: `${end.toString().padStart(2, '0')}:00`
+        endTime: `${end.toString().padStart(2, '0')}:00`,
       });
     }
   }
-  
+
   return shifts.slice(0, 3); // 最大3つまで
 };
 
@@ -99,41 +95,49 @@ export default function MyPage() {
   const today = new Date();
   const todayString = `${today.getMonth() + 1}/${today.getDate()}(${['日', '月', '火', '水', '木', '金', '土'][today.getDay()]})`;
   const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-  
+
   // 今日と明日の勤務予定を取得
-  const todayShifts = mockShops.filter(shop => 
-    shop.shifts.some(shift => shift.date === todayString)
-  ).map(shop => ({
-    ...shop,
-    todayShift: shop.shifts.find(shift => shift.date === todayString)
-  }));
-  
+  const todayShifts = mockShops
+    .filter((shop) => shop.shifts.some((shift) => shift.date === todayString))
+    .map((shop) => ({
+      ...shop,
+      todayShift: shop.shifts.find((shift) => shift.date === todayString),
+    }));
+
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
   const tomorrowString = `${tomorrow.getMonth() + 1}/${tomorrow.getDate()}(${['日', '月', '火', '水', '木', '金', '土'][tomorrow.getDay()]})`;
-  const tomorrowShifts = mockShops.filter(shop => 
-    shop.shifts.some(shift => shift.date === tomorrowString)
+  const tomorrowShifts = mockShops.filter((shop) =>
+    shop.shifts.some((shift) => shift.date === tomorrowString),
   );
-  
+
   // 勤務状態の判定
   const getWorkStatus = (shift) => {
     if (!shift) return 'off';
     const [startTime] = shift.startTime.split(':').map(Number);
     const [endTime] = shift.endTime.split(':').map(Number);
     const currentHour = now.getHours();
-    
+
     if (currentHour < startTime - 1) return 'before'; // 出勤1時間前まで
     if (currentHour < startTime) return 'soon'; // 出勤1時間前
     if (currentHour <= endTime) return 'working'; // 勤務中
     return 'finished'; // 勤務終了
   };
-  
+
   const todayMainShift = todayShifts[0];
-  const workStatus = todayMainShift ? getWorkStatus(todayMainShift.todayShift) : 'off';
-  
+  const workStatus = todayMainShift
+    ? getWorkStatus(todayMainShift.todayShift)
+    : 'off';
+
   // 緊急通知の総数
-  const totalUrgentNotifications = mockShops.reduce((sum, shop) => sum + shop.urgentNotifications, 0);
-  const totalPendingRequests = mockShops.reduce((sum, shop) => sum + (shop.role === 'manager' ? shop.pendingRequests : 0), 0);
+  const totalUrgentNotifications = mockShops.reduce(
+    (sum, shop) => sum + shop.urgentNotifications,
+    0,
+  );
+  const totalPendingRequests = mockShops.reduce(
+    (sum, shop) => sum + (shop.role === 'manager' ? shop.pendingRequests : 0),
+    0,
+  );
 
   return (
     <Animation>
@@ -151,26 +155,39 @@ export default function MyPage() {
             </Box>
           </Flex>
 
-
           {/* スマート勤務ダッシュボード */}
           <Stack gap={4}>
             {/* 今日の勤務状態 */}
-            <Card.Root 
-              variant="subtle" 
-              colorPalette={workStatus === 'off' ? 'gray' : workStatus === 'working' ? 'green' : 'teal'}
+            <Card.Root
+              variant="subtle"
+              colorPalette={
+                workStatus === 'off'
+                  ? 'gray'
+                  : workStatus === 'working'
+                    ? 'green'
+                    : 'teal'
+              }
             >
               <Card.Body>
                 <Flex justify="space-between" align="center">
                   <Box>
                     <Flex align="center" gap={2} mb={2}>
-                      <Text fontSize="sm" color="gray.600">本日の勤務</Text>
-                      {workStatus === 'working' && <HiPlay size={16} color="green" />}
-                      {workStatus === 'soon' && <HiExclamation size={16} color="orange" />}
+                      <Text fontSize="sm" color="gray.600">
+                        本日の勤務
+                      </Text>
+                      {workStatus === 'working' && (
+                        <HiPlay size={16} color="green" />
+                      )}
+                      {workStatus === 'soon' && (
+                        <HiExclamation size={16} color="orange" />
+                      )}
                     </Flex>
-                    
+
                     {workStatus === 'off' ? (
                       <>
-                        <Text fontSize="2xl" fontWeight="bold">お疲れさまでした！</Text>
+                        <Text fontSize="2xl" fontWeight="bold">
+                          お疲れさまでした！
+                        </Text>
                         <Text fontSize="md" color="gray.600" mt={1}>
                           今日はゆっくり休んでください ✨
                         </Text>
@@ -201,23 +218,28 @@ export default function MyPage() {
                       </>
                     )}
                   </Box>
-                  
+
                   <Stack gap={2}>
                     {workStatus !== 'off' && (
-                      <Button 
-                        onClick={() => router.push('/timecard')} 
-                        colorPalette={workStatus === 'working' ? 'red' : 'teal'} 
+                      <Button
+                        onClick={() => router.push('/timecard')}
+                        colorPalette={workStatus === 'working' ? 'red' : 'teal'}
                         size="lg"
                       >
-                        {workStatus === 'working' ? <HiStop size={20} /> : <HiPlay size={20} />}
+                        {workStatus === 'working' ? (
+                          <HiStop size={20} />
+                        ) : (
+                          <HiPlay size={20} />
+                        )}
                         {workStatus === 'working' ? '退勤' : '出勤'}
                       </Button>
                     )}
-                    
-                    {(totalUrgentNotifications > 0 || totalPendingRequests > 0) && (
-                      <Button 
-                        variant="outline" 
-                        colorPalette="orange" 
+
+                    {(totalUrgentNotifications > 0 ||
+                      totalPendingRequests > 0) && (
+                      <Button
+                        variant="outline"
+                        colorPalette="orange"
                         size="sm"
                         onClick={() => router.push('/notifications')}
                       >
@@ -229,16 +251,27 @@ export default function MyPage() {
                 </Flex>
               </Card.Body>
             </Card.Root>
-            
+
             {/* 明日の予定プレビュー */}
             {tomorrowShifts.length > 0 && (
-              <Card.Root bg="blue.50" borderLeft="4px solid" borderColor="blue.400">
+              <Card.Root
+                bg="blue.50"
+                borderLeft="4px solid"
+                borderColor="blue.400"
+              >
                 <Card.Body py={3}>
                   <Flex justify="space-between" align="center">
                     <Box>
-                      <Text fontSize="sm" fontWeight="medium" color="blue.700">明日の勤務予定</Text>
+                      <Text fontSize="sm" fontWeight="medium" color="blue.700">
+                        明日の勤務予定
+                      </Text>
                       <Text fontSize="md" color="blue.600">
-                        {tomorrowShifts[0].shopName} - {tomorrowShifts[0].shifts.find(s => s.date === tomorrowString)?.time}
+                        {tomorrowShifts[0].shopName} -{' '}
+                        {
+                          tomorrowShifts[0].shifts.find(
+                            (s) => s.date === tomorrowString,
+                          )?.time
+                        }
                       </Text>
                     </Box>
                     <Button variant="ghost" size="sm" colorPalette="blue">
@@ -259,27 +292,57 @@ export default function MyPage() {
                   <HiBell style={{ display: 'inline', marginRight: '8px' }} />
                   お知らせ
                 </Heading>
-                <Text fontSize="sm" color="gray.500">すべて見る</Text>
+                <Text fontSize="sm" color="gray.500">
+                  すべて見る
+                </Text>
               </Flex>
             </Card.Header>
             <Card.Body>
               <Stack gap={3}>
-                <Box p={3} bg="blue.50" borderRadius="md" borderLeft="4px solid" borderColor="blue.500">
+                <Box
+                  p={3}
+                  bg="blue.50"
+                  borderRadius="md"
+                  borderLeft="4px solid"
+                  borderColor="blue.500"
+                >
                   <Flex justify="space-between" align="start">
                     <Box flex={1}>
-                      <Text fontWeight="medium" mb={1}>【重要】年末年始の営業について</Text>
-                      <Text fontSize="sm" color="gray.600">12/31〜1/3は全店舗休業となります</Text>
+                      <Text fontWeight="medium" mb={1}>
+                        【重要】年末年始の営業について
+                      </Text>
+                      <Text fontSize="sm" color="gray.600">
+                        12/31〜1/3は全店舗休業となります
+                      </Text>
                     </Box>
-                    <Text fontSize="xs" color="gray.500" whiteSpace="nowrap" ml={3}>2日前</Text>
+                    <Text
+                      fontSize="xs"
+                      color="gray.500"
+                      whiteSpace="nowrap"
+                      ml={3}
+                    >
+                      2日前
+                    </Text>
                   </Flex>
                 </Box>
                 <Box p={3} bg="gray.50" borderRadius="md">
                   <Flex justify="space-between" align="start">
                     <Box flex={1}>
-                      <Text fontWeight="medium" mb={1}>シフト提出のお願い</Text>
-                      <Text fontSize="sm" color="gray.600">来月のシフト提出期限は今週金曜日です</Text>
+                      <Text fontWeight="medium" mb={1}>
+                        シフト提出のお願い
+                      </Text>
+                      <Text fontSize="sm" color="gray.600">
+                        来月のシフト提出期限は今週金曜日です
+                      </Text>
                     </Box>
-                    <Text fontSize="xs" color="gray.500" whiteSpace="nowrap" ml={3}>4日前</Text>
+                    <Text
+                      fontSize="xs"
+                      color="gray.500"
+                      whiteSpace="nowrap"
+                      ml={3}
+                    >
+                      4日前
+                    </Text>
                   </Flex>
                 </Box>
               </Stack>
@@ -324,7 +387,11 @@ export default function MyPage() {
                             {shop.shopName}
                           </Heading>
                           <Flex align="center" gap={1}>
-                            {shop.role === 'manager' ? <HiUser size={14} /> : <HiUserGroup size={14} />}
+                            {shop.role === 'manager' ? (
+                              <HiUser size={14} />
+                            ) : (
+                              <HiUserGroup size={14} />
+                            )}
                             <Text
                               fontSize="sm"
                               color={
@@ -362,21 +429,58 @@ export default function MyPage() {
                                   align="center"
                                   p={2}
                                   borderRadius="md"
-                                  bg={isToday ? 'teal.50' : isTomorrow ? 'blue.50' : 'transparent'}
-                                  borderLeft={isToday || isTomorrow ? '3px solid' : 'none'}
-                                  borderColor={isToday ? 'teal.500' : isTomorrow ? 'blue.400' : 'transparent'}
+                                  bg={
+                                    isToday
+                                      ? 'teal.50'
+                                      : isTomorrow
+                                        ? 'blue.50'
+                                        : 'transparent'
+                                  }
+                                  borderLeft={
+                                    isToday || isTomorrow ? '3px solid' : 'none'
+                                  }
+                                  borderColor={
+                                    isToday
+                                      ? 'teal.500'
+                                      : isTomorrow
+                                        ? 'blue.400'
+                                        : 'transparent'
+                                  }
                                 >
                                   <Flex align="center" gap={2}>
-                                    <Text fontSize="sm" color={isToday ? 'teal.700' : isTomorrow ? 'blue.600' : 'gray.600'}>
+                                    <Text
+                                      fontSize="sm"
+                                      color={
+                                        isToday
+                                          ? 'teal.700'
+                                          : isTomorrow
+                                            ? 'blue.600'
+                                            : 'gray.600'
+                                      }
+                                    >
                                       {shift.date}
                                     </Text>
-                                    {isToday && <Text fontSize="xs" color="teal.500">今日</Text>}
-                                    {isTomorrow && <Text fontSize="xs" color="blue.500">明日</Text>}
+                                    {isToday && (
+                                      <Text fontSize="xs" color="teal.500">
+                                        今日
+                                      </Text>
+                                    )}
+                                    {isTomorrow && (
+                                      <Text fontSize="xs" color="blue.500">
+                                        明日
+                                      </Text>
+                                    )}
                                   </Flex>
                                   <Text
                                     fontSize="sm"
                                     fontWeight={isToday ? 'bold' : 'medium'}
-                                    color={isToday ? 'teal.700' : isTomorrow ? 'blue.600' : 'gray.700'}
+                                    color={
+                                      isToday
+                                        ? 'teal.700'
+                                        : isTomorrow
+                                          ? 'blue.600'
+                                          : 'gray.700'
+                                    }
                                   >
                                     {shift.time}
                                   </Text>
@@ -396,11 +500,14 @@ export default function MyPage() {
                           スタッフ数: {shop.staffCount}名
                         </Text>
                         <Flex align="center" gap={2}>
-                          {(shop.pendingRequests > 0 || shop.urgentNotifications > 0) && (
+                          {(shop.pendingRequests > 0 ||
+                            shop.urgentNotifications > 0) && (
                             <Flex align="center" gap={1}>
                               <HiExclamation size={12} color="orange" />
                               <Text fontSize="xs" color="orange.600">
-                                {shop.pendingRequests + shop.urgentNotifications}件
+                                {shop.pendingRequests +
+                                  shop.urgentNotifications}
+                                件
                               </Text>
                             </Flex>
                           )}
