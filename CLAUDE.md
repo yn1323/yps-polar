@@ -70,9 +70,38 @@ pnpm install
 - **更新タイミング**: 新概念発生時・既存概念変更時に自動更新
 - **相違確認**: ユーザー指摘が既存内容と異なる場合は確認を取る
 
-## 🚀 GitHub環境での前提条件
+## 🚀 開発環境・ツール設定
 
-### Claude Code Action利用時
+### ローカル環境URL一覧
+| サービス | URL | 起動コマンド | 用途 |
+|----------|-----|-------------|------|
+| Next.js開発サーバー | `http://localhost:3000` | `pnpm dev` | メインアプリケーション |
+| Storybook | `http://localhost:6006` | `pnpm storybook` | コンポーネントカタログ |
+| Prisma Studio | `http://localhost:5555` | `pnpm prisma:studio` | データベース管理UI |
+| Supabase API | `http://127.0.0.1:54321` | - | ローカルSupabase API |
+| Supabase Studio | `http://127.0.0.1:54323` | - | データベース管理 |
+| PostgreSQL | `localhost:54322` | - | ローカルDB接続 |
+
+### テストユーザー情報（.env設定）
+```bash
+TEST_USER_EMAIL="test@test.com"
+TEST_USER_PASSWORD="testtest"
+TEST_USER_ID="9030f440-5dfb-4146-a1d9-3a453320fa9c"
+TEST_USER_NAME="testuser"
+```
+
+### Puppeteer MCP 利用ガイドライン
+- **基本方針**: Puppeteer MCPコマンドは自由に実行可能
+- **推奨用途**: UI動作確認、ログインテスト、画面遷移確認
+- **ログイン手順**:
+  1. `/signin` ページに移動
+  2. メールアドレス・パスワード入力
+  3. 「メールアドレスでログイン」ボタンクリック
+  4. マイページ画面への遷移確認
+
+### GitHub環境での前提条件
+
+#### Claude Code Action利用時
 - **環境変数**: 基本的に存在するものとして扱う
 - **.envファイル**: アップロード不可だが、実行可能前提でコード確認
 - **実行環境**: 本番環境で動作している状態として判断

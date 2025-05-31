@@ -1,0 +1,64 @@
+{
+  "commands": {
+    "commit": {
+      "description": "Git commit with automatic staging and message generation",
+      "steps": [
+        {
+          "action": "bash",
+          "command": "git status",
+          "description": "Check current git status"
+        },
+        {
+          "action": "bash",
+          "command": "git diff",
+          "description": "Show unstaged changes"
+        },
+        {
+          "action": "bash",
+          "command": "git log --oneline -5",
+          "description": "Show recent commit history for message style"
+        },
+        {
+          "action": "stage_changes",
+          "description": "Stage relevant changes for commit"
+        },
+        {
+          "action": "generate_commit_message",
+          "description": "Generate appropriate commit message based on changes"
+        },
+        {
+          "action": "git_commit",
+          "description": "Execute git commit with generated message"
+        }
+      ]
+    },
+    "pr": {
+      "description": "Push to remote and create GitHub Pull Request",
+      "steps": [
+        {
+          "action": "bash",
+          "command": "git status",
+          "description": "Check current branch status"
+        },
+        {
+          "action": "bash",
+          "command": "git diff main...HEAD",
+          "description": "Show all changes since branching from main"
+        },
+        {
+          "action": "bash",
+          "command": "git log main...HEAD --oneline",
+          "description": "Show commit history for PR"
+        },
+        {
+          "action": "push_branch",
+          "description": "Push current branch to remote"
+        },
+        {
+          "action": "create_pr",
+          "description": "Create GitHub Pull Request with generated summary"
+        }
+      ]
+    }
+  }
+}

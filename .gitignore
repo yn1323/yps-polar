@@ -61,3 +61,9 @@ prisma/generated
 # vrt
 .reg
 __screenshots__
+
+# logs
+/logs/
+
+# claude config (keep custom commands)
+!.claude/
