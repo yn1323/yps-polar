@@ -217,7 +217,7 @@
         }
       ]
     },
-    "doc": {
+    "doc-update": {
       "description": "Update CLAUDE.md documentation with design decisions, specifications, and important rules from conversation context",
       "steps": [
         {

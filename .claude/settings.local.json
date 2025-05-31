@@ -35,7 +35,9 @@
       "Bash(chmod:*)",
       "Bash(node:*)",
       "Bash(mv:*)",
-      "Bash(rmdir:*)"
+      "Bash(rmdir:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm build:*)"
     ],
     "deny": []
   },

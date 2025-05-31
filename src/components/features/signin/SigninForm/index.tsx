@@ -1,9 +1,9 @@
 'use client';
-
 import {
   login,
   signinWithGoogle,
 } from '@/src/components/features/signin/SigninForm/actions';
+import { AUTH_ERROR_MESSAGES } from '@/src/constants/auth';
 import { toaster } from '@/src/components/ui/toaster';
 import {
   Box,
@@ -32,6 +32,7 @@ export const SigninForm = () => {
     resolver: zodResolver(schema),
   });
 
+
   const signinCallback = (success: boolean) => {
     if (success) {
       toaster.create({
@@ -53,8 +54,17 @@ export const SigninForm = () => {
   };
 
   const onClickGoogleSignin = async () => {
-    const { success } = await signinWithGoogle();
-    signinCallback(success);
+    const result = await signinWithGoogle();
+    
+    if (result.success && result.redirectUrl) {
+      // Google OAuth URLにリダイレクト
+      window.location.href = result.redirectUrl;
+    } else {
+      toaster.create({
+        description: result.error || AUTH_ERROR_MESSAGES.GOOGLE_AUTH_START_FAILED,
+        type: 'error',
+      });
+    }
   };
 
   return (
