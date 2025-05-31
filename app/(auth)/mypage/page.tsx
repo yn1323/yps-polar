@@ -112,15 +112,23 @@ export default function MyPage() {
   );
 
   // 勤務状態の判定
-  const getWorkStatus = (shift) => {
-    if (!shift) return 'off';
+  const getWorkStatus = (shift?: { startTime: string; endTime: string }) => {
+    if (!shift) {
+      return 'off';
+    }
     const [startTime] = shift.startTime.split(':').map(Number);
     const [endTime] = shift.endTime.split(':').map(Number);
     const currentHour = now.getHours();
 
-    if (currentHour < startTime - 1) return 'before'; // 出勤1時間前まで
-    if (currentHour < startTime) return 'soon'; // 出勤1時間前
-    if (currentHour <= endTime) return 'working'; // 勤務中
+    if (currentHour < startTime - 1) {
+      return 'before'; // 出勤1時間前まで
+    }
+    if (currentHour < startTime) {
+      return 'soon'; // 出勤1時間前
+    }
+    if (currentHour <= endTime) {
+      return 'working'; // 勤務中
+    }
     return 'finished'; // 勤務終了
   };
 
@@ -528,4 +536,4 @@ export default function MyPage() {
       </Container>
     </Animation>
   );
-}
+};
