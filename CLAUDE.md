@@ -287,47 +287,110 @@ pnpm install
 - **スマートマイページダッシュボード**（Ultra UX実装完了）
 
 ### 実装中
-- 店舗招待機能
-  - ✅ DBスキーマ（ShopInvitation, InvitationUse）
-  - 🚧 招待URL画面（/invite/[token]）
-  - 🚧 管理者用招待作成機能
-  - 🚧 招待メール送信API
 - Google認証（一時的に無効化中）
+
+### 完了済み（最新）
+- **店舗招待機能（シングルユース設計）**
+  - ✅ DBスキーマ（ShopInvitation, InvitationUse）
+  - ✅ Ultra UX招待管理画面（/shops/[id]/invite）
+  - ✅ シングルユース招待モデル（1回限り使用）
+  - ✅ メール招待とURL招待の2つの方法
+  - ✅ 直感的なステップガイド付きUI
+- **ダークモード完全対応**
+  - ✅ 全店舗関連ページ（詳細・編集・招待）
+  - ✅ Chakra UI v3テーマトークン活用
 
 ### 未実装
 - シフト管理機能
 - タイムカード機能
-- 通知機能
 
-## 🏪 店舗招待機能仕様
+---
 
-### 概要
-マネージャーが招待URLを発行し、スタッフを店舗に招待する機能
+## 🎯 店舗招待システム設計仕様
 
-### 招待フロー
-1. マネージャーが招待メールを送信
-2. スタッフがメール内のURLをクリック
-3. 「〇〇店に所属登録しますか？」確認画面
-4. 承諾 → アカウント作成 or 既存アカウントでログイン
-5. 自動的に店舗に紐づけ
+### 📋 シングルユース招待モデル
 
-### 仕様詳細
-- **有効期限**: 30日間
-- **複数店舗対応**: 既存ユーザーも追加店舗に参加可能
-- **招待URL形式**: `https://example.com/invite/{token}`
+#### 基本コンセプト
+- **1つの招待URL = 1回のみ使用可能**
+- 使用後は自動的に無効化
+- 30日間の有効期限
+- 複数スタッフ招待時は個別招待が必要
 
-### 画面設計
-#### 未ログイン時
-- 店舗情報表示
-- 「新規登録して参加」「ログインして参加」ボタン
+#### 招待方法の階層設計
+```
+推奨：メール招待
+├─ 相手のメールアドレスが分かる場合
+├─ 確実に本人に届けたい場合
+└─ 1対1で招待したい場合
 
-#### ログイン済み時
-- 「〇〇店に参加しますか？」
-- 「参加する」「キャンセル」ボタン
+その他：招待URL生成
+├─ LINE・Slackなどで送りたい場合
+├─ メールアドレスが分からない場合
+└─ 面接時に直接渡したい場合
+```
 
-#### エラーケース
-- 期限切れ: 「この招待リンクは有効期限が切れています」
-- 既に参加済み: 「すでにこの店舗に参加しています」
+#### UI/UX特徴
+- **カード式レイアウト**: 推奨度による視覚的階層
+- **ステップガイド**: 複雑な操作を段階的に案内
+- **状態表示**: 未使用・使用済みの明確な区別
+- **注意喚起**: 1回限り使用の重要性を強調
+
+#### ファイル構成
+```
+app/(auth)/shops/[id]/
+├── page.tsx           # 店舗詳細（招待状況表示）
+├── edit/page.tsx      # 店舗設定編集
+└── invite/page.tsx    # 招待管理（Ultra UX実装）
+```
+
+#### データベース設計
+```sql
+ShopInvitation
+├── id (UUID)
+├── token (UUID, unique)
+├── shopId (店舗ID)
+├── expiresAt (有効期限)
+├── createdBy (作成者)
+└── usedBy[] (InvitationUse relationship)
+
+InvitationUse
+├── invitationId (招待ID)
+├── userId (使用者ID)
+└── usedAt (使用日時)
+```
+
+### 🎨 UXパターン実装
+
+#### エラーハンドリングパターン
+```typescript
+// ✅ 推奨: ユーザーフレンドリーなメッセージ
+const onClickGoogleSignin = async () => {
+  const result = await signinWithGoogle();
+  
+  if (result.success && result.redirectUrl) {
+    window.location.href = result.redirectUrl;
+  } else {
+    toaster.create({
+      description: result.error || 'Google認証の開始に失敗しました',
+      type: 'error',
+    });
+  }
+};
+```
+
+#### ダークモード対応パターン
+```typescript
+// ✅ 推奨: Chakra UI v3テーマトークン
+<Text 
+  fontSize="sm" 
+  bg="blue.50" 
+  p={3} 
+  borderRadius="md"
+  _dark={{ bg: 'blue.900', color: 'blue.100' }}
+>
+  {shop.description}
+</Text>
+```
 
 ## 🎨 フロントエンド開発ガイドライン
 
