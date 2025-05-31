@@ -157,7 +157,7 @@ export default function MyPage() {
               <Heading size="2xl" mb={2}>
                 こんにちは、{userName}さん！
               </Heading>
-              <Text color="gray.600">
+              <Text color="fg.muted">
                 {todayString} - 今日も一日がんばりましょう！✨
               </Text>
             </Box>
@@ -180,7 +180,7 @@ export default function MyPage() {
                 <Flex justify="space-between" align="center">
                   <Box>
                     <Flex align="center" gap={2} mb={2}>
-                      <Text fontSize="sm" color="gray.600">
+                      <Text fontSize="sm" color="fg.muted">
                         本日の勤務
                       </Text>
                       {workStatus === 'working' && (
@@ -196,7 +196,7 @@ export default function MyPage() {
                         <Text fontSize="2xl" fontWeight="bold">
                           お疲れさまでした！
                         </Text>
-                        <Text fontSize="md" color="gray.600" mt={1}>
+                        <Text fontSize="md" color="fg.muted" mt={1}>
                           今日はゆっくり休んでください ✨
                         </Text>
                       </>
@@ -206,10 +206,10 @@ export default function MyPage() {
                           {todayMainShift?.shopName}
                         </Text>
                         <Flex align="center" gap={4} mt={2}>
-                          <Text fontSize="lg" color="gray.700">
+                          <Text fontSize="lg" color="fg">
                             {todayMainShift?.todayShift?.time}
                           </Text>
-                          <Text fontSize="sm" color="gray.500">
+                          <Text fontSize="sm" color="fg.muted">
                             現在 {currentTime}
                           </Text>
                         </Flex>
@@ -266,14 +266,15 @@ export default function MyPage() {
                 bg="blue.50"
                 borderLeft="4px solid"
                 borderColor="blue.400"
+                _dark={{ bg: 'blue.900' }}
               >
                 <Card.Body py={3}>
                   <Flex justify="space-between" align="center">
                     <Box>
-                      <Text fontSize="sm" fontWeight="medium" color="blue.700">
+                      <Text fontSize="sm" fontWeight="medium" color="blue.700" _dark={{ color: 'blue.200' }}>
                         明日の勤務予定
                       </Text>
-                      <Text fontSize="md" color="blue.600">
+                      <Text fontSize="md" color="blue.600" _dark={{ color: 'blue.300' }}>
                         {tomorrowShifts[0].shopName} -{' '}
                         {
                           tomorrowShifts[0].shifts.find(
@@ -300,7 +301,7 @@ export default function MyPage() {
                   <HiBell style={{ display: 'inline', marginRight: '8px' }} />
                   お知らせ
                 </Heading>
-                <Text fontSize="sm" color="gray.500">
+                <Text fontSize="sm" color="fg.muted">
                   すべて見る
                 </Text>
               </Flex>
@@ -313,19 +314,20 @@ export default function MyPage() {
                   borderRadius="md"
                   borderLeft="4px solid"
                   borderColor="blue.500"
+                  _dark={{ bg: 'blue.900' }}
                 >
                   <Flex justify="space-between" align="start">
                     <Box flex={1}>
-                      <Text fontWeight="medium" mb={1}>
+                      <Text fontWeight="medium" mb={1} _dark={{ color: 'blue.100' }}>
                         【重要】年末年始の営業について
                       </Text>
-                      <Text fontSize="sm" color="gray.600">
+                      <Text fontSize="sm" color="blue.600" _dark={{ color: 'blue.200' }}>
                         12/31〜1/3は全店舗休業となります
                       </Text>
                     </Box>
                     <Text
                       fontSize="xs"
-                      color="gray.500"
+                      color="fg.muted"
                       whiteSpace="nowrap"
                       ml={3}
                     >
@@ -333,19 +335,19 @@ export default function MyPage() {
                     </Text>
                   </Flex>
                 </Box>
-                <Box p={3} bg="gray.50" borderRadius="md">
+                <Box p={3} bg="bg.muted" borderRadius="md">
                   <Flex justify="space-between" align="start">
                     <Box flex={1}>
                       <Text fontWeight="medium" mb={1}>
                         シフト提出のお願い
                       </Text>
-                      <Text fontSize="sm" color="gray.600">
+                      <Text fontSize="sm" color="fg.muted">
                         来月のシフト提出期限は今週金曜日です
                       </Text>
                     </Box>
                     <Text
                       fontSize="xs"
-                      color="gray.500"
+                      color="fg.muted"
                       whiteSpace="nowrap"
                       ml={3}
                     >
@@ -405,7 +407,7 @@ export default function MyPage() {
                               color={
                                 shop.role === 'manager'
                                   ? 'teal.600'
-                                  : 'gray.600'
+                                  : 'fg.muted'
                               }
                               fontWeight="medium"
                             >
@@ -463,7 +465,7 @@ export default function MyPage() {
                                           ? 'teal.700'
                                           : isTomorrow
                                             ? 'blue.600'
-                                            : 'gray.600'
+                                            : 'fg.muted'
                                       }
                                     >
                                       {shift.date}
@@ -487,7 +489,7 @@ export default function MyPage() {
                                         ? 'teal.700'
                                         : isTomorrow
                                           ? 'blue.600'
-                                          : 'gray.700'
+                                          : 'fg'
                                     }
                                   >
                                     {shift.time}
@@ -496,7 +498,7 @@ export default function MyPage() {
                               );
                             })
                           ) : (
-                            <Text fontSize="sm" color="gray.400">
+                            <Text fontSize="sm" color="fg.muted">
                               予定されているシフトはありません
                             </Text>
                           )}
@@ -504,7 +506,7 @@ export default function MyPage() {
                       </Box>
 
                       <Flex justify="space-between" align="center">
-                        <Text fontSize="sm" color="gray.600">
+                        <Text fontSize="sm" color="fg.muted">
                           スタッフ数: {shop.staffCount}名
                         </Text>
                         <Flex align="center" gap={2}>
