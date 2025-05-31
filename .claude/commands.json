@@ -1,4 +1,20 @@
 {
+  "metadata": {
+    "version": "1.0.0",
+    "description": "YPS-Polar Custom Commands for automated development workflows",
+    "baseActions": {
+      "git_status_check": {
+        "action": "bash",
+        "command": "git status",
+        "description": "Check current git status"
+      },
+      "git_diff_develop": {
+        "action": "bash", 
+        "command": "git diff develop...HEAD",
+        "description": "Show changes since branching from develop"
+      }
+    }
+  },
   "commands": {
     "commit": {
       "description": "Git commit with automatic staging and message generation",
@@ -90,6 +106,100 @@
           "action": "bash",
           "command": "git status",
           "description": "Confirm new branch creation"
+        }
+      ]
+    },
+    "refactor": {
+      "description": "Refactor code changes made in current branch",
+      "steps": [
+        {
+          "action": "bash",
+          "command": "git diff develop...HEAD --name-only",
+          "description": "List changed files in current branch"
+        },
+        {
+          "action": "analyze_changes",
+          "description": "Analyze changes for refactoring opportunities"
+        },
+        {
+          "action": "identify_patterns",
+          "description": "Identify code patterns, duplications, and improvements"
+        },
+        {
+          "action": "apply_refactoring",
+          "description": "Apply refactoring improvements to code"
+        },
+        {
+          "action": "verify_functionality",
+          "description": "Verify refactored code maintains functionality"
+        },
+        {
+          "action": "commit_refactoring",
+          "description": "Commit refactoring changes with descriptive message"
+        }
+      ]
+    },
+    "pr-review": {
+      "description": "Review GitHub PR and post review comments",
+      "steps": [
+        {
+          "action": "bash",
+          "command": "gh pr view --json number,headRepository",
+          "description": "Get current PR information"
+        },
+        {
+          "action": "fetch_pr_details",
+          "description": "Fetch PR diff and file changes"
+        },
+        {
+          "action": "analyze_code_quality",
+          "description": "Analyze code quality, patterns, and potential issues"
+        },
+        {
+          "action": "check_best_practices",
+          "description": "Check adherence to coding standards and best practices"
+        },
+        {
+          "action": "generate_review_comments",
+          "description": "Generate constructive review comments"
+        },
+        {
+          "action": "post_review_comments",
+          "description": "Post review comments on GitHub PR using gh cli"
+        }
+      ]
+    },
+    "pr-fix": {
+      "description": "Fix issues raised in PR review comments",
+      "steps": [
+        {
+          "action": "bash",
+          "command": "gh pr view --json number",
+          "description": "Get current PR number"
+        },
+        {
+          "action": "fetch_review_comments",
+          "description": "Fetch all review comments and feedback"
+        },
+        {
+          "action": "categorize_issues",
+          "description": "Categorize and prioritize review feedback"
+        },
+        {
+          "action": "implement_fixes",
+          "description": "Implement fixes for each review comment"
+        },
+        {
+          "action": "verify_fixes",
+          "description": "Verify fixes address the original concerns"
+        },
+        {
+          "action": "commit_fixes",
+          "description": "Commit fixes with reference to review comments"
+        },
+        {
+          "action": "update_pr",
+          "description": "Push fixes and update PR"
         }
       ]
     }
