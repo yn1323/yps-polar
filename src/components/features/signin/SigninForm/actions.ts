@@ -6,7 +6,6 @@ import type { SchemaType } from '@/src/components/features/signin/SigninForm/sch
 import { createClient } from '@/src/helpers/auth/server';
 import { createBaseUrl } from '@/src/helpers/utils/url';
 
-
 export const login = async ({ email, password }: SchemaType) => {
   const supabase = await createClient();
 
@@ -29,17 +28,17 @@ export const signinWithGoogle = async () => {
   if (typeof window !== 'undefined') {
     const urlParams = new URLSearchParams(window.location.search);
     const authError = urlParams.get('error');
-    
+
     if (authError === 'auth_failed') {
-      return { 
-        success: false, 
-        error: 'Google認証に失敗しました。再度お試しください。'
+      return {
+        success: false,
+        error: 'Google認証に失敗しました。再度お試しください。',
       };
     }
     if (authError) {
-      return { 
-        success: false, 
-        error: '認証エラーが発生しました。'
+      return {
+        success: false,
+        error: '認証エラーが発生しました。',
       };
     }
   }
@@ -50,7 +49,7 @@ export const signinWithGoogle = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${baseUrl}/auth/callback`,
+      redirectTo: `${baseUrl}/api/auth/callback`,
     },
   });
 
@@ -66,4 +65,3 @@ export const signinWithGoogle = async () => {
 
   return { success: false, error: 'OAuth URL not generated' };
 };
-

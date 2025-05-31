@@ -106,7 +106,8 @@ export const SigninForm = () => {
           </Button>
         </Stack>
 
-        <Flex alignItems="center" gap="6" mx="-2">
+        {/* Google認証は一時的に無効化 */}
+        {/* <Flex alignItems="center" gap="6" mx="-2">
           <Box flex="1" h="1px" bg="gray.300" />
           <Text>or</Text>
           <Box flex="1" h="1px" bg="gray.300" />
@@ -117,7 +118,7 @@ export const SigninForm = () => {
             <FcGoogle />
             <Text>Googleでログイン</Text>
           </Flex>
-        </Button>
+        </Button> */}
 
         <Stack
           w="full"
