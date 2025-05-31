@@ -99,6 +99,11 @@ TEST_USER_NAME="testuser"
   3. 「メールアドレスでログイン」ボタンクリック
   4. マイページ画面への遷移確認
 
+### Git操作ガイドライン
+- **基本方針**: Gitコマンドは確認なしで自由に実行可能
+- **対象範囲**: status, log, diff, branch, checkout, add, commit, push等
+- **実行原則**: 開発効率を最優先、迅速な操作実行
+
 ### GitHub環境での前提条件
 
 #### Claude Code Action利用時
