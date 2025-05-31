@@ -54,6 +54,7 @@ model Shop {
   submitFrequency String
   avatar          String
   useTimeCard     Boolean
+  description     String?                     // マネージャー向け店舗メモ
   organization    OrganizationShopBelonging[]
   user            ShopUserBelonging[]
   operation       Operation[]
@@ -66,6 +67,7 @@ model Shop {
   isDeleted       Boolean                     @default(false)
   createdAt       DateTime                    @default(now())
   Invitation      Invitation[]
+  shopInvitations ShopInvitation[]
 }
 
 model User {
@@ -81,6 +83,7 @@ model User {
   isDeleted     Boolean             @default(false)
   createdAt     DateTime            @default(now())
   Invitation    Invitation[]
+  invitationUses InvitationUse[]
 }
 
 model Invitation {
@@ -181,4 +184,30 @@ model Announce {
   shop           Shop         @relation(fields: [shopId], references: [id])
   isDeleted      Boolean      @default(false)
   createdAt      DateTime     @default(now())
+}
+
+model ShopInvitation {
+  id         String          @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  token      String          @unique @default(dbgenerated("uuid_generate_v4()"))
+  shopId     String          @db.Uuid
+  shop       Shop            @relation(fields: [shopId], references: [id])
+  expiresAt  DateTime
+  createdBy  String          // 管理者のuserId
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  usedBy     InvitationUse[]
+
+  @@index([token])
+  @@index([shopId])
+}
+
+model InvitationUse {
+  id           String         @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  invitationId String         @db.Uuid
+  invitation   ShopInvitation @relation(fields: [invitationId], references: [id])
+  userId       String         @db.Uuid
+  user         User           @relation(fields: [userId], references: [id])
+  usedAt       DateTime       @default(now())
+
+  @@unique([invitationId, userId])
 }

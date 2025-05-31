@@ -38,7 +38,13 @@
       "Bash(rmdir:*)",
       "Bash(pnpm lint:*)",
       "Bash(pnpm build:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(pnpm prisma migrate dev:*)",
+      "Bash(supabase status:*)",
+      "Bash(pnpm prisma migrate reset:*)",
+      "Bash(pnpm prisma:*)",
+      "Bash(pnpm type-check:*)",
+      "Bash(tail:*)"
     ],
     "deny": []
   },
@@ -46,4 +52,4 @@
   "puppeteer": {
     "screenshotPath": "./logs/screenshots"
   }
-}
+};

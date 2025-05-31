@@ -10,7 +10,8 @@ import {
   FcDocument,
   FcSettings,
 } from 'react-icons/fc';
-import { IoLogOut } from 'react-icons/io5';
+import { IoLogOut, IoMoon, IoSunny } from 'react-icons/io5';
+import { useColorMode } from '@/src/components/ui/color-mode';
 import { signout } from './actions';
 
 const menuItems = [
@@ -23,6 +24,7 @@ const menuItems = [
 
 export const SideMenu = () => {
   const pathname = usePathname();
+  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <Box
@@ -60,6 +62,19 @@ export const SideMenu = () => {
             );
           })}
         </VStack>
+        
+        {/* デバッグ用ダークモード切り替え */}
+        <Button
+          width="full"
+          variant="ghost"
+          justifyContent="flex-start"
+          colorPalette="blue"
+          onClick={toggleColorMode}
+        >
+          {colorMode === 'dark' ? <IoSunny size={20} /> : <IoMoon size={20} />}
+          {colorMode === 'dark' ? 'ライトモード' : 'ダークモード'}
+        </Button>
+        
         <Button
           width="full"
           variant="ghost"
