@@ -26,9 +26,24 @@
       "Bash(git add:*)",
       "Bash(git push:*)",
       "Bash(gh pr edit:*)",
-      "Bash(npm i:*)"
+      "Bash(npm i:*)",
+      "Bash(open:*)",
+      "Bash(pnpm dev:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(pnpm add:*)",
+      "Bash(chmod:*)",
+      "Bash(node:*)",
+      "Bash(mv:*)",
+      "Bash(rmdir:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm build:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   },
-  "enableAllProjectMcpServers": false
+  "enableAllProjectMcpServers": false,
+  "puppeteer": {
+    "screenshotPath": "./logs/screenshots"
+  }
 }

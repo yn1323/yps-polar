@@ -17,6 +17,7 @@
     "storybook:test": "test-storybook --url http://127.0.0.1:6006",
     "vrt": "reg-suit run",
     "prisma": "prisma",
+    "prisma generate": "pnpm prisma generate",
     "prisma:reset": "pnpm prisma db push --force-reset && pnpm prisma db seed",
     "prisma:studio": "pnpm prisma studio",
     "chromatic": "chromatic --exit-once-uploaded",

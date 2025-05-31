@@ -216,6 +216,31 @@
           "description": "Push fixes and update PR"
         }
       ]
+    },
+    "doc-update": {
+      "description": "Update CLAUDE.md documentation with design decisions, specifications, and important rules from conversation context",
+      "steps": [
+        {
+          "action": "analyze_conversation_context",
+          "description": "Analyze recent conversation for design decisions, specifications, and rules"
+        },
+        {
+          "action": "identify_key_information",
+          "description": "Identify important patterns: architecture decisions, coding standards, UI/UX guidelines, workflow rules"
+        },
+        {
+          "action": "categorize_documentation",
+          "description": "Categorize information into appropriate sections: design, implementation, rules, workflows"
+        },
+        {
+          "action": "update_claude_md",
+          "description": "Update CLAUDE.md with structured documentation following established format"
+        },
+        {
+          "action": "verify_documentation",
+          "description": "Verify documentation accuracy and completeness"
+        }
+      ]
     }
   }
 }

@@ -1,9 +1,5 @@
 'use client';
-
-import {
-  login,
-  signinWithGoogle,
-} from '@/src/components/features/signin/SigninForm/actions';
+import { login } from '@/src/components/features/signin/SigninForm/actions';
 import { toaster } from '@/src/components/ui/toaster';
 import {
   Box,
@@ -11,16 +7,13 @@ import {
   Card,
   Link as ChakraLink,
   Field,
-  Flex,
   Input,
   Stack,
-  Text,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { type SubmitHandler, useForm } from 'react-hook-form';
-import { FcGoogle } from 'react-icons/fc';
 import { type SchemaType, schema } from './schema';
 
 export const SigninForm = () => {
@@ -52,10 +45,19 @@ export const SigninForm = () => {
     signinCallback(success);
   };
 
-  const onClickGoogleSignin = async () => {
-    const { success } = await signinWithGoogle();
-    signinCallback(success);
-  };
+  // const onClickGoogleSignin = async () => {
+  //   const result = await signinWithGoogle();
+
+  //   if (result.success && result.redirectUrl) {
+  //     // Google OAuth URLにリダイレクト
+  //     window.location.href = result.redirectUrl;
+  //   } else {
+  //     toaster.create({
+  //       description: result.error || 'Google認証の開始に失敗しました',
+  //       type: 'error',
+  //     });
+  //   }
+  // };
 
   return (
     <Card.Root w="96" p="8">
@@ -97,7 +99,8 @@ export const SigninForm = () => {
           </Button>
         </Stack>
 
-        <Flex alignItems="center" gap="6" mx="-2">
+        {/* Google認証は一時的に無効化 */}
+        {/* <Flex alignItems="center" gap="6" mx="-2">
           <Box flex="1" h="1px" bg="gray.300" />
           <Text>or</Text>
           <Box flex="1" h="1px" bg="gray.300" />
@@ -108,7 +111,7 @@ export const SigninForm = () => {
             <FcGoogle />
             <Text>Googleでログイン</Text>
           </Flex>
-        </Button>
+        </Button> */}
 
         <Stack
           w="full"

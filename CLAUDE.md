@@ -42,6 +42,11 @@ pnpm install
 - ❌ 技術スタックバージョンの勝手な変更禁止  
 - ❌ UI/UX変更は事前承認必須 (レイアウト、色、フォント、間隔)
 
+### コードスタイルルール
+- ✅ **ファイル末尾の空行**: すべてのファイルの最後に改行を1つ追加する
+  - 対象: `.ts`, `.tsx`, `.js`, `.jsx`, `.md` など全ファイル
+  - 理由: コードの可読性向上、Git差分の明確化
+
 ### 実装フロー
 ```
 1. タスク分析     技術スタック確認、重複防止、既存機能整合性確認
@@ -123,3 +128,228 @@ TEST_USER_NAME="testuser"
 - **環境変数**: 基本的に存在するものとして扱う
 - **.envファイル**: アップロード不可だが、実行可能前提でコード確認
 - **実行環境**: 本番環境で動作している状態として判断
+
+---
+
+## 🔐 Google認証実装ガイド
+
+### 📋 実装アーキテクチャ
+
+#### Google OAuth フロー設計
+```
+1. フロントエンド: Googleログインボタンクリック
+2. Server Action: OAuth URL生成とリダイレクト先設定
+3. Google認証: ユーザーがGoogle側で認証
+4. コールバック: /auth/callback で認証コード処理
+5. セッション確立: Supabaseでユーザーセッション作成
+6. リダイレクト: /mypage へ自動遷移（mail&pass認証と同様）
+```
+
+#### ファイル構成
+```
+src/components/features/signin/SigninForm/
+├── actions.ts          # signinWithGoogle server action
+├── index.tsx          # UI コンポーネント (Google認証ボタン)
+└── schema.ts          # 型定義
+
+app/
+├── auth/callback/     # OAuth コールバック処理
+│   └── route.ts
+└── signin/
+    └── page.tsx       # エラーハンドリング付きサインインページ
+```
+
+### 🔧 実装仕様
+
+#### Server Action (`signinWithGoogle`)
+- **戻り値**: `Promise<GoogleAuthResult>`
+- **OAuth設定**: `redirectTo` でコールバックURL指定
+- **エラーハンドリング**: 詳細なエラーメッセージ返却
+
+#### UI Component 
+- **Google認証開始**: `window.location.href` でOAuth URLリダイレクト
+- **エラー表示**: toaster でユーザーフレンドリーなメッセージ
+- **認証後遷移**: `/mypage` (メール認証と同一)
+
+#### コールバック処理
+- **パス**: `/auth/callback`
+- **処理**: `exchangeCodeForSession` でセッション確立
+- **成功時**: `/mypage` リダイレクト
+- **失敗時**: `/signin?error=auth_failed` リダイレクト
+
+### ⚠️ 設定要件
+
+#### 必要な外部設定
+1. **Supabase Dashboard**: Google OAuthプロバイダー有効化
+2. **Google Cloud Console**: OAuth 2.0クライアント作成
+3. **環境変数**: `NEXT_PUBLIC_SITE_URL` 設定
+4. **リダイレクトURI**: `{SITE_URL}/auth/callback` 登録
+
+---
+
+## 📸 スクリーンショット管理システム
+
+### 🎯 設計思想
+Claude Code での開発作業における画面確認とドキュメント化を効率化
+
+### 🔧 システム構成
+
+#### ツールチェーン
+```
+Puppeteer MCP → html2canvas → Node.js Script → logs/screenshots/
+```
+
+#### ディレクトリ構造
+```
+.claude/
+├── scripts/
+│   ├── CLAUDE.md              # スクリプト管理ドキュメント
+│   └── move-screenshots.cjs   # ダウンロード→プロジェクト移動
+├── settings.local.json        # Puppeteer設定含む
+└── commands.json              # /doc コマンド追加
+
+logs/
+└── screenshots/               # スクリーンショット保存先
+```
+
+#### ワークフロー
+1. **Puppeteer MCP**: ページアクセス・操作
+2. **html2canvas**: ブラウザ内スクリーンショット撮影
+3. **自動ダウンロード**: ユーザーダウンロードフォルダに保存
+4. **Node.js移動**: `.claude/scripts/move-screenshots.cjs` でプロジェクト内移動
+
+### 📝 運用ルール
+- **ファイル命名**: `google-auth-*`, `{feature}-*` パターン
+- **自動整理**: 元ファイル削除でフォルダ整理
+- **ES Module対応**: `.cjs` 拡張子でCommonJS実行
+
+---
+
+## 📦 カスタムコマンド拡張
+
+### 新規追加コマンド
+
+#### `/doc-update` コマンド
+**目的**: 会話コンテキストから重要な設計・仕様・ルールをCLAUDE.md文書化
+
+**処理フロー**:
+1. 会話コンテキスト分析
+2. 重要情報の特定・分類
+3. 構造化ドキュメント更新
+4. 文書の正確性検証
+
+**対象情報**:
+- アーキテクチャ決定
+- コーディング標準
+- UI/UXガイドライン  
+- ワークフロールール
+
+---
+
+## 🎯 TypeScript/React 開発標準
+
+### 📐 コード品質ガイドライン
+
+#### TypeScript最適化原則
+```typescript
+// ✅ 推奨: 型推論を活用
+export const signinWithGoogle = async () => {
+  return { success: true, redirectUrl: 'https://...' };
+};
+
+// ❌ 非推奨: 明示的型定義（推論で十分な場合）
+export const signinWithGoogle = async (): Promise<GoogleAuthResult> => {
+  return { success: true, redirectUrl: 'https://...' };
+};
+```
+
+#### 共通化判断基準
+```typescript
+// ✅ 推奨: 利用箇所が1箇所なら直接記述
+const errorMessage = 'Google認証に失敗しました。再度お試しください。';
+
+// ❌ 避ける: 1箇所のみの利用で定数化（過剰な共通化）
+const AUTH_ERROR_MESSAGES = {
+  GOOGLE_AUTH_FAILED: 'Google認証に失敗しました。再度お試しください。',
+};
+```
+
+- **共通化する場合**: 3箇所以上で同じ値を使用する時のみ
+- **直接記述する場合**: 1-2箇所の利用では過剰な抽象化を避ける
+
+#### React Hooks 最適化
+```typescript
+// ✅ 推奨: 個別import
+import { useEffect, useState } from 'react';
+
+// ❌ 非推奨: React名前空間
+import React from 'react';
+React.useEffect(() => {}, []);
+```
+
+#### useEffect回避パターン
+```typescript
+// ✅ 推奨: Server Actionでエラーハンドリング
+export const signinWithGoogle = async () => {
+  // URL paramsでエラーをチェック
+  if (typeof window !== 'undefined') {
+    const urlParams = new URLSearchParams(window.location.search);
+    const authError = urlParams.get('error');
+    if (authError) return { success: false, error: 'エラーメッセージ' };
+  }
+  // OAuth処理...
+};
+
+// ❌ 避ける: useEffectでのサイドエフェクト
+useEffect(() => {
+  if (authError) {
+    // エラー処理...
+  }
+}, [authError]);
+```
+
+### 🏗 Server Actions設計パターン
+
+#### 動的URL生成（環境変数不要）
+```typescript
+// ✅ 推奨: headers()活用
+export const signinWithGoogle = async () => {
+  const { headers } = await import('next/headers');
+  const headersList = await headers();
+  const host = headersList.get('host') || 'localhost:3000';
+  const protocol = host.includes('localhost') ? 'http' : 'https';
+  const baseUrl = `${protocol}://${host}`;
+  
+  // OAuth設定...
+  options: {
+    redirectTo: `${baseUrl}/auth/callback`,
+  }
+};
+
+// ❌ 従来: 環境変数依存
+redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`
+```
+
+### 🎨 UI/UX設計原則
+
+#### ユーザーフィードバック最適化
+- **エラー時のみ通知**: 失敗時のtoast表示に限定
+- **不要な成功通知削除**: 「認証開始」などの中間状態通知を避ける
+- **自然な遷移**: 成功は画面遷移で十分に伝達
+
+#### 認証フロー簡素化
+```typescript
+// ✅ 推奨: 簡潔なエラーハンドリング
+const onClickGoogleSignin = async () => {
+  const result = await signinWithGoogle();
+  
+  if (result.success && result.redirectUrl) {
+    window.location.href = result.redirectUrl;
+  } else {
+    toaster.create({
+      description: result.error || 'Google認証の開始に失敗しました',
+      type: 'error',
+    });
+  }
+};
+```
