@@ -23,8 +23,12 @@
       "Bash(gh pr view:*)",
       "Bash(gh pr comment:*)",
       "Bash(gh pr review:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr edit:*)",
+      "Bash(npm i:*)"
     ],
     "deny": []
-  }
+  },
+  "enableAllProjectMcpServers": false
 }
