@@ -37,7 +37,8 @@
       "Bash(mv:*)",
       "Bash(rmdir:*)",
       "Bash(pnpm lint:*)",
-      "Bash(pnpm build:*)"
+      "Bash(pnpm build:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   },

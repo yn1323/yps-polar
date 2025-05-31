@@ -1,4 +1,3 @@
-import { AUTH_ERROR_TYPES } from '@/src/constants/auth';
 import { createClient } from '@/src/helpers/auth/server';
 import { getOriginFromRequest } from '@/src/helpers/utils/url';
 import type { NextRequest } from 'next/server';
@@ -22,5 +21,5 @@ export async function GET(request: NextRequest) {
   }
 
   // 認証失敗時はサインインページにリダイレクト
-  return NextResponse.redirect(`${origin}/signin?error=${AUTH_ERROR_TYPES.AUTH_FAILED}`);
+  return NextResponse.redirect(`${origin}/signin?error=auth_failed`);
 }

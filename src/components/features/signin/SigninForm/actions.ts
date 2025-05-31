@@ -3,7 +3,6 @@
 import { revalidatePath } from 'next/cache';
 
 import type { SchemaType } from '@/src/components/features/signin/SigninForm/schema';
-import { AUTH_ERROR_MESSAGES, AUTH_ERROR_TYPES } from '@/src/constants/auth';
 import { createClient } from '@/src/helpers/auth/server';
 import { createBaseUrl } from '@/src/helpers/utils/url';
 
@@ -31,16 +30,16 @@ export const signinWithGoogle = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const authError = urlParams.get('error');
     
-    if (authError === AUTH_ERROR_TYPES.AUTH_FAILED) {
+    if (authError === 'auth_failed') {
       return { 
         success: false, 
-        error: AUTH_ERROR_MESSAGES.GOOGLE_AUTH_FAILED
+        error: 'Google認証に失敗しました。再度お試しください。'
       };
     }
     if (authError) {
       return { 
         success: false, 
-        error: AUTH_ERROR_MESSAGES.GENERAL_AUTH_ERROR
+        error: '認証エラーが発生しました。'
       };
     }
   }
@@ -65,6 +64,6 @@ export const signinWithGoogle = async () => {
     return { success: true, redirectUrl: data.url };
   }
 
-  return { success: false, error: AUTH_ERROR_MESSAGES.OAUTH_URL_NOT_GENERATED };
+  return { success: false, error: 'OAuth URL not generated' };
 };
 

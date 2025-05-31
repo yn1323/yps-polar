@@ -3,7 +3,6 @@ import {
   login,
   signinWithGoogle,
 } from '@/src/components/features/signin/SigninForm/actions';
-import { AUTH_ERROR_MESSAGES } from '@/src/constants/auth';
 import { toaster } from '@/src/components/ui/toaster';
 import {
   Box,
@@ -61,7 +60,7 @@ export const SigninForm = () => {
       window.location.href = result.redirectUrl;
     } else {
       toaster.create({
-        description: result.error || AUTH_ERROR_MESSAGES.GOOGLE_AUTH_START_FAILED,
+        description: result.error || 'Google認証の開始に失敗しました',
         type: 'error',
       });
     }

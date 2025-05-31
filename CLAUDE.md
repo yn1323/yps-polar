@@ -263,6 +263,20 @@ export const signinWithGoogle = async (): Promise<GoogleAuthResult> => {
 };
 ```
 
+#### 共通化判断基準
+```typescript
+// ✅ 推奨: 利用箇所が1箇所なら直接記述
+const errorMessage = 'Google認証に失敗しました。再度お試しください。';
+
+// ❌ 避ける: 1箇所のみの利用で定数化（過剰な共通化）
+const AUTH_ERROR_MESSAGES = {
+  GOOGLE_AUTH_FAILED: 'Google認証に失敗しました。再度お試しください。',
+};
+```
+
+- **共通化する場合**: 3箇所以上で同じ値を使用する時のみ
+- **直接記述する場合**: 1-2箇所の利用では過剰な抽象化を避ける
+
 #### React Hooks 最適化
 ```typescript
 // ✅ 推奨: 個別import
