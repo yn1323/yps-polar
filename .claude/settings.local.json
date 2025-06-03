@@ -42,7 +42,11 @@
       "mcp__puppeteer__puppeteer_click",
       "mcp__puppeteer__*",
       "Bash(cp:*)",
-      "Bash(open:*)"
+      "Bash(open:*)",
+      "Bash(npx storybook:*)",
+      "Bash(pnpm remove:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm storybook:*)"
     ],
     "deny": []
   }
