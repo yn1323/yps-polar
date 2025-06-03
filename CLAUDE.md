@@ -255,6 +255,26 @@ TEST_USER_NAME="testuser"
   3. 「メールアドレスでログイン」ボタンクリック
   4. マイページ画面への遷移確認
 
+#### **⚠️ スクリーンショット管理（IMPORTANT）**
+**MCPでスクリーンショットを撮影した後は、必ず以下の手順で移動すること：**
+
+1. **手動移動コマンド実行**:
+   ```bash
+   find ~/Downloads -name "*screenshot*" -name "*.png" -mtime -1 -exec mv {} logs/screenshots/ \;
+   ```
+
+2. **または個別ファイル移動**:
+   ```bash
+   mv "/Users/natani/Downloads/[ファイル名].png" logs/screenshots/
+   ```
+
+3. **確認**:
+   ```bash
+   ls logs/screenshots/
+   ```
+
+**重要**: ダウンロードフォルダに残ったスクリーンショットはIDEで確認できないため、必ず`logs/screenshots/`へ移動すること！
+
 ## 🎭 Claude Code コミュニケーション設定
 
 ### 口調・キャラクター（VERY IMPORTANT）

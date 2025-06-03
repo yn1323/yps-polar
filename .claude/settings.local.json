@@ -46,7 +46,9 @@
       "Bash(npx storybook:*)",
       "Bash(pnpm remove:*)",
       "Bash(pnpm add:*)",
-      "Bash(pnpm storybook:*)"
+      "Bash(pnpm storybook:*)",
+      "mcp__playwright__playwright_navigate",
+      "mcp__playwright__playwright_screenshot"
     ],
     "deny": []
   }

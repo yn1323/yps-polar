@@ -17,3 +17,11 @@ export const Basic: StoryObj<typeof meta> = {
     expect(backToSigninLink.getAttribute('href')).toBe('/signin');
   },
 };
+
+export const SP: StoryObj<typeof meta> = {
+  parameters: {
+    viewport: {
+      defaultViewport: 'mobile2',
+    },
+  },
+};

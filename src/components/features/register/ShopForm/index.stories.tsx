@@ -28,3 +28,11 @@ export const ErrorMessages: Story = {
     await userEvent.click(submitButton);
   },
 };
+
+export const SP: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: 'mobile2',
+    },
+  },
+};

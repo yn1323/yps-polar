@@ -72,9 +72,16 @@ export function FloatingThemeToggle({
         shadow: 'xl',
         transform: 'translateY(-1px)',
       }}
+      // タッチデバイス対応
+      _active={{
+        transform: 'scale(0.95)',
+      }}
       // アクセシビリティ
       role="toolbar"
       aria-label="テーマ切り替えツール"
+      // モバイルでのタッチ操作最適化
+      minH="44px"
+      minW="44px"
     >
       {shouldMinimize ? (
         // 最小化状態：テーマボタンと展開ボタン（PC時のみ）

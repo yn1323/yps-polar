@@ -81,3 +81,11 @@ export const ErrorMessages: Story = {
     expect(passwordMatchError).toBeInTheDocument();
   },
 };
+
+export const SP: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: 'mobile2',
+    },
+  },
+};

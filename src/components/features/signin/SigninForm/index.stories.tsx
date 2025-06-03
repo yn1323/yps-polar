@@ -71,3 +71,11 @@ export const ErrorMessages: Story = {
     expect(passwordLengthError).toBeInTheDocument();
   },
 };
+
+export const SP: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: 'mobile2',
+    },
+  },
+};

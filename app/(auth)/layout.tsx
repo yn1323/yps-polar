@@ -9,7 +9,11 @@ export default function AuthLayout({
   return (
     <Box display="flex">
       <SideMenu />
-      <Box ml="250px" flex={1}>
+      <Box 
+        ml={{ base: 0, md: "250px" }}
+        pb={{ base: "80px", md: 0 }}
+        flex={1}
+      >
         {children}
       </Box>
     </Box>
