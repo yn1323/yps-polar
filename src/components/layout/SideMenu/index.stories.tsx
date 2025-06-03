@@ -13,6 +13,9 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    // コンポーネントにpropsはないが、ドキュメント用に記載
+  },
 } satisfies Meta<typeof SideMenu>;
 
 export default meta;
@@ -20,10 +23,35 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {};
 
+export const ShiftsPage: Story = {
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: '/shifts',
+      },
+    },
+  },
+};
+
 export const SP: Story = {
   parameters: {
     viewport: {
       defaultViewport: 'mobile2',
+    },
+  },
+};
+
+export const SPShifts: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: 'mobile2',
+    },
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: '/shifts',
+      },
     },
   },
 };

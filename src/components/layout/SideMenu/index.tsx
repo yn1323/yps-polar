@@ -14,17 +14,113 @@ import { IoLogOut, IoMoon, IoSunny } from 'react-icons/io5';
 import { useColorMode } from '@/src/components/ui/color-mode';
 import { signout } from './actions';
 
-const menuItems = [
-  { href: '/mypage', label: 'マイページ', icon: FcBusinessman },
+interface MenuItem {
+  href: string;
+  label: string;
+  mobileLabel?: string;
+  icon: React.ComponentType<{ size?: number }>;
+}
+
+const ICON_SIZE = 20;
+const MOBILE_ITEM_MIN_WIDTH = '60px';
+
+const menuItems: MenuItem[] = [
+  { href: '/mypage', label: 'マイページ', mobileLabel: 'ホーム', icon: FcBusinessman },
   { href: '/shifts', label: 'シフト', icon: FcCalendar },
-  { href: '/attendance', label: '勤怠記録', icon: FcClock },
+  { href: '/attendance', label: '勤怠記録', mobileLabel: '勤怠', icon: FcClock },
   { href: '/timecard', label: 'タイムカード', icon: FcDocument },
   { href: '/settings', label: '設定', icon: FcSettings },
 ];
 
+interface MenuItemProps {
+  item: MenuItem;
+  isActive: boolean;
+}
+
+const DesktopMenuItem = ({ item, isActive }: MenuItemProps) => {
+  const IconComponent = item.icon;
+  
+  return (
+    <Link href={item.href}>
+      <Button
+        width="full"
+        variant={isActive ? 'solid' : 'ghost'}
+        justifyContent="flex-start"
+        colorPalette={isActive ? 'blue' : 'gray'}
+      >
+        <IconComponent size={ICON_SIZE} />
+        {item.label}
+      </Button>
+    </Link>
+  );
+};
+
+const MobileMenuItem = ({ item, isActive }: MenuItemProps) => {
+  const IconComponent = item.icon;
+  const displayLabel = item.mobileLabel || item.label;
+  
+  return (
+    <Link href={item.href}>
+      <VStack
+        gap={1}
+        py={2}
+        px={2}
+        borderRadius="md"
+        bg={isActive ? 'blue.50' : 'transparent'}
+        _dark={{
+          bg: isActive ? 'blue.900' : 'transparent',
+        }}
+        minW={MOBILE_ITEM_MIN_WIDTH}
+      >
+        <IconComponent size={ICON_SIZE} />
+        <Text
+          fontSize="xs"
+          fontWeight={isActive ? 'semibold' : 'normal'}
+          color={isActive ? 'blue.600' : 'gray.600'}
+          _dark={{
+            color: isActive ? 'blue.300' : 'gray.400',
+          }}
+          lineHeight="1"
+        >
+          {displayLabel}
+        </Text>
+      </VStack>
+    </Link>
+  );
+};
+
+const DesktopControls = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
+  
+  return (
+    <>
+      <Button
+        width="full"
+        variant="ghost"
+        justifyContent="flex-start"
+        colorPalette="blue"
+        onClick={toggleColorMode}
+      >
+        {colorMode === 'dark' ? <IoSunny size={ICON_SIZE} /> : <IoMoon size={ICON_SIZE} />}
+        {colorMode === 'dark' ? 'ライトモード' : 'ダークモード'}
+      </Button>
+      
+      <Button
+        width="full"
+        variant="ghost"
+        justifyContent="flex-start"
+        colorPalette="gray"
+        onClick={signout}
+      >
+        <IoLogOut size={ICON_SIZE} />
+        ログアウト
+      </Button>
+    </>
+  );
+};
+
 export const SideMenu = () => {
   const pathname = usePathname();
-  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <>
@@ -48,46 +144,16 @@ export const SideMenu = () => {
           </Text>
 
           <VStack gap={2} flex={1} alignItems="stretch">
-            {menuItems.map((item) => {
-              const IconComponent = item.icon;
-              return (
-                <Link key={item.href} href={item.href}>
-                  <Button
-                    width="full"
-                    variant={pathname === item.href ? 'solid' : 'ghost'}
-                    justifyContent="flex-start"
-                    colorPalette={pathname === item.href ? 'blue' : 'gray'}
-                  >
-                    <IconComponent size={20} />
-                    {item.label}
-                  </Button>
-                </Link>
-              );
-            })}
+            {menuItems.map((item) => (
+              <DesktopMenuItem
+                key={item.href}
+                item={item}
+                isActive={pathname === item.href}
+              />
+            ))}
           </VStack>
           
-          {/* デバッグ用ダークモード切り替え */}
-          <Button
-            width="full"
-            variant="ghost"
-            justifyContent="flex-start"
-            colorPalette="blue"
-            onClick={toggleColorMode}
-          >
-            {colorMode === 'dark' ? <IoSunny size={20} /> : <IoMoon size={20} />}
-            {colorMode === 'dark' ? 'ライトモード' : 'ダークモード'}
-          </Button>
-          
-          <Button
-            width="full"
-            variant="ghost"
-            justifyContent="flex-start"
-            colorPalette="gray"
-            onClick={signout}
-          >
-            <IoLogOut size={20} />
-            ログアウト
-          </Button>
+          <DesktopControls />
         </VStack>
       </Box>
 
@@ -110,40 +176,13 @@ export const SideMenu = () => {
         }}
       >
         <HStack gap={1} justifyContent="space-around">
-          {menuItems.map((item) => {
-            const IconComponent = item.icon;
-            const isActive = pathname === item.href;
-            return (
-              <Link key={item.href} href={item.href}>
-                <VStack
-                  gap={1}
-                  py={2}
-                  px={2}
-                  borderRadius="md"
-                  bg={isActive ? 'blue.50' : 'transparent'}
-                  _dark={{
-                    bg: isActive ? 'blue.900' : 'transparent',
-                  }}
-                  minW="60px"
-                >
-                  <IconComponent size={20} />
-                  <Text
-                    fontSize="xs"
-                    fontWeight={isActive ? 'semibold' : 'normal'}
-                    color={isActive ? 'blue.600' : 'gray.600'}
-                    _dark={{
-                      color: isActive ? 'blue.300' : 'gray.400',
-                    }}
-                    lineHeight="1"
-                  >
-                    {item.label === 'マイページ' ? 'ホーム' : 
-                     item.label === '勤怠記録' ? '勤怠' : 
-                     item.label}
-                  </Text>
-                </VStack>
-              </Link>
-            );
-          })}
+          {menuItems.map((item) => (
+            <MobileMenuItem
+              key={item.href}
+              item={item}
+              isActive={pathname === item.href}
+            />
+          ))}
         </HStack>
       </Box>
     </>
