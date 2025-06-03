@@ -1,4 +1,5 @@
 import { Provider } from '@/src/components/ui/provider';
+import { FloatingThemeToggle } from '@/src/components/templates/FloatingThemeToggle';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
@@ -25,7 +26,10 @@ export default function RootLayout({
   return (
     <html lang="ja" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Provider>{children}</Provider>
+        <Provider>
+          {children}
+          <FloatingThemeToggle />
+        </Provider>
       </body>
     </html>
   );

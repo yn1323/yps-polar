@@ -41,7 +41,8 @@
       "mcp__puppeteer__puppeteer_screenshot",
       "mcp__puppeteer__puppeteer_click",
       "mcp__puppeteer__*",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(open:*)"
     ],
     "deny": []
   }

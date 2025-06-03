@@ -1,15 +1,15 @@
 import { Animation } from '@/src/components/templates/Animation';
-import Link from 'next/link';
+import { LandingPage } from '@/src/components/templates/LandingPage';
 
 export const metadata = {
-  title: 'YPS-Polar',
+  title: 'YPS-Polar - アルバイト勤怠シフト管理システム',
+  description: 'マネージャーとスタッフでシフト調整が簡単にできるシステム。個人情報を最小限に抑えた安心設計で効率的な店舗運営をサポート。',
 };
 
 export default async function Page() {
   return (
     <Animation>
-      <h1 className="border text-gray-500">YPS-Polar</h1>
-      <Link href="/signin">ログイン</Link>
+      <LandingPage />
     </Animation>
   );
 }
