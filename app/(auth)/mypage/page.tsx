@@ -167,7 +167,8 @@ export default function MyPage() {
           <Stack gap={4}>
             {/* 今日の勤務状態 */}
             <Card.Root
-              variant="subtle"
+              variant="elevated"
+              size="lg"
               colorPalette={
                 workStatus === 'off'
                   ? 'gray'
@@ -176,40 +177,40 @@ export default function MyPage() {
                     : 'teal'
               }
             >
-              <Card.Body>
+              <Card.Body p={8}>
                 <Flex justify="space-between" align="center">
-                  <Box>
-                    <Flex align="center" gap={2} mb={2}>
-                      <Text fontSize="sm" color="fg.muted">
+                  <Box flex={1}>
+                    <Flex align="center" gap={3} mb={4}>
+                      <Text fontSize="lg" fontWeight="medium" color="fg.muted">
                         本日の勤務
                       </Text>
                       {workStatus === 'working' && (
-                        <HiPlay size={16} color="green" />
+                        <HiPlay size={20} color="green" />
                       )}
                       {workStatus === 'soon' && (
-                        <HiExclamation size={16} color="orange" />
+                        <HiExclamation size={20} color="orange" />
                       )}
                     </Flex>
 
                     {workStatus === 'off' ? (
                       <>
-                        <Text fontSize="2xl" fontWeight="bold">
+                        <Text fontSize="3xl" fontWeight="bold" mb={2}>
                           お疲れさまでした！
                         </Text>
-                        <Text fontSize="md" color="fg.muted" mt={1}>
+                        <Text fontSize="lg" color="fg.muted" mt={2}>
                           今日はゆっくり休んでください ✨
                         </Text>
                       </>
                     ) : (
                       <>
-                        <Text fontSize="2xl" fontWeight="bold">
+                        <Text fontSize="3xl" fontWeight="bold" mb={3}>
                           {todayMainShift?.shopName}
                         </Text>
-                        <Flex align="center" gap={4} mt={2}>
-                          <Text fontSize="lg" color="fg">
+                        <Flex align="center" gap={6} mt={3}>
+                          <Text fontSize="2xl" fontWeight="semibold" color="fg">
                             {todayMainShift?.todayShift?.time}
                           </Text>
-                          <Text fontSize="sm" color="fg.muted">
+                          <Text fontSize="lg" color="fg.muted">
                             現在 {currentTime}
                           </Text>
                         </Flex>
@@ -227,17 +228,21 @@ export default function MyPage() {
                     )}
                   </Box>
 
-                  <Stack gap={2}>
+                  <Flex direction="column" gap={3} ml={8}>
                     {workStatus !== 'off' && (
                       <Button
                         onClick={() => router.push('/timecard')}
                         colorPalette={workStatus === 'working' ? 'red' : 'teal'}
-                        size="lg"
+                        size="xl"
+                        px={8}
+                        py={6}
+                        fontSize="lg"
+                        fontWeight="bold"
                       >
                         {workStatus === 'working' ? (
-                          <HiStop size={20} />
+                          <HiStop size={24} />
                         ) : (
-                          <HiPlay size={20} />
+                          <HiPlay size={24} />
                         )}
                         {workStatus === 'working' ? '退勤' : '出勤'}
                       </Button>
@@ -255,7 +260,7 @@ export default function MyPage() {
                         緊急 {totalUrgentNotifications + totalPendingRequests}件
                       </Button>
                     )}
-                  </Stack>
+                  </Flex>
                 </Flex>
               </Card.Body>
             </Card.Root>
