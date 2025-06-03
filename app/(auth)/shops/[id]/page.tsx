@@ -95,11 +95,17 @@ export default function ShopDetailPage() {
               マイページに戻る
             </Button>
             
-            <Flex justify="space-between" align="start" mb={4}>
-              <Box>
-                <Flex align="center" gap={3} mb={2}>
+            <Stack 
+              direction={{ base: 'column', lg: 'row' }} 
+              justify="space-between" 
+              align={{ base: 'stretch', lg: 'start' }}
+              gap={4}
+              mb={4}
+            >
+              <Box flex={1} minW={0}>
+                <Flex align="center" gap={3} mb={2} flexWrap="wrap">
                   <HiOfficeBuilding size={24} color="gray" />
-                  <Heading size="xl">{shop.shopName}</Heading>
+                  <Heading size="xl" minW="fit-content">{shop.shopName}</Heading>
                   <Badge colorPalette={isManager ? 'teal' : 'gray'} variant="subtle">
                     {isManager ? 'マネージャー' : 'スタッフ'}
                   </Badge>
@@ -110,26 +116,18 @@ export default function ShopDetailPage() {
               </Box>
               
               {isManager && (
-                <Flex gap={3}>
-                  <Button
-                    onClick={() => router.push(`/shops/${shopId}/edit`)}
-                    variant="outline"
-                    colorPalette="gray"
-                  >
-                    <HiPencil />
-                    店舗設定
-                  </Button>
-                  <Button
-                    onClick={() => router.push(`/shops/${shopId}/invite`)}
-                    colorPalette="teal"
-                    variant="solid"
-                  >
-                    <HiUserAdd />
-                    スタッフ招待
-                  </Button>
-                </Flex>
+                <Button
+                  onClick={() => router.push(`/shops/${shopId}/edit`)}
+                  variant="outline"
+                  colorPalette="gray"
+                  flexShrink={0}
+                  alignSelf={{ base: 'stretch', lg: 'flex-start' }}
+                >
+                  <HiPencil />
+                  店舗設定
+                </Button>
               )}
-            </Flex>
+            </Stack>
           </Box>
 
           {/* メインコンテンツ */}
@@ -143,14 +141,14 @@ export default function ShopDetailPage() {
             {/* 左側：メインコンテンツ */}
             <VStack gap={6} align="stretch">
               {/* 今日のシフト状況 */}
-              <Card.Root>
-                <Card.Header>
+              <Card.Root size="lg" variant="elevated" colorPalette="teal">
+                <Card.Header p={6}>
                   <Flex justify="space-between" align="center">
-                    <Heading size="md">
+                    <Heading size="lg">
                       <HiCalendar style={{ display: 'inline', marginRight: '8px' }} />
                       今日のシフト状況
                     </Heading>
-                    <Badge colorPalette="teal" variant="subtle">
+                    <Badge size="lg" colorPalette="green" variant="solid">
                       {workingStaff}名出勤中
                     </Badge>
                   </Flex>
@@ -197,47 +195,48 @@ export default function ShopDetailPage() {
               <Card.Root>
                 <Card.Header>
                   <Flex justify="space-between" align="center">
-                    <Heading size="md">
-                      <HiUserGroup style={{ display: 'inline', marginRight: '8px' }} />
-                      スタッフ一覧
-                    </Heading>
-                    <Text fontSize="sm" color="fg.muted">
-                      {shop.staffCount}名
-                    </Text>
+                    <Box>
+                      <Heading size="md">
+                        <HiUserGroup style={{ display: 'inline', marginRight: '8px' }} />
+                        スタッフ管理
+                      </Heading>
+                      <Text fontSize="sm" color="fg.muted">
+                        {shop.staffCount}名
+                      </Text>
+                    </Box>
+                    {isManager && (
+                      <Button
+                        onClick={() => router.push(`/shops/${shopId}/invite`)}
+                        colorPalette="teal"
+                        size="lg"
+                      >
+                        <HiUserAdd size={20} />
+                        スタッフ招待
+                      </Button>
+                    )}
                   </Flex>
                 </Card.Header>
                 <Card.Body>
-                  <Grid
-                    templateColumns={{
-                      base: '1fr',
-                      md: 'repeat(2, 1fr)',
-                    }}
-                    gap={4}
-                  >
+                  <Stack gap={3}>
                     {shop.allStaff.map((staff) => (
-                      <Flex
-                        key={staff.id}
-                        justify="space-between"
-                        align="center"
-                        p={3}
-                        borderRadius="md"
-                        bg="bg.muted"
-                      >
-                        <Box>
-                          <Flex align="center" gap={2} mb={1}>
-                            {staff.role === 'manager' ? <HiUser size={16} /> : <HiUserGroup size={16} />}
-                            <Text fontWeight="medium">{staff.name}</Text>
-                          </Flex>
-                          <Text fontSize="sm" color="fg.muted">
-                            入社: {staff.joinDate}
-                          </Text>
-                        </Box>
-                        <Badge colorPalette={staff.role === 'manager' ? 'teal' : 'gray'} variant="subtle">
-                          {staff.role === 'manager' ? 'マネージャー' : 'スタッフ'}
-                        </Badge>
-                      </Flex>
+                      <Card.Root key={staff.id} p={4} bg="bg.muted">
+                        <Flex justify="space-between" align="center">
+                          <Box>
+                            <Flex align="center" gap={2} mb={1}>
+                              {staff.role === 'manager' ? <HiUser size={16} /> : <HiUserGroup size={16} />}
+                              <Text fontSize="md" fontWeight="medium">{staff.name}</Text>
+                            </Flex>
+                            <Text fontSize="sm" color="fg.muted">
+                              入社: {staff.joinDate}
+                            </Text>
+                          </Box>
+                          <Badge colorPalette={staff.role === 'manager' ? 'teal' : 'gray'} variant="subtle">
+                            {staff.role === 'manager' ? 'マネージャー' : 'スタッフ'}
+                          </Badge>
+                        </Flex>
+                      </Card.Root>
                     ))}
-                  </Grid>
+                  </Stack>
                 </Card.Body>
               </Card.Root>
             </VStack>
@@ -266,10 +265,11 @@ export default function ShopDetailPage() {
                         </Text>
                         <Text 
                           fontSize="sm" 
-                          bg="blue.50" 
+                          bg="bg.muted" 
                           p={3} 
                           borderRadius="md"
-                          _dark={{ bg: 'blue.900', color: 'blue.100' }}
+                          border="1px solid"
+                          borderColor="border"
                         >
                           {shop.description}
                         </Text>
@@ -345,4 +345,4 @@ export default function ShopDetailPage() {
       </Container>
     </Animation>
   );
-};
+}
