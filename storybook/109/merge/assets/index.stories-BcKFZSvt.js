@@ -1,0 +1,15 @@
+import{w as E,u as S}from"./index-B7YJKKKT.js";import{j as e}from"./walk-object-CiAimSH9.js";import{s as j}from"./serverFetch-hEG2kWo6.js";import{b as F,U as N,e as w,u as B,g as R,d as u}from"./index-Dv6XnREr.js";import{h as T}from"./index-CI9keGzL.js";import{ar as U,aF as I}from"./types-DwQkBYn-.js";import{S as p,B as k}from"./stack-DZl6kS95.js";import{T as L}from"./text-Bt0y-8rE.js";import{C as M,F as P,b as q,I as C,d as G}from"./input-B8ZVAnYZ.js";import"./jsx-runtime-Bw5QeaCk.js";import"./index-D3ueQH4H.js";import"./index-DCCrmINF.js";import"./field.anatomy-CcSQSJVj.js";import"./_interop_require_wildcard-BLzwqx1Q.js";const H=async(s,{userName:r})=>{const{success:t}=await j(`/api/auth/user/${s}`,{method:"POST",mutation:{userId:s,userName:r}});return{success:t}},O=U({userName:I().superRefine(F(w,N))}),i=({userId:s,callbackRoutingPath:r})=>{var m;const{register:t,handleSubmit:b,formState:{errors:c,isSubmitting:x}}=B({resolver:R(O)}),_=async a=>{const{success:v}=await H(s,{userName:a.userName});v?(u.create({description:"ユーザー名登録が完了しました",type:"success"}),r&&T(r)):u.create({description:"ユーザー名登録に失敗しました",type:"error"})};return e.jsx(M,{w:"96",p:"8",children:e.jsxs(p,{gap:"8",w:"full",children:[e.jsx(L,{fontSize:"lg",children:"ユーザー名登録"}),e.jsxs(p,{gap:"6",as:"form",onSubmit:a=>{a.preventDefault(),b(_)(a)},children:[e.jsxs(P,{invalid:!!c.userName,children:[e.jsx(q,{children:"ユーザー名"}),e.jsx(C,{...t("userName"),placeholder:"ユーザー名"}),e.jsx(G,{children:(m=c.userName)==null?void 0:m.message})]}),e.jsx(k,{variant:"solid",colorPalette:"teal",type:"submit",loading:x,children:"登録"})]})]})})};try{i.displayName="UserForm",i.__docgenInfo={description:"",displayName:"UserForm",props:{userId:{defaultValue:null,description:"",name:"userId",required:!0,type:{name:"string"}},callbackRoutingPath:{defaultValue:null,description:"",name:"callbackRoutingPath",required:!1,type:{name:"string"}}}}}catch{}const re={title:"features/register/UserForm",component:i,args:{userId:"fa96ae18-86da-4e34-95c3-a63ad6879068"}},o={},n={play:async({canvasElement:s})=>{const t=E(s).getByRole("button",{name:"登録"});await S.click(t)}};var l,d,g;o.parameters={...o.parameters,docs:{...(l=o.parameters)==null?void 0:l.docs,source:{originalSource:"{}",...(g=(d=o.parameters)==null?void 0:d.docs)==null?void 0:g.source}}};var f,h,y;n.parameters={...n.parameters,docs:{...(f=n.parameters)==null?void 0:f.docs,source:{originalSource:`{
+  play: async ({
+    canvasElement
+  }) => {
+    const canvas = within(canvasElement);
+
+    // フォームの送信ボタンを取得
+    const submitButton = canvas.getByRole('button', {
+      name: '登録'
+    });
+
+    // 何も入力せずに送信
+    await userEvent.click(submitButton);
+  }
+}`,...(y=(h=n.parameters)==null?void 0:h.docs)==null?void 0:y.source}}};const te=["Basic","ErrorMessages"];export{o as Basic,n as ErrorMessages,te as __namedExportsOrder,re as default};
