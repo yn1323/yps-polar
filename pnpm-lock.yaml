@@ -31,7 +31,7 @@ importers:
         version: 2.50.3
       '@tanstack/react-form':
         specifier: ^1.3.3
-        version: 1.13.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 1.13.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       jotai:
         specifier: ^2.12.2
         version: 2.12.5(@types/react@19.1.8)(react@19.1.0)
@@ -1621,8 +1621,8 @@ packages:
   '@tanstack/form-core@1.12.4':
     resolution: {integrity: sha512-BhfNI5sEjI68Im1Vqezf9w68fJL4EB80cqW5w0zb/MV1erHHsXNRwLGmljF88VnCx1t/xd4fmF0D08wNajBauQ==}
 
-  '@tanstack/react-form@1.13.1':
-    resolution: {integrity: sha512-OvqpX0YtcdlfxyzEilQf2bXHpU7CFW575HqenDA6I/K6h0ib7BmP8iib9nQwtgBilAKCoQxcNbRJfaSbGOtjMA==}
+  '@tanstack/react-form@1.13.2':
+    resolution: {integrity: sha512-ykO/J7yBegs917OmHgIB8zIWWmEWKTxKwvvQUa5gWv8HqOWwGbw3+MCEiz7W1ONxZjY/rCgJpNd7Rh1qFlglsg==}
     peerDependencies:
       '@tanstack/react-start': ^1.112.0
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -7126,7 +7126,7 @@ snapshots:
     dependencies:
       '@tanstack/store': 0.7.1
 
-  '@tanstack/react-form@1.13.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@tanstack/react-form@1.13.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@tanstack/form-core': 1.12.4
       '@tanstack/react-store': 0.7.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
